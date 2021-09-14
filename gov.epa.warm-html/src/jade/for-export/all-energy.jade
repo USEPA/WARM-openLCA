@@ -1,0 +1,17 @@
+include ../mixins/summary-report/contents/summary-report-energy.jade
+include ../mixins/analysis-report/contents/analysis-report-energy.jade
+include ../mixins/charts/contents/chart-page.jade
+include ../mixins/for-export/styles.jade
+include ../mixins/for-export/scripts.jade
+
+<!DOCTYPE html>
+html(lang='en')
+	body(data-type='Energy Savings' data-unit='million BTU')
+		+styles
+		.page-container.summary
+			+summary-report-energy(true)
+		.page-container.analysis.hidden
+			+analysis-report-energy(true)
+		.page-container.charts.hidden
+			+chart-page(true)
+		+scripts

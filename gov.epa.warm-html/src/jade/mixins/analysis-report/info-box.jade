@@ -1,0 +1,11 @@
+mixin info-box(type, unit, unitShort, unitLong)
+	.panel.info-box
+		.panel-body
+			p Total #{type} from Baseline MSW Generation and Management (#{unit}): 
+				span: strong#total-baseline 0
+			p Total #{type} from Alternative MSW Generation and Management (#{unit}): 
+				span: strong#total-alternative 0
+			p Incremental #{type} (#{unit}): 
+				span: strong#total-change 0
+			hr
+			p: small: strong #{unitShort} = #{unitLong}							

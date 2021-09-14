@@ -1,0 +1,12 @@
+include ../mixins/analysis-report/contents/analysis-report-mtce.jade
+include ../mixins/head.jade
+include ../mixins/scripts.jade
+
+<!DOCTYPE html>
+html(lang='en')
+	+head 
+	body(data-type='GHG Emissions' data-unit='MTCE')
+		+analysis-report-mtce
+		+scripts
+		script(src='js/templates.js')
+		script(src='js/analysis-report.js')

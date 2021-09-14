@@ -1,0 +1,27 @@
+include per-ton-result-table.jade
+include analysis-result-table.jade
+include increment-table.jade
+
+mixin tabbing(type, unit)
+	ul.nav.nav-tabs.analysis-tabs
+		li.active: a(href='#per-ton-result-tab' aria-controls='per-ton-result-tab' data-toggle='tab') 
+			if type === 'ENERGY' 
+				| Energy factors
+			else
+				| Emission factors
+		li: a(href='#baseline-result-tab' aria-controls='baseline-result-tab' data-toggle='tab') Emissions from Baseline
+		li: a(href='#alternative-result-tab' aria-controls='alternative-result-tab' data-toggle='tab') Emissions from Projected Alternative
+		li: a(href='#incremental-result-tab' aria-controls='incremental-result-tab' data-toggle='tab') Incremental Emissions from Projected Alternative
+	.tab-content
+		#per-ton-result-tab.tab-pane.active
+			+per-ton-result-table(type, unit)
+		#baseline-result-tab.tab-pane
+			+analysis-result-table(type, unit, false)
+		#alternative-result-tab.tab-pane
+			+analysis-result-table(type, unit, true)
+		#incremental-result-tab.tab-pane
+			+increment-table(type, unit)
+	small
+		p a) For explanation of methodology, see the EPA WARM Documentation: 
+			a.external(href='http://epa.gov/epawaste/conserve/tools/warm/SWMGHGreport.html') Solid Waste Management and Greenhouse Gases: A Life-Cycle Assessment of Emissions and Sinks				
+		p b) Emissions estimates provided by this model are intended to support voluntary GHG measurement and reporting initiatives.						

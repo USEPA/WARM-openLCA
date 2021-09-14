@@ -1,0 +1,12 @@
+include ../mixins/summary-report/contents/summary-report-energy.jade
+include ../mixins/head.jade
+include ../mixins/scripts.jade
+
+<!DOCTYPE html>
+html(lang='en')
+	+head 
+	body
+		+summary-report-energy
+		+scripts
+		script(src='js/templates.js')
+		script(src='js/summary-report.js')

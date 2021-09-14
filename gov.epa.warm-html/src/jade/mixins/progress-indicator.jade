@@ -1,0 +1,18 @@
+mixin progress-indicator(currentStep)
+	- steps = ['Scenarios', 'Further Characteristics', 'General Information', 'Calculation'];
+	ul.progress-indicator.fixed
+		each title, index in steps
+			- var step = index + 1;
+			- var active = step === currentStep;
+			- var visited = step < currentStep;
+			li(class=active?'active':visited?'visited':'')
+				if active 
+					span.step #{step}
+					| #{title}
+				else
+					a.navigate(href='step#{step}.html' data-current-step=currentStep)
+						span.step #{step}
+						| #{title}
+			if step < steps.length
+				li.arrow(class=active?'active':visited?'visited':'')
+	.clear

@@ -1,0 +1,28 @@
+mixin scenario-cell(id, title, enabled)
+	td
+		if enabled
+			input.material-input.form-control.control-xs(id=id, name=id, type='text', size='6', title=title, data-animation='fade', data-placement='top', value='0')
+		else
+			span.with-note(title=title, data-animation='fade', data-placement='top') N/A
+
+tr(data-index=index)
+	td.invisible.error-indicator
+	if material.note
+		td.material
+			span.with-note(title=material.note.text, data-animation='fade', data-placement='right') #{material.name}
+				sup #{material.note.no}
+	else
+		td.material #{material.name}
+	td.invisible
+	+scenario-cell('baseline_recycling', 'Base scenario - Tons recycled', !material.disabled.recycling)
+	+scenario-cell('baseline_landfilling', 'Base scenario - Tons landfilled', !material.disabled.landfilling)
+	+scenario-cell('baseline_combustion', 'Base scenario - Tons combusted', !material.disabled.combustion)
+	+scenario-cell('baseline_composting', 'Base scenario - Tons recycled', !material.disabled.composting)
+	td.invisible
+	td#baseline_total 0
+	td.invisible
+	+scenario-cell('alternative_source_reduction', 'Alternative scenario - Tons source reduced', !material.disabled.source_reduction)
+	+scenario-cell('alternative_recycling', 'Alternative scenario - Tons recycled', !material.disabled.recycling)
+	+scenario-cell('alternative_landfilling', 'Alternative scenario - Tons landfilled', !material.disabled.landfilling)
+	+scenario-cell('alternative_combustion', 'Alternative scenario - Tons combusted', !material.disabled.combustion)
+	+scenario-cell('alternative_composting', 'Alternative scenario - Tons composted', !material.disabled.composting)

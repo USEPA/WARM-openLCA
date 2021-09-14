@@ -1,0 +1,22 @@
+include ../mixins/input-page/all.jade
+
+<!DOCTYPE html>
+html(lang='en')
+	+head
+	body.with-progress
+		+header
+		+progress-indicator(3)
+		.content
+			p The following input are optional and may be used to customize your summary report.
+			.fixed-col-form
+				+input('organization', 'Organization:')
+				+input('name', 'Name:')
+				.form-group.form-inline(id='period-group')
+					label.control-label.period-from(for='period_from') Reporting period:
+					input.form-control.period-from(id='period_from' name='period_from' type='text')
+					label.control-label.period-to(for='period_to') to
+					input.form-control.period-to(id='period_to' name='period_to' type='text')
+				+textarea('description', 'Description:')(rows=10)
+		+footer(3, 'step2', 'step4')
+		+scripts
+		script(src='js/step3.js')

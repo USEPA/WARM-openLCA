@@ -1,0 +1,10 @@
+# Eclipse compiler output
+/bin/
+
+# Libraries managed by Maven
+/libs/
+
+# HTML Zip
+/resources/html.zip
+/databases/
+/derby.log

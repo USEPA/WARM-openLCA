@@ -1,0 +1,30 @@
+include ../mixins/input-page/all.jade
+
+<!DOCTYPE html>
+html(lang='en') 
+	+head
+	body.with-progress
+		+header
+		+progress-indicator(1)
+		.content
+			p Please enter data in short tons (1 short ton = 2,000 lbs.) and refer to the User's Guide if you need assistance.
+			p 
+				strong Baseline Scenario: 
+				| Describe the baseline generation and management for the MSW materials listed below. If the material is not generated in your community or you do not want to analyze it, leave it as 0.
+			p
+				strong Alternative Scenario: 
+				| Describe the alternative management scenario for the MSW materials generated in the baseline.
+			p &nbsp;
+			.panel.panel-default 
+				.panel-heading: strong Each input row will be validated to sum up correctly. The tons generated in the baseline scenario must match the tons generated in the alternative scenario.
+				.panel-body A row is valid if the sum of the baseline scenario inputs is equal to the sum of the alternative scenario inputs minus the amount of reduced source. 
+					div!= 'As formula (b = baseline, a = alternative): b<sub>recycled</sub> + b<sub>landfilled</sub> + b<sub>combusted</sub> + b<sub>composted</sub> =  a<sub>recycled</sub> + a<sub>landfilled</sub> + a<sub>combusted</sub> + a<sub>composted</sub> + a<sub>sourceReduced</sub>'
+			+scenario-table
+			small
+				.foot-notes
+		+modal('The total quantity generated in the alternative scenario does not equal the total quantity managed in the baseline scenario for one or more materials. Please be aware that the reported differences between the baseline and alternative scenarios will not be correct if you proceed.')
+		+footer(1, null, 'step2')
+		+scripts
+		script(src='js/data/materials.js')
+		script(src='js/templates.js')
+		script(src='js/step1.js')

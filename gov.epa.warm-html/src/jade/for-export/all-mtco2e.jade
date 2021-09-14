@@ -1,0 +1,17 @@
+include ../mixins/summary-report/contents/summary-report-mtco2e.jade
+include ../mixins/analysis-report/contents/analysis-report-mtco2e.jade
+include ../mixins/charts/contents/chart-page.jade
+include ../mixins/for-export/styles.jade
+include ../mixins/for-export/scripts.jade
+
+<!DOCTYPE html>
+html(lang='en')
+	body(data-type='GHG Emissions' data-unit='MTCO2E')
+		+styles
+		.page-container.summary
+			+summary-report-mtco2e(true)
+		.page-container.analysis.hidden
+			+analysis-report-mtco2e(true)
+		.page-container.charts.hidden
+			+chart-page(true)
+		+scripts

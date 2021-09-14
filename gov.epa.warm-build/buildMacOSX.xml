@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project default="repackage">
+
+	<loadproperties srcFile="build.properties" />
+	
+	<property name="build.dir" location="${basedir}/packages/@temp_macos" />
+	<property name="app.dir" location="${basedir}/packages/@temp_macos/WARM/WARM.app" />
+	<property name="xsl" value="repackage_macosx.xsl" />
+
+	<target name="repackage">
+
+		<!-- repackage 32bit -->
+		<fileset id="zip.file.32" dir="${basedir}/builds" includes="*macosx.cocoa.x86.zip" />
+		<property name="zip.file.32" refid="zip.file.32" />
+		<antcall target="unzip">
+			<param name="zip.file" value="${zip.file.32}" />
+		</antcall>
+		<antcall target="package">
+			<param name="arch" value="32" />
+		</antcall>
+
+		<!-- repackage 64bit -->
+		<fileset id="zip.file.64" dir="${basedir}/builds" includes="*macosx.cocoa.x86_64.zip" />
+		<property name="zip.file.64" refid="zip.file.64" />
+		<antcall target="unzip">
+			<param name="zip.file" value="${zip.file.64}" />
+		</antcall>
+		<antcall target="package">
+			<param name="arch" value="64" />
+		</antcall>
+
+	</target>
+
+	<target name="unzip">
+		<mkdir dir="${build.dir}" />
+		<echo>unzip: ${zip.file}</echo>
+		<exec executable="${basedir}/7zip/7za.exe" osfamily="windows">
+			<arg value="x" />
+			<arg file="${basedir}/builds/${zip.file}" />
+			<arg value="-o${build.dir}" />
+		</exec>
+		<exec executable="unzip" dir="${build.dir}" osfamily="unix">
+			<arg value="-o"/>
+			<arg file="${basedir}/builds/${zip.file}" />
+		</exec>
+	</target>
+
+	<target name="package">
+		<antcall target="move" />
+		<antcall target="transform_launcher_args" />
+		<antcall target="copyLegal"/>
+		<antcall target="zip">
+			<param name="arch" value="${arch}" />
+		</antcall>
+		<delete dir="${build.dir}" />
+	</target>
+
+	<target name="zip">
+		<tstamp />
+		<property name="package_name" value="WARM-${app_version}.${DSTAMP}-macosx-${arch}bit" />
+
+		<!-- create the WARM tar -->
+		<property name="tar" value="${build.dir}/${package_name}.tar" />
+		<exec executable="${basedir}/7zip/7za.exe" osfamily="windows">
+			<arg value="a" />
+			<arg value="-ttar" />
+			<arg value="${tar}" />
+			<arg value="${build.dir}/WARM/WARM.app" />
+		</exec>
+
+		<!-- create the WARM zip -->
+		<property name="release_package" value="${basedir}/packages/${package_name}.tar.gz" />
+		<exec executable="${basedir}/7zip/7za.exe" osfamily="windows">
+			<arg value="a" />
+			<arg value="-tgzip" />
+			<arg value="${release_package}" />
+			<arg value="${tar}" />
+		</exec>
+		
+		<!-- on Mac and Linux platforms, this is just one step -->
+		<exec executable="tar" dir="${build.dir}" osfamily="unix">
+			<arg value="czf" />
+			<arg value="${release_package}" />
+			<arg value="WARM/WARM.app" />
+		</exec>
+
+		
+	</target>
+
+	<target name="transform_launcher_args">
+		<fileset id="launcher" dir="${app.dir}/plugins" includes="*launcher*.jar" />
+		<dirset id="launcher.library" dir="${app.dir}/plugins" includes="*launcher*" />
+		<property name="launcher" refid="launcher" />
+		<property name="launcher.library" refid="launcher.library" />
+
+		<echo>${launcher}</echo>
+		<echo>${launcher.library}</echo>
+
+		<xslt style="${xsl}" in="${app.dir}/Contents/Info.plist" out="${app.dir}/Contents/Info2.plist">
+			<param name="launcher" expression="${launcher}" />
+			<param name="launcher.library" expression="${launcher.library}" />
+		</xslt>
+		<move file="${app.dir}/Contents/Info2.plist" tofile="${app.dir}/Contents/Info.plist" />
+
+		<!-- the dropins directory is not found unless passed as jvm arg -->
+		<echo file="${app.dir}/Contents/MacOS/WARM.ini" append="true" message="&#xa;-Dorg.eclipse.equinox.p2.reconciler.dropins.directory=../../dropins" />
+
+		<!-- on lion and above 64bit Mac OS this is necessary (https://sourceforge.net/tracker/?func=detail&aid=3549161&group_id=189243&atid=928543): -->
+		<echo file="${app.dir}/Contents/MacOS/WARM.ini" append="true" message="&#xa;-XstartOnFirstThread" />
+
+		<!-- & #xa ; is for newline... -->
+		<echo file="${app.dir}/Contents/MacOS/WARM.ini" append="true" message="&#xa;${WARMupdatesiteparam}" />
+	</target>
+
+	<target name="move">
+		<move file="${build.dir}/WARM/configuration" tofile="${app.dir}/configuration" />
+		<move file="${build.dir}/WARM/plugins" tofile="${app.dir}/plugins" />
+		<move file="${build.dir}/WARM/.eclipseproduct" todir="${app.dir}/" />
+		<move file="${build.dir}/WARM/artifacts.xml" todir="${app.dir}/" failonerror="false" />
+		<mkdir dir="${app.dir}/dropins" />
+	</target>
+
+	<target name="copyLegal" unless="noLegal">
+		<copy todir="${build.dir}/ILCDValidationTool">
+			<fileset dir="${basedir}/legal"/>
+		</copy>
+	</target>
+
+</project>

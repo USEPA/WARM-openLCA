@@ -1,0 +1,17 @@
+include ../mixins/summary-report/contents/summary-report-mtce.jade
+include ../mixins/analysis-report/contents/analysis-report-mtce.jade
+include ../mixins/charts/contents/chart-page.jade
+include ../mixins/for-export/styles.jade
+include ../mixins/for-export/scripts.jade
+
+<!DOCTYPE html>
+html(lang='en')
+	body(data-type='GHG Emissions' data-unit='MTCE')
+		+styles
+		.page-container.summary
+			+summary-report-mtce(true)
+		.page-container.analysis.hidden
+			+analysis-report-mtce(true)
+		.page-container.charts.hidden
+			+chart-page(true)
+		+scripts

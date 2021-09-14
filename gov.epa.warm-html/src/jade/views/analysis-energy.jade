@@ -1,0 +1,12 @@
+include ../mixins/analysis-report/contents/analysis-report-energy.jade
+include ../mixins/head.jade
+include ../mixins/scripts.jade
+
+<!DOCTYPE html>
+html(lang='en')
+	+head 
+	body(data-type='Energy Savings' data-unit='million BTU')
+		+analysis-report-energy
+		+scripts
+		script(src='js/templates.js')
+		script(src='js/analysis-report.js')

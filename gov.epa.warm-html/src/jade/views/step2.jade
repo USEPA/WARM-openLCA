@@ -1,0 +1,71 @@
+include ../mixins/input-page/all.jade
+
+<!DOCTYPE html>
+html(lang='en')
+	+head
+	body.with-progress
+		+header
+		+progress-indicator(2)
+		.content
+			+section('locations', 'Locations')
+				p In order to account for the avoided electricity-related emissions in the landfilling and combustion pathways, EPA assigns the appropriate regional "marginal" electricity grid mix emission factor based on your location
+				+select('state', 'Please select state or national average', [])
+				| Region location: 
+				strong: span#location_display
+				input(type='hidden' id='location' name='location')
+			+section('characteristics', 'Waste Transport Characteristics')
+				p Emissions that occur during transport of materials to the management facility are included in this model. You may use default transport distances, 20 miles, or provide information on the transport distances for the various MSW management options.
+				+radio('transport_distance', 'transport_distance_default', 'Use default distance')(checked=true)
+				+radio('transport_distance', 'transport_distance_define', 'Define distance')
+				.sub-selection
+					+distance-table
+			+section('source-reduction', 'Source reduction')
+				p To estimate the benefits from source reduction, EPA usually assumes that the material that is source reduced would have been manufactured from the current mix of virgin and recycled inputs. However, you may choose to estimate the emission reductions from source reduction under the assumption that the material would have been manufactured from 100% virgin inputs in order to obtain an upper bound estimate of the benefits from source reduction. Select which assumption you want to use in the analysis. Note that for materials for which information on the share of recycled inputs used in production is unavailable or is not a common practice; EPA assumes that the current mix is comprised of 100% virgin inputs. Consequently, the source reduction benefits of both the "Current mix" and "100% virgin" inputs are the same
+				+radio('source_reduction', 'source_reduction_current_mix', 'Current Mix')(checked=true)
+				+radio('source_reduction', 'source_reduction_virgin', '100% Virgin')
+			+section('landfill-characteristics', 'Landfill Characteristics (I, II, III)')
+				+section('landfill-characteristics-1', 'I) Landfill Type')
+					p The emissions from landfilling depend on whether the landfill where your waste is disposed has a landfill gas (LFG) control system. If you do not know whether your landfill has LFG control, select "National Average", which calculates emissions based on the proportions of landfills with LFG control in 2012. If your landfill does not have a LFG system, select "No LFG Recovery". If a LFG system is in place at your landfill, select "LFG Recovery" and click one of the indented buttons to indicate whether LFG is recovered for energy or flared.
+					div(data-order=1)
+						+radio('landfill_type', 'landfill_type_national_average', 'National Average')(checked=true)
+						+radio('landfill_type', 'landfill_type_no_lfg_recovery', 'No LFG Recovery')
+						+radio('landfill_type', 'landfill_type_lfg_recovery', 'LFG Recovery')
+						.sub-selection.type-lfg-sub-selection(data-order=2)
+							+radio('landfill_subtype', 'landfill_type_lfg_recovery_for_energy', 'Recover for energy')(checked=true)
+							+radio('landfill_subtype', 'landfill_type_lfg_recovery_for_flaring', 'Flare')
+				+section('landfill-characteristics-2', 'II) Landfill Gas Recovery')
+					p For landfills that recover gas, the landfill gas collection efficiency will vary throughout the life of the landfill. Based on a literature review of field measurements and expert discussion, a range of collection efficiencies was estimated for a series of different landfill scenarios.  The "typical" landfill is judged to represent the average U.S. landfill, although it must be recognized that every landfill is unique and a typical landfill is an approximation of reality.  The worst-case collection scenario represents a landfill that is in compliance with EPA's New Source Performance Standards (NSPS). The aggressive gas collection scenario includes landfills where the operator is aggressive in gas collection relative to a typical landfill. Bioreactor landfills, which are operated to accelerate decomposition, are assumed to collect gas aggressively. The California regulatory collection scenario allows users to estimate and view landfill management results based on California regulatory requirements.
+					.selections(data-order=3)
+						+radio('landfill_gas_recovery_collection', 'landfill_gas_recovery_typical_operation', 'Typical operation - DEFAULT')(checked=true)
+						+radio('landfill_gas_recovery_collection', 'landfill_gas_recovery_worst_case_collection', 'Worst-case collection')
+						+radio('landfill_gas_recovery_collection', 'landfill_gas_recovery_aggressive_collection', 'Aggressive gas collection')
+						+radio('landfill_gas_recovery_collection', 'landfill_gas_recovery_california_regulatory_collection', 'California regulatory collection')
+					.notes
+						small
+							p Landfill gas collection efficiency (%) assumptions
+							p Typical: Years 0-1: 0%; Years 2-4: 50%; Years 5-14: 75%; Years 15 to 1 year before final cover: 82.5%; Final cover: 90%
+							p Worst-case: Years 0-4: 0%; Years 5-9: 50%; Years 10-14: 75%; Years 15 to 1 year before final cover: 82.5%; Final cover: 
+							p Aggressive: Year 0: 0%; Years 0.5-2: 50%; Years 3-14: 75%; Years 15 to 1 year before final cover: 82.5%; Final cover: 90%
+							p California: Year 0: 0%; Year 1: 50%; Years 2-7: 80%; Years 8 to 1 year before final cover: 85%; Final cover: 90%
+					.clear
+				+section('landfill-characteristics-3', 'III) Moisture Conditions and Decay Rates')
+					p Which of the following moisture conditions and associated bulk MSW decay rate (k) most accurately describes the average conditions at the landfill? The decay rates, also referred to as k values, describe the rate of change per year (yr-1) for the decomposition of organic waste in landfills. A higher average decay rate means that waste decomposes faster in the landfill. 
+					.selections(data-order=4)
+						+radio('landfill_moisture', 'landfill_moisture_national_average', 'National Average - DEFAULT')(checked=true)
+						+radio('landfill_moisture', 'landfill_moisture_dry', 'Dry (k = 0.02)')
+						+radio('landfill_moisture', 'landfill_moisture_moderate', 'Moderate (k = 0.04)')
+						+radio('landfill_moisture', 'landfill_moisture_wet', 'Wet (k = 0.06)')
+						+radio('landfill_moisture', 'landfill_moisture_bioreactor', 'Biorecator (k = 0.12)')
+					.notes
+						small
+							p Moisture condition assumptions								
+							p Dry (k=0.02): Less than 20 inches of precipitation per year						
+							p Moderate (k=0.04): Between 20 and 40 inches of precipitation per year						
+							p Wet (k=0.06): Greater than 40 inches of precipitation per year						
+							p Bioreactor (k=0.12): Water is added until the moisture content reaches 40 percent moisture on a wet weight basis						
+							p National average: Weighted average based on the share of waste received at each landfill type						
+					.clear
+		+footer(2, 'step1', 'step3')
+		+scripts
+		script(src='js/data/regions.js')
+		script(src='js/step2.js')

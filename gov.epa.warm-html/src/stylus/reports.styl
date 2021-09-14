@@ -1,0 +1,41 @@
+@require 'variables.styl'
+
+.panel
+	background-color $lightBackgroundColor
+	border-color $borderColor
+
+	h3
+		margin-top 0
+
+	p 
+		margin 0
+		
+.info-box
+	
+	hr
+		margin 3px 0
+		border-color $borderColor
+		
+.nav-tabs 
+	border-color $borderColor
+	
+	& > li > a
+
+		&, &:hover, &:focus, &:active, &:visited
+			background-color $lightBackgroundColor
+			color $darkBackgroundColor
+			border-bottom 1px solid $borderColor
+	
+	& > li.active > a
+	
+		&, &:hover, &:focus, &:active, &:visited
+			border-bottom 0
+			background-color $darkBackgroundColor
+			color white
+			
+.top-navigation
+	padding 10px
+	
+	.btn-warm
+		margin-right 5px
+	

@@ -1,0 +1,7 @@
+mixin section(id, label)
+	h4.section-header(href='##{id}' data-toggle='collapse') 
+		span.glyphicon.glyphicon-chevron-down
+		| #{label}
+
+	.section-content.collapse.in(id=id)
+		block

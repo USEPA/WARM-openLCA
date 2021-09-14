@@ -1,0 +1,429 @@
+@require 'variables.styl'
+
+$blue1 = #101064
+$blue2 = #191975
+$blue3 = #333385
+$blue4 = #4D4D94
+$blue5 = #5555A0
+$blue6 = #6B6BAB
+$red1 = #FF3333
+$red2 = #FF4D4D
+$red3 = #FF6666
+$red4 = #FF8080
+$red5 = #FFA0A0
+$red6 = #FFC0C0
+		
+.ct-label
+	font-size .9em !important
+	padding 0 5px !important
+	text-align center !important
+
+.ct-legend
+	margin-top 40px
+	padding 10px
+	border 1px solid $borderColor
+	border-radius 5px
+
+	.ct-legend-entry
+		font-size 10pt
+		height 20px
+		width 20px
+		margin 5px
+		display inline-block
+		color white
+
+svg
+	overflow overlay !important 
+
+.ct-chart
+	
+	&.warm-chart
+		width 80%
+		height 80%
+
+	.tooltip
+		color rgba(64, 64, 64, 1)
+		background $lightBackgroundColorTransparent 
+		border-radius 5px
+		border 1px solid $borderColorTransparent
+		padding 10px
+		position absolute
+		opacity 1
+		
+.one-bar-per-series
+
+	.ct-chart, .ct-legend
+
+		.ct-bar		
+			stroke-width 40px
+
+		.ct-series-a 
+
+			.ct-bar 
+				stroke $blue1 !important
+
+			&.ct-legend-entry
+				background-color $blue1 
+
+		.ct-series-b 
+
+			.ct-bar 
+				stroke $red1 !important
+
+			&.ct-legend-entry
+				background-color $red1 
+
+.two-bar-per-series
+
+	.ct-chart, .ct-legend
+
+		.ct-bar		
+			stroke-width 20px
+
+		.ct-series-a 
+			
+			.ct-bar 
+				stroke $blue1 !important
+
+			&.ct-legend-entry
+				background-color $blue1 
+
+		.ct-series-b 
+			
+			.ct-bar 
+				stroke $blue2 !important
+
+			&.ct-legend-entry
+				background-color $blue2
+
+		.ct-series-c
+			
+			.ct-bar 
+				stroke $red1 !important
+					
+			&.ct-legend-entry
+				background-color $red1 
+
+		.ct-series-d 
+			
+			.ct-bar 
+				stroke $red2 !important
+		
+			&.ct-legend-entry
+				background-color $red2
+
+.three-bar-per-series
+
+	.ct-chart, .ct-legend
+
+		.ct-bar		
+			stroke-width 18px
+
+		.ct-series-a 
+			
+			.ct-bar 
+				stroke $blue1 !important
+
+			&.ct-legend-entry
+				background-color $blue1 
+
+		.ct-series-b 
+			
+			.ct-bar 
+				stroke $blue2 !important
+
+			&.ct-legend-entry
+				background-color $blue2
+
+		.ct-series-c 
+			
+			.ct-bar 
+				stroke $blue3 !important
+
+			&.ct-legend-entry
+				background-color $blue3
+									
+		.ct-series-d 
+			
+			.ct-bar 
+				stroke $red1 !important
+					
+			&.ct-legend-entry
+				background-color $red1 
+
+		.ct-series-e 
+			
+			.ct-bar 
+				stroke $red2 !important
+		
+			&.ct-legend-entry
+				background-color $red2
+
+		.ct-series-f 
+			
+			.ct-bar 
+				stroke $red3 !important
+					
+			&.ct-legend-entry
+				background-color $red3
+
+.four-bar-per-series
+
+	.ct-chart, .ct-legend
+
+		.ct-bar		
+			stroke-width 16px
+
+		.ct-series-a 
+			
+			.ct-bar 
+				stroke $blue1 !important
+
+			&.ct-legend-entry
+				background-color $blue1 
+
+		.ct-series-b 
+			
+			.ct-bar 
+				stroke $blue2 !important
+
+			&.ct-legend-entry
+				background-color $blue2
+
+		.ct-series-c 
+			
+			.ct-bar 
+				stroke $blue3 !important
+		
+			&.ct-legend-entry
+				background-color $blue3
+	
+		.ct-series-d 
+			
+			.ct-bar 
+				stroke $blue4 !important 
+
+			&.ct-legend-entry
+				background-color $blue4
+						
+		.ct-series-e 
+			
+			.ct-bar 
+				stroke $red1 !important
+					
+			&.ct-legend-entry
+				background-color $red1 
+
+		.ct-series-f 
+			
+			.ct-bar 
+				stroke $red2 !important
+		
+			&.ct-legend-entry
+				background-color $red2
+
+		.ct-series-g 
+			
+			.ct-bar 
+				stroke $red3 !important
+					
+			&.ct-legend-entry
+				background-color $red3
+
+		.ct-series-h 
+			
+			.ct-bar		
+				stroke $red4 !important 
+		
+			&.ct-legend-entry
+				background-color $red4
+
+.five-bar-per-series
+
+	.ct-chart, .ct-legend
+
+		.ct-bar		
+			stroke-width 14px
+
+		.ct-series-a
+			
+			.ct-bar 
+				stroke $blue1 !important
+
+			&.ct-legend-entry
+				background-color $blue1 
+
+		.ct-series-b 
+			
+			.ct-bar 
+				stroke $blue2 !important
+
+			&.ct-legend-entry
+				background-color $blue2
+
+		.ct-series-c 
+			
+			.ct-bar 
+				stroke $blue3 !important
+
+			&.ct-legend-entry
+				background-color $blue3
+			
+		.ct-series-d 
+			
+			.ct-bar 
+				stroke $blue4 !important 
+
+			&.ct-legend-entry
+				background-color $blue4
+
+		.ct-series-e 
+			
+			.ct-bar 
+				stroke $blue5 !important 
+
+			&.ct-legend-entry
+				background-color $blue5
+						
+		.ct-series-f 
+			
+			.ct-bar 
+				stroke $red1 !important
+					
+			&.ct-legend-entry
+				background-color $red1 
+
+		.ct-series-g 
+			
+			.ct-bar 
+				stroke $red2 !important
+		
+			&.ct-legend-entry
+				background-color $red2
+
+		.ct-series-h 
+			
+			.ct-bar 
+				stroke $red3 !important
+					
+			&.ct-legend-entry
+				background-color $red3
+
+		.ct-series-i 
+			
+			.ct-bar		
+				stroke $red4 !important 
+		
+			&.ct-legend-entry
+				background-color $red4
+
+		.ct-series-j 
+			
+			.ct-bar		
+				stroke $red5 !important 
+					
+			&.ct-legend-entry
+				background-color $red5
+
+.six-bar-per-series
+
+	.ct-chart, .ct-legend
+
+		.ct-bar		
+			stroke-width 12px
+
+		.ct-series-a 
+			
+			.ct-bar 
+				stroke $blue1 !important
+
+			&.ct-legend-entry
+				background-color $blue1 
+
+		.ct-series-b 
+			
+			.ct-bar 
+				stroke $blue2 !important
+
+			&.ct-legend-entry
+				background-color $blue2 
+
+		.ct-series-c 
+			
+			.ct-bar 
+				stroke $blue3 !important
+			
+			&.ct-legend-entry
+				background-color $blue3 
+
+		.ct-series-d 
+			
+			.ct-bar 
+				stroke $blue4 !important 
+
+			&.ct-legend-entry
+				background-color $blue4 
+
+		.ct-series-e 
+			
+			.ct-bar 
+				stroke $blue5 !important 
+			
+			&.ct-legend-entry
+				background-color $blue5 
+
+		.ct-series-f 
+			
+			.ct-bar 
+				stroke $blue6 !important 
+			
+			&.ct-legend-entry
+				background-color $blue6 
+
+		.ct-series-g 
+			
+			.ct-bar 
+				stroke $red1 !important
+					
+			&.ct-legend-entry
+				background-color $red1 
+
+		.ct-series-h 
+			
+			.ct-bar 
+				stroke $red2 !important
+		
+			&.ct-legend-entry
+				background-color $red2 
+
+		.ct-series-i 
+			
+			.ct-bar 
+				stroke $red3 !important
+					
+			&.ct-legend-entry
+				background-color $red3 
+
+		.ct-series-j 
+			
+			.ct-bar		
+				stroke $red4 !important 
+		
+			&.ct-legend-entry
+				background-color $red4 
+
+		.ct-series-k 
+			
+			.ct-bar		
+				stroke $red5 !important 
+		
+			&.ct-legend-entry
+				background-color $red5 
+
+		.ct-series-l 
+			
+			.ct-bar		
+				stroke $red6 !important 
+		
+			&.ct-legend-entry
+				background-color $red6 

@@ -1,0 +1,8 @@
+include ../all.jade
+
+mixin summary-report-energy(forExport) 
+	+header('Summary Report (Energy)', 'ENERGY', forExport)
+	.content 
+		+summary-box('Energy')
+		include ../template-data/summary-energy.jade
+		+result-table('Energy Use', 'million BTU', notes, equivalents)

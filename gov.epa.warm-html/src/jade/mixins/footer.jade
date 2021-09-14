@@ -1,0 +1,6 @@
+mixin footer(currentStep, previous, next)
+	nav.fixed 
+		if next
+			a.navigate(href='#{next}.html' data-current-step=currentStep).pull-right.btn.btn-warm Next
+		if previous
+			a.navigate(href='#{previous}.html').pull-right.btn.btn-warm Back

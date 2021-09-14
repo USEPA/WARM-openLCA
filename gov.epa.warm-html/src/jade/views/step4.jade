@@ -1,0 +1,20 @@
+include ../mixins/input-page/all.jade
+
+<!DOCTYPE html>
+html(lang='en')
+	+head
+	body.with-progress
+		+header
+		+progress-indicator(4) 
+		.content
+			+section('calculation-properties', 'Calculation Properties')
+				p Please select the result output unit:
+					+radio('output_unit', 'MTCO2E', 'Metric Tons of Carbon Dioxide Equivalent (MTCO2E)')(checked=true)
+					+radio('output_unit', 'MTCE', 'Metric Tons of Carbon Equivalent (MTCE)')
+					+radio('output_unit', 'ENERGY', 'Units of Energy (million BTU)')
+				p You can return to this screen to generate results with another output unit once the initial report has been generated.
+			button.btn.btn-lg.btn-warm.btn-calculate Calculate
+		+footer(4, 'step3')
+		+modal('For at least one scenario no input materials were specified. Therefore the calculation can not be performed.')
+		+scripts
+		script(src='js/step4.js')

@@ -1,0 +1,8 @@
+include ../all.jade
+
+mixin summary-report-mtce(forExport) 
+	+header('Summary Report (MTCE)', 'MTCE', forExport)
+	.content 
+		+summary-box('GHG Emissions')
+		include ../template-data/summary-mt.jade
+		+result-table('GHG Emissions', 'MTCE', notes, equivalents)

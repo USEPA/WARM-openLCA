@@ -1,0 +1,8 @@
+mixin multiline-string(values)
+	- var first = true
+	each value in values
+		if first
+			- first = false
+		else
+			br
+		| #{value}

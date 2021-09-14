@@ -1,0 +1,7 @@
+include ../all.jade
+
+mixin analysis-report-mtce(forExport)
+	+header('Analysis Report (MTCE)', 'MTCE', forExport)
+	.content 
+		+info-box('GHG Emissions', 'MTCE', 'MTCE', 'metric tons of carbon equivalent')
+		+tabbing('GHG Emissions', 'MTCE')

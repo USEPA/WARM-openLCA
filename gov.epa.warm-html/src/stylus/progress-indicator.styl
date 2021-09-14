@@ -1,0 +1,74 @@
+@require 'variables.styl'
+
+.progress-indicator 
+	top 80px
+	list-style none
+	padding 20px 2%
+	height 80px
+	background-color white
+	border-bottom 1px solid $borderColor
+
+	@media (max-width $minWidth - 1) 
+		height 203px
+
+	li
+		
+		&:not(.arrow) 
+			font-size 12px
+			float left
+			background-color $grayColor
+			height 40px
+			font-size 14px
+			width 21.9%
+			border-radius 5px 0 0 5px
+
+			&:last-child
+				border-radius 5px
+
+			&:not(:last-child) 
+			
+				@media (max-width $minWidth - 1) 
+					margin-bottom 1px
+
+			@media (max-width $minWidth - 1) 
+				width 100%
+				border-radius 5px
+
+			&.active 
+				background-color $darkBackgroundColor
+				font-weight bold
+				color white
+
+			&.visited 
+				background-color $lightBackgroundColor
+				color rgb(255, 160,18)
+
+			&.active, & > a 
+				display block
+				padding 11px
+
+			& > a, & > a:hover, & > a:focus, & > a:active, & > a:visited
+				color inherit !important
+				text-decoration none
+
+			.step 
+				font-weight bold
+				margin-right 10px
+
+		&.arrow
+			margin-right 2%
+			float left
+			width 0
+			height 0
+			border-style solid
+			border-width 20px 0 20px 20px
+			border-color transparent transparent transparent $grayColor
+
+			&.visited 
+				border-color transparent transparent transparent $lightBackgroundColor
+
+			&.active 
+				border-color transparent transparent transparent $darkBackgroundColor
+
+			@media (max-width $minWidth - 1) 
+				display none

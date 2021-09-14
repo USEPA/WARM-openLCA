@@ -1,0 +1,17 @@
+mixin header(subtitle, reportType, forExport)
+	- var title = 'Waste Reduction Model (WARM)';
+	header.fixed
+		if subtitle
+			img.logo.pull-left(src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAD8AAAA6CAYAAAAHkoFsAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA7DAAAOwwHHb6hkAAAAB3RJTUUH3wMGCjoNG/gGRAAAAjNJREFUaN7tmjFv00AYhp+LjWhwE5ZQLBjpn2BEbCzMVIKNDvwjRrqxIBYYkKBC4gew0xXhKlvjkKI6/hgQE3Hq90iMhL9vtu/u8d197733OdhzvgD7tIzlgh/TYy5Q4hEX7HKl7ePpNZjcxVq3v2NjImKggAMkQ67KvQjgANV3OokBPQ6Hd3iH71cEW3AmvXHESO1kuaCeHtM6h4cDsKx9+5dKY4MUdjLzyVDrRwH/G2n0Pe/wDu/w/ZG66QdmSrZMl4RJQbbNQRW3KdV38vsNUveKjHLlJJ+kqkxUiWA145djqGnfT6jW2NoyNLWzn0aN7gmzbR6M9r6SFW/bz74BPPQ97/AO7/CXJMriMTMTfJ3quNbK0IYS5HJOPf242jXmD9htnHnTDK0M3olrzJpXsFUNH94o0/99aZ++Yw6Qv7aR73mHd/h+w2894YUBFO8JkjR2BX/jHsNkSNJaU0+0m1h7qg/KAhas/QdrlLPfE8CvjP8HvAIO+k1slDzdYq4cjMKOjfNnvucd3uEd/h9LXSdxHtbbs4b7Pb1Q+YKRotpqkTLGNndXqAza4zHS6IVKT3gO7/AOv2nHWbzhsxl3WstKTZh8EwqVpivE6SdK6UZ5TH3zyK7LhxwFHKAaYFKtLuIHJvlG+SxuBfued3iHd/j+WNrwklrJluFAu41Nc8pJ0VwsXDkjKdSV5LXmUfCqTMiOKwEOTVL6vUNf9g7v8A7v8JuFV2UiVFoHIcTJUBfxE73hqqnjMv+wAAAAAElFTkSuQmCC') 
+			div.big-text.pull-left #{title}
+				p
+					small #{subtitle} 
+		else
+			img.logo(src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAD8AAAA6CAYAAAAHkoFsAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA7DAAAOwwHHb6hkAAAAB3RJTUUH3wMGCjoNG/gGRAAAAjNJREFUaN7tmjFv00AYhp+LjWhwE5ZQLBjpn2BEbCzMVIKNDvwjRrqxIBYYkKBC4gew0xXhKlvjkKI6/hgQE3Hq90iMhL9vtu/u8d197733OdhzvgD7tIzlgh/TYy5Q4hEX7HKl7ePpNZjcxVq3v2NjImKggAMkQ67KvQjgANV3OokBPQ6Hd3iH71cEW3AmvXHESO1kuaCeHtM6h4cDsKx9+5dKY4MUdjLzyVDrRwH/G2n0Pe/wDu/w/ZG66QdmSrZMl4RJQbbNQRW3KdV38vsNUveKjHLlJJ+kqkxUiWA145djqGnfT6jW2NoyNLWzn0aN7gmzbR6M9r6SFW/bz74BPPQ97/AO7/CXJMriMTMTfJ3quNbK0IYS5HJOPf242jXmD9htnHnTDK0M3olrzJpXsFUNH94o0/99aZ++Yw6Qv7aR73mHd/h+w2894YUBFO8JkjR2BX/jHsNkSNJaU0+0m1h7qg/KAhas/QdrlLPfE8CvjP8HvAIO+k1slDzdYq4cjMKOjfNnvucd3uEd/h9LXSdxHtbbs4b7Pb1Q+YKRotpqkTLGNndXqAza4zHS6IVKT3gO7/AOv2nHWbzhsxl3WstKTZh8EwqVpivE6SdK6UZ5TH3zyK7LhxwFHKAaYFKtLuIHJvlG+SxuBfued3iHd/j+WNrwklrJluFAu41Nc8pJ0VwsXDkjKdSV5LXmUfCqTMiOKwEOTVL6vUNf9g7v8A7v8JuFV2UiVFoHIcTJUBfxE73hqqnjMv+wAAAAAElFTkSuQmCC') 
+			span.bigger-text #{title}
+		if forExport
+			div.top-navigation.pull-right
+				button.btn.btn-warm.to-summary(data-type='summary') Summary Report
+				button.btn.btn-warm.to-analysis(data-type='analysis') Analysis Report
+				button.btn.btn-warm.to-charts(data-type='charts') Charts
+		block

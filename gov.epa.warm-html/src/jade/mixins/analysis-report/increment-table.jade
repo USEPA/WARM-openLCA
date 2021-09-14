@@ -1,0 +1,18 @@
+mixin increment-table(type, unit)
+	table.table.table-condensed.warm-table.increment-table
+		thead
+			tr.second-level-header.with-borders
+				th Material
+				th: +multiline-string(['Source Reduction', '(Tons)'])
+				th: +multiline-string(['Incremental', type + ' from', 'Source Reduction (' + unit + ')'])
+				th: +multiline-string(['Incremental', 'Recycling (Tons)'])
+				th: +multiline-string(['Incremental', type + ' from', 'Recycling (' + unit + ')'])
+				th: +multiline-string(['Incremental', 'Landfilling (Tons)'])
+				th: +multiline-string(['Incremental', type + ' from', 'Landfilling (' + unit + ')'])
+				th: +multiline-string(['Incremental', 'Combustion (Tons)'])
+				th: +multiline-string(['Incremental', type + ' from', 'Combustion (' + unit + ')'])
+				th: +multiline-string(['Incremental', 'Composting (Tons)'])
+				th: +multiline-string(['Incremental', type + ' from', 'Composting (' + unit + ')'])
+				th: +multiline-string(['Total Incremental', type + ' (' + unit + ')'])
+		tbody
+

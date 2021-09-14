@@ -1,0 +1,36 @@
+== License ==
+
+The WARM application is provided to you under the terms and conditions of
+the ... license.
+
+A copy of the full license text and also copies of the licenses of the 
+third party content can be found in the installation directory 
+(/licenses).
+
+== Java Runtime Environment == 
+The WARM install package may include a Java Runtime Environment 
+(JRE) in order to run WARM. The JRE is licensed under the Oracle 
+Binary Code License Agreement for the Java SE Platform Products 
+and JavaFX 
+(http://www.oracle.com/technetwork/java/javase/terms/license/index.html).
+A current version of the JRE is freely available for multiple operating
+systems from http://www.oracle.com/technetwork/java/javase/downloads/index.html.
+
+== Third Party Content ==
+
+= Eclipse Rich Client Platform =
+The WARM application is built on top of the Eclipse Rich Client 
+Platform and, therefore, includes plug-ins that are made available by 
+the Eclipse Foundation and are licensed under the Eclipse Public 
+License Version 1.0 ("EPL"). A copy of the EPL is available at 
+http://www.eclipse.org/legal/epl-v10.html. These plug-ins can again 
+contain third party content which is indicated in the legal 
+information of the respective plug-ins (see the plug-in details in the 
+application). Original binaries and source code are available from the 
+Eclipse website (http://eclipse.org).
+
+= SLF4J = 
+SLF4J is licensed under the MIT license (http://www.slf4j.org/license.html).
+Original binaries and source code are available from the SLF4J website 
+(http://www.slf4j.org/).
+

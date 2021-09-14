@@ -1,0 +1,38 @@
+mixin input(id, label, type)
+	unless type
+		- type = 'text'
+	div.form-group.form-inline(id='#{id}-group')
+		label.control-label(for='#{id}') #{label}
+		input.form-control(id='#{id}' name='#{id}' type='#{type}')&attributes(attributes)
+		block
+
+mixin select(id, label, options)
+	.form-group.form-inline(id='#{id}-group')
+		label.control-label(for='#{id}') #{label}
+		select.form-control(id='#{id}' name='#{id}')&attributes(attributes)
+			if options
+				each option in options
+					- var value = option;
+					- var label = option;
+					- if (Object.prototype.toString.call(option) === '[object Array]') {
+					- 	value = option[0];
+					- 	label = option[1];
+					- }
+		block
+
+mixin radio(group, id, label)
+	.radio
+		label(for='#{id}')
+			input(id='#{id}' name='#{group}' type='radio')&attributes(attributes)
+			if label
+				| #{label}
+			else
+				block
+		if label
+			block
+
+mixin textarea(id, label)
+	.form-group.form-inline(id='#{id}-group')
+		label.control-label(for='#{id}') #{label}
+		textarea.form-control(id='#{id}' name='#{id}')&attributes(attributes)
+			block

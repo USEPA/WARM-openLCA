@@ -1,0 +1,132 @@
+@require 'variables.styl'
+		
+html, body
+	width 100%
+	min-width 1000px
+
+.clear
+	clear both
+
+.fixed
+	position fixed
+	top 0
+	right 0
+	bottom 0
+	left 0
+	width 100%
+	min-width 1000px
+	z-index 1
+
+.chart-tabs .tab-pane
+	min-width 1200px
+
+.analysis-tabs
+	min-width 1000px
+
+nav
+	top auto !important
+	padding 10px 2%
+	height 55px
+	background-color $lightBackgroundColor
+	border-top 1px solid $borderColor
+
+	a.btn 
+		margin-left 10px
+	
+label
+	font-weight normal !important 
+		
+.content
+	padding 10px 0
+	margin 80px 2% 75px 2%
+
+	a:not(.btn):not([data-toggle='tab'])
+
+		&, &:hover, &:focus, &:active, &:visited
+			color rgb(255, 77, 63)	
+
+.bottom-element
+	margin-bottom 20px
+
+.with-progress .content
+	margin-top 160px
+
+	@media (max-width $minWidth - 1)
+		margin-top 283px			
+	
+.form-inline 
+	
+	input, select, textarea
+		margin-left 10px
+
+.btn-calculate
+	margin-top 40px
+	margin-left 10px
+
+.btn-warm
+	color black
+	background-color $darkBackgroundColor
+	border-color darken($darkBackgroundColor, 10%)
+	
+	&:hover
+		background-color darken($darkBackgroundColor, 10%)
+		border-color darken($darkBackgroundColor, 20%)
+
+.selections
+	float left
+	padding-right 50px
+	border-right 1px solid $borderColor
+
+.notes
+	float left
+	margin-top 15px
+	padding-left 50px
+
+.notes, .foot-notes
+
+	p 
+		margin 0
+    
+.fixed-col-form
+	
+	label
+		width 110px
+
+		&.period-to
+			width 20px
+			padding-left 10px
+
+	input, select, textarea
+		width 400px !important
+
+		&.period-from, &.period-to
+			width 185px !important
+
+.form-control.control-xs
+	height 20px
+	line-height 20px
+	padding-top 1px
+	padding-bottom 1px
+
+.sub-selection
+	margin-left 20px
+	
+.chart-container
+	margin 25px auto
+	width 90%
+	
+	.filter
+		margin-bottom 15px
+
+.btn-warm.active
+	z-index 0
+
+
+.material-selection 
+
+	.modal-dialog
+		width 900px
+		
+	.checkbox-inline	
+		width 30%
+		margin-left 10px

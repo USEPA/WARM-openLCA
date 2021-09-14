@@ -1,0 +1,11 @@
+mixin per-ton-result-table(type, unit)
+	table.table.table-condensed.warm-table.per-ton-result-table
+		thead
+			tr.second-level-header.with-borders
+				th Material
+				th: +multiline-string([type, 'per Ton of Material', 'Source Reduced (' + unit + ')'])
+				th: +multiline-string([type, 'per Ton of Material', 'Recycled (' + unit + ')'])
+				th: +multiline-string([type, 'per Ton of Material', 'Landfilled (' + unit + ')'])
+				th: +multiline-string([type, 'per Ton of Material', 'Combusted (' + unit + ')'])
+				th: +multiline-string([type, 'per Ton of Material', 'Composted (' + unit + ')'])
+		tbody

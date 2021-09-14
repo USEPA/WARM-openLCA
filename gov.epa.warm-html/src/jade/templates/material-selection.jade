@@ -1,0 +1,16 @@
+.modal.material-selection
+	.modal-dialog
+		.modal-content
+			.modal-header
+				button.close(type='button', data-dismiss='modal')
+					span(aria-hidden='true') &times;
+					span.sr-only Close
+				h4.modal-title Select materials to include
+			.modal-body.clearfix 
+				div Please select up to 6 materials to be shown in the chart:
+				each material, index in materials
+					label.checkbox-inline
+						input(type='checkbox', id='material-#{index}', value=material) 
+						| #{material}
+			.modal-footer
+				button.btn.btn-warm(id='apply-selection', type='button') Apply selection

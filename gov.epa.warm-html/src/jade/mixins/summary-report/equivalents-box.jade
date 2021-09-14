@@ -1,0 +1,21 @@
+mixin equivalents-box(type, unit, equivalents)
+	.panel
+		.panel-heading Total Change in #{type} (#{unit}): 
+			strong#total-change 0
+		.panel-body This is equivalent to...
+			if equivalents
+				each equivalent in equivalents
+					p.equivalent(id=equivalent.id)
+						span.positive-prefix
+							if equivalent.positivePrefix
+								| #{equivalent.positivePrefix} 
+						span.negative-prefix.hidden
+							if equivalent.negativePrefix
+								| #{equivalent.negativePrefix} 
+						strong.equivalent-value 0
+						span.equivalent-unit
+							if equivalent.unit
+								| #{equivalent.unit}
+						span.suffix
+							if equivalent.suffix
+								|  #{equivalent.suffix}

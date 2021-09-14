@@ -1,0 +1,102 @@
+@require 'variables.styl'
+
+.table
+	
+	& > thead > tr > th
+		vertical-align middle
+
+	& > thead > tr > th, & > tbody > tr:not(.footer) > td
+		text-align center
+
+		&:first-of-type, &.material
+			text-align left
+
+	&.distance-table
+		width initial
+
+	&.scenario-table 
+		margin-top 40px
+
+		input
+			text-align center
+			padding-top 1px
+			padding-bottom 1px
+
+	&.warm-table
+
+		& > tbody > tr > td
+
+			&.error-indicator 
+				width 30px
+				color red
+				font-size 20px
+				text-align center
+				padding-top 0
+				padding-bottom 0
+
+		& > tbody > tr.footer > td			
+			padding-top 20px
+
+		& > thead > tr > th, & > tbody > tr > td 
+			border 0
+	
+		& > thead > tr > th, & > tbody > tr:not(.footer) > td 
+
+			&.invisible
+				background-color transparent
+
+				& + td, & + th
+
+					&:not(.invisible)
+						border-left 1px solid $borderColor !important
+
+			&:not(.invisible)
+				border-top 1px solid $borderColor			
+				border-bottom 1px solid $borderColor			
+
+				& + td, & + th
+
+					&.invisible
+						border-left 1px solid $borderColor !important
+
+				&:first-of-type
+					border-left 1px solid $borderColor !important
+						
+				&:last-of-type
+					border-right 1px solid $borderColor !important
+
+			&.headline
+				background-color $darkBackgroundColor
+																			
+		& > thead > tr.second-level-header > th, & > tbody > tr:not(.danger):not(.footer):nth-of-type(even) > td
+
+			&:not(.invisible)
+				background-color $lightBackgroundColor
+
+		& > thead > tr.second-level-header.with-borders > th:not(:last-of-type)
+			border-right 1px solid $borderColor
+
+		&.result-table
+			
+			& > thead > tr.second-level-header > th
+				
+				&.material
+					width 10%
+					
+				&.invisible
+					width 2%
+					
+				&:not(.material):not(.invisible)
+					width 7%
+					
+			& > tbody > tr.footer > td.equivalents-box
+				padding-left 0
+				padding-right 0
+
+		&.per-ton-result-table, &.analysis-result-table, &.increment-table
+
+			& > thead > tr:first-of-type > th
+				border-top 0
+
+			& > tbody > tr > td:not(:last-of-type)
+				border-right 1px solid $borderColor

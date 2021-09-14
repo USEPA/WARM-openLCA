@@ -1,0 +1,7 @@
+mixin chart-container(id, materialSelector) 
+	.pull-right
+		if materialSelector
+			div: button.btn.btn-warm.open-material-selection.pull-right(type='button' id='select-materials-#{id}') Select material filter
+		.ct-legend
+	.chart-container
+		.ct-chart.warm-chart(id=id)

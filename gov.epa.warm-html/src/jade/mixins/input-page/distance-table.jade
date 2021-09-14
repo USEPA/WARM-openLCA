@@ -1,0 +1,21 @@
+include ../forms.jade
+include ../multiline-string.jade
+
+mixin distance-tr(label, value, id)
+	tr
+		td #{label}
+		td #{value}
+		td: input.form-control.control-xs(id=id name=id type='text' size='6' disabled=true)
+
+mixin distance-table()
+	table.table.table-condensed.distance-table
+		thead
+			tr 
+				th Management option
+				th: +multiline-string(['Default Distance', '(miles)'])
+				th: +multiline-string(['Defined Distance', '(miles)'])
+		tbody
+			+distance-tr('Landfill', '20', 'transport_distance_landfilling')
+			+distance-tr('Combustion', '20', 'transport_distance_combustion')
+			+distance-tr('Recycling', '20', 'transport_distance_recycling')
+			+distance-tr('Composting', '20', 'transport_distance_composting')

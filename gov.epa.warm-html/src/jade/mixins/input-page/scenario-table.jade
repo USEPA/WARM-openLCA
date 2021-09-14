@@ -1,0 +1,31 @@
+include ../multiline-string.jade
+
+mixin scenario-table()
+	table.table.table-condensed.warm-table.scenario-table
+		thead
+			tr.top-level-header
+				th.invisible 
+				th.invisible
+				th.invisible 
+				th.headline(colspan=4) Baseline Scenario
+				th.invisible
+				th.invisible
+				th.invisible
+				th.headline(colspan=5) Alternative Scenario
+			tr.second-level-header
+				th.invisible 
+				th.material Material
+				th.invisible
+				th: +multiline-string(['Tons', 'Recycled'])
+				th: +multiline-string(['Tons', 'Landfilled'])
+				th: +multiline-string(['Tons', 'Combusted'])
+				th: +multiline-string(['Tons', 'Composted'])
+				th.invisible
+				th: +multiline-string(['Tons', 'Generated'])
+				th.invisible
+				th: +multiline-string(['Tons', 'Source', 'Reduced'])
+				th: +multiline-string(['Tons', 'Recycled'])
+				th: +multiline-string(['Tons', 'Landfilled'])
+				th: +multiline-string(['Tons', 'Combusted'])
+				th: +multiline-string(['Tons', 'Composted'])
+		tbody

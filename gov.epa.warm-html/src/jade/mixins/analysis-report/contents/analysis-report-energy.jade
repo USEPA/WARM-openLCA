@@ -1,0 +1,7 @@
+include ../all.jade
+
+mixin analysis-report-energy(forExport)
+	+header('Analysis Report (energy)', 'ENERGY', forExport)
+	.content 
+		+info-box('Energy Use', 'million BTU', 'BTU', 'British thermal use')
+		+tabbing('Energy Use', 'million BTU')

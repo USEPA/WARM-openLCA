@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="project" default="main">
+
+	<loadproperties srcFile="build.properties" />
+
+	<target name="main">
+		<antcall target="build32bit" />
+		<antcall target="build64bit" />
+	</target>
+
+	<target name="build32bit">
+		<loadproperties srcFile="buildlinux32bit.properties" />
+		<echo message="xmx: ${xmxval}" />
+		<antcall target="package">
+			<param name="tmpdir" value="@temp_linux_32" />
+			<param name="srczip_pattern" value="*linux.gtk.x86.zip" />
+			<param name="suffix" value="linux_32bit" />
+		</antcall>
+
+	</target>
+
+	<target name="build64bit">
+		<loadproperties srcFile="buildlinux64bit.properties" />
+		<echo message="xmx: ${xmxval}" />
+		<antcall target="package">
+			<param name="tmpdir" value="@temp_linux_64" />
+			<param name="srczip_pattern" value="*linux.gtk.x86_64.zip" />
+			<param name="suffix" value="linux_64bit" />
+		</antcall>
+	</target>
+
+	<target name="package" description="requires tmpdir, srczip_pattern, suffix properties">
+
+		<property name="work_dir" value="${basedir}/packages/${tmpdir}" />
+		<echo>build ${suffix} in ${work_dir}</echo>
+
+		<mkdir dir="${basedir}/packages" />
+		<mkdir dir="${work_dir}" />
+
+		<property name="tmp_zip" value="${work_dir}/${tmpdir}_${suffix}.zip" />
+		<copy tofile="${tmp_zip}">
+			<fileset dir="${basedir}/builds" includes="${srczip_pattern}" />
+		</copy>
+
+		<exec executable="${basedir}/7zip/7za.exe" osfamily="windows">
+			<arg value="x" />
+			<arg value="${tmp_zip}" />
+			<arg value="-o${work_dir}" />
+		</exec>
+
+		<exec executable="unzip" dir="${work_dir}" osfamily="unix">
+			<arg value="${tmp_zip}" />
+		</exec>
+		
+		<!-- un-tar the JRE<Version> and rename the folder to jre -->
+		<exec executable="${basedir}/7zip/7za.exe" osfamily="windows">
+			<arg value="x" />
+			<arg value="${basedir}/${jre_path}" />
+			<arg value="-o${work_dir}/WARM" />
+		</exec>
+
+		<exec executable="tar" dir="${work_dir}/WARM" osfamily="unix">
+			<arg value="-xf" />
+			<arg value="${basedir}/${jre_path}" />
+		</exec>
+
+		<move file="${work_dir}/WARM/${jre_version}" tofile="${work_dir}/WARM/jre" />
+
+		<!-- copy XUL-Runner -->
+		<available file="${xulrunner_path}" property="copy_xulrunner" />
+		<antcall target="copyXulRunner" />
+
+		<!-- Copy legal info -->
+		<antcall target="copyLegal"/>
+		
+		<tstamp />
+		<property name="package_name" value="WARM-${app_version}.${DSTAMP}-${suffix}"/>
+
+		<!-- create the WARM tar (Windows) -->
+		<property name="tar" value="${work_dir}/${package_name}.tar"/>
+		<exec executable="${basedir}/7zip/7za.exe" os="windows">
+			<arg value="a" />
+			<arg value="-ttar" />
+			<arg value="${tar}" />
+			<arg value="${work_dir}/WARM" />
+		</exec>
+
+		<!-- create the WARM zip (Windows) -->		
+		<property name="release_package" value="${basedir}/packages/${package_name}.tar.gz" />
+		<exec executable="${basedir}/7zip/7za.exe" osfamily="windows">
+			<arg value="a" />
+			<arg value="-tgzip" />
+			<arg value="${release_package}" />
+			<arg value="${tar}" />
+		</exec>
+		
+		<!-- on Mac and Linux platforms, this is just one step -->
+		<exec executable="tar" dir="${work_dir}" osfamily="unix">
+			<arg value="czf" />
+			<arg value="${release_package}" />
+			<arg value="WARM" />
+		</exec>
+		
+		<!-- delete the working directory-->
+		<delete dir="${work_dir}" />
+	</target>
+	
+	<target name="copyLegal" unless="noLegal">
+		<copy todir="${work_dir}/ILCDValidationTool" >
+			<fileset dir="${basedir}/legal"/>
+		</copy>
+	</target>
+	
+	<target name="copyXulRunner">
+		<!-- un-tar the XulRunner and rename the folder to xulrunner -->
+		<exec executable="${basedir}/7zip/7za.exe" osfamily="windows">
+			<arg value="x" />
+			<arg value="${basedir}/${xulrunner_path}" />
+			<arg value="-o${work_dir}/ILCDValidationTool" />
+		</exec>
+		<exec executable="tar" dir="${work_dir}/ILCDValidationTool" osfamily="unix">
+			<arg value="-xf" />
+			<arg value="${basedir}/${xulrunner_path}" />
+		</exec>
+	</target>
+
+</project>
