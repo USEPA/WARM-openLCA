@@ -17,7 +17,11 @@ tr(data-index=index)
 	+scenario-cell('baseline_recycling', 'Base scenario - Tons recycled', !material.disabled.recycling)
 	+scenario-cell('baseline_landfilling', 'Base scenario - Tons landfilled', !material.disabled.landfilling)
 	+scenario-cell('baseline_combustion', 'Base scenario - Tons combusted', !material.disabled.combustion)
-	+scenario-cell('baseline_composting', 'Base scenario - Tons recycled', !material.disabled.composting)
+	+scenario-cell('baseline_composting', 'Base scenario - Tons composted', !material.disabled.composting)
+	if material.note_digested
+		+scenario-cell('baseline_anaerobic_digestion', material.note_digested, !material.disabled.digested)
+	else
+		+scenario-cell('baseline_anaerobic_digestion', 'Base scenario - Tons anaerobically digested', !material.disabled.digested)
 	td.invisible
 	td#baseline_total 0
 	td.invisible
@@ -26,3 +30,7 @@ tr(data-index=index)
 	+scenario-cell('alternative_landfilling', 'Alternative scenario - Tons landfilled', !material.disabled.landfilling)
 	+scenario-cell('alternative_combustion', 'Alternative scenario - Tons combusted', !material.disabled.combustion)
 	+scenario-cell('alternative_composting', 'Alternative scenario - Tons composted', !material.disabled.composting)
+	if material.note_digested
+		+scenario-cell('alternative_anaerobic_digestion', material.note_digested, !material.disabled.digested)
+	else
+		+scenario-cell('alternative_anaerobic_digestion', 'Alternative scenario - Tons anaerobically digested', !material.disabled.digested)	

@@ -1,0 +1,12 @@
+include ../mixins/analysis-report/contents/analysis-report-jobs.jade
+include ../mixins/head.jade
+include ../mixins/scripts.jade
+
+<!DOCTYPE html>
+html(lang='en')
+	+head 
+	body(data-type='Labor Hours' data-unit='labor-hours')
+		+analysis-report-jobs
+		+scripts
+		script(src='js/templates.js')
+		script(src='js/analysis-report.js')

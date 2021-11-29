@@ -1,0 +1,12 @@
+include ../mixins/summary-report/contents/summary-report-wages.jade
+include ../mixins/head.jade
+include ../mixins/scripts.jade
+
+<!DOCTYPE html>
+html(lang='en')
+	+head 
+	body
+		+summary-report-wages
+		+scripts
+		script(src='js/templates.js')
+		script(src='js/summary-report.js')

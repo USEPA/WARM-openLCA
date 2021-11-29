@@ -1,0 +1,63 @@
+include per-ton-result-table.jade
+include analysis-result-table.jade
+include increment-table.jade
+
+mixin tabbing-economics(type, unit)
+	ul.nav.nav-tabs.analysis-tabs
+		li.active: a(href='#per-ton-result-tab' aria-controls='per-ton-result-tab' data-toggle='tab') 
+			if type === 'ENERGY' 
+				| Energy Factors
+			else if type === 'Labor Hours'
+				| Employment Factors
+			else if type === 'Wages'
+				| Wage Factors
+			else if type === 'Taxes'
+				| Tax Factors
+			else
+				| Emission Factors
+		li: a(href='#baseline-result-tab' aria-controls='baseline-result-tab' data-toggle='tab') 
+			if type === 'Labor Hours'
+				| Employment from Baseline
+			else if type === 'Wages'
+				| Wages from Baseline
+			else if type === 'Taxes'
+				| Taxes from Baseline
+			else
+				| Emissions from Baseline
+		li: a(href='#alternative-result-tab' aria-controls='alternative-result-tab' data-toggle='tab') 
+			if type === 'Labor Hours'
+				| Employment from Alternative
+			else if type === 'Wages'
+				| Wages from Alternative
+			else if type === 'Taxes'
+				| Taxes from Alternative
+			else
+				| Emissions from Alternative
+		li: a(href='#incremental-result-tab' aria-controls='incremental-result-tab' data-toggle='tab') 
+			if type === 'Labor Hours'
+				| Incremental Employment from Alternative
+			else if type === 'Wages'
+				| Incremental Wages from Alternative
+			else if type === 'Taxes'
+				| Incremental Taxes from Alternative
+			else
+				| Incremental Emissions from Alternative
+	.tab-content
+		#per-ton-result-tab.tab-pane.active
+			+per-ton-result-table(type, unit)
+		#baseline-result-tab.tab-pane
+			+analysis-result-table-baseline(type, unit, false)
+		#alternative-result-tab.tab-pane
+			+analysis-result-table-alternative(type, unit, true)
+		#incremental-result-tab.tab-pane
+			+increment-table(type, unit)
+	small
+		p
+			i Note: a negative value (i.e., a vaue in parentheses) indicates an economic impact reduction; a positive value indicates an economic impact increase.
+		p 
+			| a) For explanation of methodology, see the EPA WARM Documentation: 
+			a.external(href="https://www.epa.gov/warm/documentation-chapters-greenhouse-gas-emission-and-energy-factors-used-waste-reduction-model") Documentation Chapters for Greenhouse Gas Emission and Energy Factors Used in the Waste Reduction Model (WARM)
+			| - available on the internet at https://www.epa.gov/warm/documentation-chapters-greenhouse-gas-emission-and-energy-factors-used-waste-reduction-model
+		p b) Economic impact estimates provided by this model are intended to support voluntary waste planning initiatives.
+		p c) Economic impacts from source reduction are not modeled in this version of WARM.
+		p d) EPA acknowledges that composting and anaerobic digestion economic impacts are undervalued in WARM factors because they are not inclusive of life-cycle impacts. See EPA WARM Documentation for more information.

@@ -7,5 +7,6 @@ mixin info-box(type, unit, unitShort, unitLong)
 				span: strong#total-alternative 0
 			p Incremental #{type} (#{unit}): 
 				span: strong#total-change 0
-			hr
-			p: small: strong #{unitShort} = #{unitLong}							
+			if unitLong
+				hr
+				p: small: strong #{unitShort} = #{unitLong}							

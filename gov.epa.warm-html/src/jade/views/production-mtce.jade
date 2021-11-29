@@ -1,0 +1,15 @@
+include ../mixins/production-report/contents/production-mtce.jade
+include ../mixins/head.jade
+include ../mixins/scripts.jade
+
+<!DOCTYPE html>
+html(lang='en')
+	+head 
+	body(data-type='GHG Emissions' data-unit='MTCE')
+		+production-mtce
+		
+		#exception
+		
+		+scripts
+		script(src='js/templates.js')
+		script(src='js/production-report.js')

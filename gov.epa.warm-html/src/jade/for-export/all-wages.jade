@@ -1,0 +1,17 @@
+include ../mixins/summary-report/contents/summary-report-wages.jade
+include ../mixins/analysis-report/contents/analysis-report-wages.jade
+include ../mixins/charts/contents/chart-page.jade
+include ../mixins/for-export/styles.jade
+include ../mixins/for-export/scripts.jade
+
+<!DOCTYPE html>
+html(lang='en')
+	body(data-type='Wages' data-unit='$')
+		+styles
+		.page-container.summary
+			+summary-report-wages(true)
+		.page-container.analysis.hidden
+			+analysis-report-wages(true)
+		.page-container.charts.hidden
+			+chart-page(true, 'Wages')
+		+scripts

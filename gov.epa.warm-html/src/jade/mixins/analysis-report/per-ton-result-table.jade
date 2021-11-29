@@ -2,10 +2,38 @@ mixin per-ton-result-table(type, unit)
 	table.table.table-condensed.warm-table.per-ton-result-table
 		thead
 			tr.second-level-header.with-borders
-				th Material
-				th: +multiline-string([type, 'per Ton of Material', 'Source Reduced (' + unit + ')'])
-				th: +multiline-string([type, 'per Ton of Material', 'Recycled (' + unit + ')'])
-				th: +multiline-string([type, 'per Ton of Material', 'Landfilled (' + unit + ')'])
-				th: +multiline-string([type, 'per Ton of Material', 'Combusted (' + unit + ')'])
-				th: +multiline-string([type, 'per Ton of Material', 'Composted (' + unit + ')'])
+				case type
+					when 'Labor Hours'
+						th Material
+						th: +multiline-string([type, 'per Ton of Material', 'Source Reduced'])
+						th: +multiline-string([type, 'per Ton of Material', 'Recycled'])
+						th: +multiline-string([type, 'per Ton of Material', 'Landfilled'])
+						th: +multiline-string([type, 'per Ton of Material', 'Combusted'])
+						th: +multiline-string([type, 'per Ton of Material', 'Composted'])
+						th: +multiline-string([type, 'per Ton of Material', 'Anaerobically Digested'])
+					when 'Wages'
+						th Material
+						th: +multiline-string([type, 'per Ton of Material', 'Source Reduced (' + unit + ')'])
+						th: +multiline-string([type, 'per Ton of Material', 'Recycled (' + unit + ')'])
+						th: +multiline-string([type, 'per Ton of Material', 'Landfilled (' + unit + ')'])
+						th: +multiline-string([type, 'per Ton of Material', 'Combusted (' + unit + ')'])
+						th: +multiline-string([type, 'per Ton of Material', 'Composted (' + unit + ')'])
+						th: +multiline-string([type, 'per Ton of Material', 'Anaerobically Digested (' + unit + ')'])
+					when 'Taxes'
+						th Material
+						th: +multiline-string([type, 'per Ton of Material', 'Source Reduced (' + unit + ')'])
+						th: +multiline-string([type, 'per Ton of Material', 'Recycled (' + unit + ')'])
+						th: +multiline-string([type, 'per Ton of Material', 'Landfilled (' + unit + ')'])
+						th: +multiline-string([type, 'per Ton of Material', 'Combusted (' + unit + ')'])
+						th: +multiline-string([type, 'per Ton of Material', 'Composted (' + unit + ')'])
+						th: +multiline-string([type, 'per Ton of Material', 'Anaerobically Digested (' + unit + ')'])
+					default
+						th Material
+						th: +multiline-string([type, 'per Ton of Material', 'Produced (' + unit + ')'])
+						th: +multiline-string([type, 'per Ton of Material', 'Source Reduced (' + unit + ')'])
+						th: +multiline-string([type, 'per Ton of Material', 'Recycled (' + unit + ')'])
+						th: +multiline-string([type, 'per Ton of Material', 'Landfilled (' + unit + ')'])
+						th: +multiline-string([type, 'per Ton of Material', 'Combusted (' + unit + ')'])
+						th: +multiline-string([type, 'per Ton of Material', 'Composted (' + unit + ')'])
+						th: +multiline-string([type, 'per Ton of Material', 'Anaerobically Digested (' + unit + ')'])
 		tbody

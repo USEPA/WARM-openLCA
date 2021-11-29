@@ -11,6 +11,7 @@ initialize = (data) ->
 	updateTransportStatus inputs['transport_distance']?['value']
 	updateLandfillStatus inputs['landfill_type']?['value']
 	updateStateStatus inputs['state']?['value']
+	updateAnaerobicDigestionStatus inputs
 	initListeners()
 	recordInputs()
 
@@ -47,3 +48,22 @@ updateStateStatus = (selection = 'National Average') ->
 	$('#location_display').html region
 	$('#location').val locationIds[region]
 	$('#location').trigger 'change'
+	
+updateAnaerobicDigestionStatus = (inputs) ->
+	#alert "updateAnaerobicDigestionStatus("+inputs+")"
+	dry_only = false
+	materials = Object.keys inputs['materials']
+	for index in materials
+		if inputs['materials'][index]['dry_only_digestion']
+			baseline = Number(inputs['materials'][index]['baseline_anaerobic_digestion'])
+			alternative = Number(inputs['materials'][index]['alternative_anaerobic_digestion'])
+			#alert inputs['materials'][index]['name']+": "+inputs['materials'][index]['baseline_anaerobic_digestion']+"; "+inputs['materials'][index]['alternative_anaerobic_digestion']
+			if !isNaN(baseline) and !isNaN(alternative) and ((baseline != 0) or (alternative != 0))
+				#alert (Number(inputs['materials'][index]['baseline_anaerobic_digestion']) != 0) + "; " + (Number(inputs['materials'][index]['alternative_anaerobic_digestion']) != 0)
+				dry_only = true
+	if dry_only
+		#alert "Dry only"
+		$('#anaerobic_digestion_wet').prop 'disabled', true
+		$('#anaerobic_digestion_wet').prop 'checked', false
+		$('#anaerobic_digestion_dry').prop 'checked', true
+		

@@ -25,6 +25,7 @@ fillAnalysisTable = (materials) ->
 			type: type
 			unit: unit
 			formatNumber: formatNumber
+		# alert "baseline "+nextMaterial.name
 		$('.analysis-result-table[data-alternative=false] tbody').prepend jade.templates['analysis-result-row'] 
 			material: nextMaterial
 			type: type

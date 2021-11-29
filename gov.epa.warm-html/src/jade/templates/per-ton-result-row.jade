@@ -10,13 +10,18 @@ mixin per-ton-cell-with-note(title, enabled, value)
 
 tr
 	td #{material.name}
+	- var emissionsPerTonTitle = type + ' per ton of material produced (' + unit + ')';
 	- var sourceReductionTitle = type + ' per Ton of Material Source Reduced (' + unit + ')';
 	- var recyclingTitle = type + ' per Ton of Material Recycled (' + unit + ')';
 	- var landfillingTitle = type + ' per Ton of Material Landfilled (' + unit + ')';
 	- var combustionTitle = type + ' per Ton of Material Combusted (' + unit + ')';
 	- var compostingTitle = type + ' per Ton of Material Composted (' + unit + ')';
-	+per-ton-cell-with-note(sourceReductionTitle, !material.disabled.source_reduction, material['per_ton_source_reduction_result'])
+	- var anaerobicTitle = type + ' per Ton of Material Anaerobically Digested (' + unit + ')';
+	if type !== 'Labor Hours' && type !== 'Wages' && type !== 'Taxes'
+		+per-ton-cell-with-note(emissionsPerTonTitle, unit !== "$" && unit !== "labor-hours" && !material.disabled.source_reduction, -1.0*material['per_ton_source_reduction_result'])
+	+per-ton-cell-with-note(sourceReductionTitle, unit !== "$" && unit !== "labor-hours" && !material.disabled.source_reduction, material['per_ton_source_reduction_result'])
 	+per-ton-cell-with-note(recyclingTitle, !material.disabled.recycling, material['per_ton_recycling_result'])
 	+per-ton-cell-with-note(landfillingTitle, !material.disabled.landfilling, material['per_ton_landfilling_result'])
 	+per-ton-cell-with-note(combustionTitle, !material.disabled.combustion, material['per_ton_combustion_result'])
 	+per-ton-cell-with-note(compostingTitle, !material.disabled.composting, material['per_ton_composting_result'])
+	+per-ton-cell-with-note(anaerobicTitle, !material.disabled.digested, material['per_ton_anaerobic_digestion_result'])

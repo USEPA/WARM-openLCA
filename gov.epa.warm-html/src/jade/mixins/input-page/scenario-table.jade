@@ -7,11 +7,11 @@ mixin scenario-table()
 				th.invisible 
 				th.invisible
 				th.invisible 
-				th.headline(colspan=4) Baseline Scenario
+				th.headline(colspan=5) Baseline Scenario
 				th.invisible
 				th.invisible
 				th.invisible
-				th.headline(colspan=5) Alternative Scenario
+				th.headline(colspan=6) Alternative Scenario
 			tr.second-level-header
 				th.invisible 
 				th.material Material
@@ -20,6 +20,7 @@ mixin scenario-table()
 				th: +multiline-string(['Tons', 'Landfilled'])
 				th: +multiline-string(['Tons', 'Combusted'])
 				th: +multiline-string(['Tons', 'Composted'])
+				th: +multiline-string(['Tons', 'Anaerobically', 'Digested'])
 				th.invisible
 				th: +multiline-string(['Tons', 'Generated'])
 				th.invisible
@@ -28,4 +29,6 @@ mixin scenario-table()
 				th: +multiline-string(['Tons', 'Landfilled'])
 				th: +multiline-string(['Tons', 'Combusted'])
 				th: +multiline-string(['Tons', 'Composted'])
+				th: +multiline-string(['Tons', 'Anaerobically', 'Digested'])
+
 		tbody

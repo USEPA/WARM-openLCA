@@ -1,0 +1,68 @@
+include ../multiline-string.jade
+include equivalents-box.jade
+
+mixin result-table-economics(type, unit, notes, equivalents)
+	table.table.table-condensed.warm-table.result-table
+		thead
+			tr.top-level-header
+				th.invisible
+				th.invisible 
+				th.headline(colspan=6) Baseline Scenario
+				th.invisible
+				th.headline(colspan=7) Alternative Scenario
+				th.invisible
+				th.invisible
+			tr.second-level-header
+				th.material Material
+				th.invisible
+				th: +multiline-string(['Tons', 'Recycled'])
+				th: +multiline-string(['Tons', 'Landfilled'])
+				th: +multiline-string(['Tons', 'Combusted'])
+				th: +multiline-string(['Tons', 'Composted'])
+				th: +multiline-string(['Tons', 'Anaerobically Digested'])
+				if type === 'Taxes' || type === 'Wages'
+					th: +multiline-string(['Total', type, unit])
+				else
+					th: +multiline-string(['Total', unit])
+				th.invisible
+				th: +multiline-string(['Tons', 'Source', 'Reduced'])
+				th: +multiline-string(['Tons', 'Recycled'])
+				th: +multiline-string(['Tons', 'Landfilled'])
+				th: +multiline-string(['Tons', 'Combusted'])
+				th: +multiline-string(['Tons', 'Composted'])
+				th: +multiline-string(['Tons', 'Anaerobically Digested'])
+				if type === 'Taxes' || type === 'Wages'
+					th: +multiline-string(['Total', type, unit])
+				else
+					th: +multiline-string(['Total', unit])
+				th.invisible
+				if type === 'Wages' || type === 'Taxes'
+					th: +multiline-string(['Change', '(Alt-Base)', type + '(' + unit + ')'])
+				else
+					th: +multiline-string(['Change', '(Alt-Base)', unit])
+		tbody
+			tr.total
+				- for (var i = 0; i < 7; i++) {
+					td.invisible
+				- }
+				td#total-baseline
+				- for (var i = 0; i < 7; i++) {
+					td.invisible
+				- }
+				td#total-alternative
+				td.invisible
+				td.invisible
+			tr.spacing
+				- for (var i = 0; i < 16; i++) {
+					td.invisible
+				- }
+			tr.footer
+				td.summary-notes(colspan=7)
+					small
+						if notes
+							each note in notes
+								p!=note
+				td.invisible
+				td.equivalents-box(colspan=6)
+					+equivalents-box(type, unit, equivalents)
+				td.invisible(colspan=2)

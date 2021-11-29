@@ -1,19 +1,83 @@
-mixin analysis-result-table(type, unit, isAlternative)
+mixin analysis-result-table-baseline(type, unit, isAlternative)
 	table.table.table-condensed.warm-table.analysis-result-table(data-alternative=isAlternative?'true':'false')
 		thead
 			tr.second-level-header.with-borders
-				th Material
-				th: +multiline-string(['Baseline', 'Generation', 'of Material', '(Tons)'])
-				if isAlternative
-					th: +multiline-string(['Projected', 'Source Reduction', '(Tons)'])
-					th: +multiline-string(['Annual ' + type, 'from Source Reduction', '(' + unit + ')'])
-				th: +multiline-string(['Projected', 'Recycling', '(Tons)'])
-				th: +multiline-string(['Annual ' + type, 'from Recycling', '(' + unit + ')'])
-				th: +multiline-string(['Projected', 'Landfilling', '(Tons)'])
-				th: +multiline-string(['Annual ' + type, 'from Landfilling', '(' + unit + ')'])
-				th: +multiline-string(['Projected', 'Combustion', '(Tons)'])
-				th: +multiline-string(['Annual ' + type, 'from Combustion', '(' + unit + ')'])
-				th: +multiline-string(['Projected', 'Composting', '(Tons)'])
-				th: +multiline-string(['Annual ' + type, 'from Composting', '(' + unit + ')'])
-				th: +multiline-string(['Total Annual ', type, '(' + unit + ')'])
+				case type
+					when 'Labor Hours'
+						th Material
+						th: +multiline-string(['Baseline', 'Generation', 'of Material', '(Tons)'])
+						if isAlternative
+							th: +multiline-string(['Baseline', 'Source Reduction', '(Tons)'])
+							th: +multiline-string([type, 'from Source Reduction'])
+						th: +multiline-string(['Baseline', 'Recycling', '(Tons)'])
+						th: +multiline-string([type, 'from Recycling'])
+						th: +multiline-string(['Baseline', 'Landfilling', '(Tons)'])
+						th: +multiline-string([type, 'from Landfilling'])
+						th: +multiline-string(['Baseline', 'Combustion', '(Tons)'])
+						th: +multiline-string([type, 'from Combustion'])
+						th: +multiline-string(['Baseline', 'Composting', '(Tons)'])
+						th: +multiline-string([type, 'from Composting'])
+						th: +multiline-string(['Baseline', 'Anaerobic Digestion', '(Tons)'])
+						th: +multiline-string([type, 'from Anaerobic Digestion'])
+						th: +multiline-string(['Total ', type])
+					when default
+						th Material
+						th: +multiline-string(['Baseline', 'Generation', 'of Material', '(Tons)'])
+						if isAlternative
+							th: +multiline-string(['Baseline', 'Source Reduction', '(Tons)'])
+							th: +multiline-string([type, 'from Source Reduction', '(' + unit + ')'])
+						th: +multiline-string(['Baseline', 'Recycling', '(Tons)'])
+						th: +multiline-string([type, 'from Recycling', '(' + unit + ')'])
+						th: +multiline-string(['Baseline', 'Landfilling', '(Tons)'])
+						th: +multiline-string([type, 'from Landfilling', '(' + unit + ')'])
+						th: +multiline-string(['Baseline', 'Combustion', '(Tons)'])
+						th: +multiline-string([type, 'from Combustion', '(' + unit + ')'])
+						th: +multiline-string(['Baseline', 'Composting', '(Tons)'])
+						th: +multiline-string([type, 'from Composting', '(' + unit + ')'])
+						th: +multiline-string(['Baseline', 'Anaerobic Digestion', '(Tons)'])
+						th: +multiline-string([type, 'from Anaerobic Digestion', '(' + unit + ')'])
+						th: +multiline-string(['Total ', type, '(' + unit + ')'])
+					
+		tbody
+		
+mixin analysis-result-table-alternative(type, unit, isAlternative)
+	table.table.table-condensed.warm-table.analysis-result-table(data-alternative=isAlternative?'true':'false')
+		thead
+			tr.second-level-header.with-borders
+				case type
+					when 'Labor Hours'
+						th Material
+						th: +multiline-string(['Baseline', 'Generation', 'of Material', '(Tons)'])
+						if isAlternative
+							th: +multiline-string(['Alternative', 'Source Reduction', '(Tons)'])
+							th: +multiline-string([type, 'from Source Reduction'])
+						th: +multiline-string(['Alternative', 'Recycling', '(Tons)'])
+						th: +multiline-string([type, 'from Recycling'])
+						th: +multiline-string(['Alternative', 'Landfilling', '(Tons)'])
+						th: +multiline-string([type, 'from Landfilling'])
+						th: +multiline-string(['Alternative', 'Combustion', '(Tons)'])
+						th: +multiline-string([type, 'from Combustion'])
+						th: +multiline-string(['Alternative', 'Composting', '(Tons)'])
+						th: +multiline-string([type, 'from Composting'])
+						th: +multiline-string(['Alternative', 'Anaerobic Digestion', '(Tons)'])
+						th: +multiline-string([type, 'from Anaerobic Digestion'])
+						th: +multiline-string(['Total ', type])
+					when default
+						th Material
+						th: +multiline-string(['Baseline', 'Generation', 'of Material', '(Tons)'])
+						if isAlternative
+							th: +multiline-string(['Alternative', 'Source Reduction', '(Tons)'])
+							th: +multiline-string([type, 'from Source Reduction', '(' + unit + ')'])
+						th: +multiline-string(['Alternative', 'Recycling', '(Tons)'])
+						th: +multiline-string([type, 'from Recycling', '(' + unit + ')'])
+						th: +multiline-string(['Alternative', 'Landfilling', '(Tons)'])
+						th: +multiline-string([type, 'from Landfilling', '(' + unit + ')'])
+						th: +multiline-string(['Alternative', 'Combustion', '(Tons)'])
+						th: +multiline-string([type, 'from Combustion', '(' + unit + ')'])
+						th: +multiline-string(['Alternative', 'Composting', '(Tons)'])
+						th: +multiline-string([type, 'from Composting', '(' + unit + ')'])
+						th: +multiline-string(['Alternative', 'Anaerobic Digestion', '(Tons)'])
+						th: +multiline-string([type, 'from Anaerobic Digestion', '(' + unit + ')'])
+						th: +multiline-string(['Total ', type, '(' + unit + ')'])
+					
 		tbody

@@ -1,0 +1,7 @@
+include ../all.jade
+
+mixin analysis-report-wages(forExport)
+	+header('Analysis Report (Wages)', 'WAGES', forExport)
+	.content 
+		+info-box('Wages', '$', '', '')
+		+tabbing-economics('Wages', '$')

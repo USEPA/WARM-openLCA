@@ -6,12 +6,22 @@ $blue3 = #333385
 $blue4 = #4D4D94
 $blue5 = #5555A0
 $blue6 = #6B6BAB
+$blue7 = #7A7AB6
 $red1 = #FF3333
 $red2 = #FF4D4D
 $red3 = #FF6666
 $red4 = #FF8080
 $red5 = #FFA0A0
 $red6 = #FFC0C0
+$red7 = #FFD8D8
+
+$bar1 = #808080
+$bar2 = #c00000
+$bar3 = #008000
+$bar4 = #000040
+$bar5 = #800080
+$bar6 = #c08000
+
 		
 .ct-label
 	font-size .9em !important
@@ -34,21 +44,53 @@ $red6 = #FFC0C0
 
 svg
 	overflow overlay !important 
-
-.ct-chart
 	
-	&.warm-chart
-		width 80%
-		height 80%
-
-	.tooltip
-		color rgba(64, 64, 64, 1)
-		background $lightBackgroundColorTransparent 
-		border-radius 5px
-		border 1px solid $borderColorTransparent
-		padding 10px
+.wrapper
+	//display inline-block
+	position relative
+	
+.chart-container
+	width 80%
+	height 80%
+	
+	.ct-xaxis
+		text-align: center
+		
+	.yaxis-label,
+	.yaxis-label-alternate
 		position absolute
-		opacity 1
+		bottom 0
+		left 0
+		width 80%
+		margin-left 30px
+		margin-bottom 60px
+		display inline-block
+		-webkit-transform rotate(270deg)
+		-moz-transform rotate(270deg)
+		-ms-transform rotate(270deg)
+		-o-transform rotate(270deg)
+		transform rotate(270deg)
+		-webkit-transform-origin 0 0
+		-moz-transform-origin 0 0
+		-ms-transform-origin 0 0
+		-o-transform-origin 0 0
+		transform-origin 0 0
+	  
+	.ct-chart
+		display inline-block
+		
+		&.warm-chart
+			//width 80%
+			//height 80%
+	
+		.tooltip
+			color rgba(64, 64, 64, 1)
+			background $lightBackgroundColorTransparent 
+			border-radius 5px
+			border 1px solid $borderColorTransparent
+			padding 10px
+			position absolute
+			opacity 1
 		
 .one-bar-per-series
 
@@ -427,3 +469,245 @@ svg
 		
 			&.ct-legend-entry
 				background-color $red6 
+
+.seven-bar-per-series
+
+	.ct-chart, .ct-legend
+
+		.ct-bar		
+			stroke-width 12px
+
+		.ct-series-a 
+			
+			.ct-bar 
+				stroke $blue1 !important
+
+			&.ct-legend-entry
+				background-color $blue1 
+
+		.ct-series-b 
+			
+			.ct-bar 
+				stroke $blue2 !important
+
+			&.ct-legend-entry
+				background-color $blue2 
+
+		.ct-series-c 
+			
+			.ct-bar 
+				stroke $blue3 !important
+			
+			&.ct-legend-entry
+				background-color $blue3 
+
+		.ct-series-d 
+			
+			.ct-bar 
+				stroke $blue4 !important 
+
+			&.ct-legend-entry
+				background-color $blue4 
+
+		.ct-series-e 
+			
+			.ct-bar 
+				stroke $blue5 !important 
+			
+			&.ct-legend-entry
+				background-color $blue5 
+
+		.ct-series-f 
+			
+			.ct-bar 
+				stroke $blue6 !important 
+			
+			&.ct-legend-entry
+				background-color $blue6 
+
+		.ct-series-g 
+			
+			.ct-bar 
+				stroke $blue7 !important
+					
+			&.ct-legend-entry
+				background-color $blue7 
+
+		.ct-series-h 
+			
+			.ct-bar 
+				stroke $red1 !important
+		
+			&.ct-legend-entry
+				background-color $red1 
+
+		.ct-series-i 
+			
+			.ct-bar 
+				stroke $red2 !important
+					
+			&.ct-legend-entry
+				background-color $red2 
+
+		.ct-series-j 
+			
+			.ct-bar		
+				stroke $red3 !important 
+		
+			&.ct-legend-entry
+				background-color $red3 
+
+		.ct-series-k 
+			
+			.ct-bar		
+				stroke $red4 !important 
+		
+			&.ct-legend-entry
+				background-color $red4 
+
+		.ct-series-l 
+			
+			.ct-bar		
+				stroke $red5 !important 
+		
+			&.ct-legend-entry
+				background-color $red5 
+
+		.ct-series-m 
+			
+			.ct-bar		
+				stroke $red6 !important 
+		
+			&.ct-legend-entry
+				background-color $red6 
+
+		.ct-series-n 
+			
+			.ct-bar		
+				stroke $red7 !important 
+		
+			&.ct-legend-entry
+				background-color $red7 
+
+.six-bar-per-series-productionEOL
+
+	.ct-label
+		font-size .9em !important
+		padding 0 5px !important
+
+	text.ct-horizontal
+		text-align left !important
+		white-space pre-line !important
+		writing-mode sideways-lr !important
+		
+	.ct-chart, .ct-legend
+
+		.ct-bar		
+			stroke-width 60px
+
+		.ct-series-a 
+			
+			.ct-bar 
+				stroke $bar1 !important
+
+			&.ct-legend-entry
+				background-color $bar1 
+
+		.ct-series-b 
+			
+			.ct-bar 
+				stroke $bar2 !important
+
+			&.ct-legend-entry
+				background-color $bar2 
+
+		.ct-series-c 
+			
+			.ct-bar 
+				stroke $bar3 !important
+			
+			&.ct-legend-entry
+				background-color $bar3 
+
+		.ct-series-d 
+			
+			.ct-bar 
+				stroke $bar4 !important 
+
+			&.ct-legend-entry
+				background-color $bar4 
+
+		.ct-series-e 
+			
+			.ct-bar 
+				stroke $bar5 !important 
+			
+			&.ct-legend-entry
+				background-color $bar5 
+
+		.ct-series-f 
+			
+			.ct-bar 
+				stroke $bar6 !important 
+			
+			&.ct-legend-entry
+				background-color $bar6 
+
+		.ct-series-g 
+			
+			.ct-bar 
+				stroke $red1 !important
+					
+			&.ct-legend-entry
+				background-color $red1 
+
+		.ct-series-h 
+			
+			.ct-bar 
+				stroke $red2 !important
+		
+			&.ct-legend-entry
+				background-color $red2 
+
+		.ct-series-i 
+			
+			.ct-bar 
+				stroke $red3 !important
+					
+			&.ct-legend-entry
+				background-color $red3 
+
+		.ct-series-j 
+			
+			.ct-bar		
+				stroke $red4 !important 
+		
+			&.ct-legend-entry
+				background-color $red4 
+
+		.ct-series-k 
+			
+			.ct-bar		
+				stroke $red5 !important 
+		
+			&.ct-legend-entry
+				background-color $red5 
+
+		.ct-series-l 
+			
+			.ct-bar		
+				stroke $red6 !important 
+		
+			&.ct-legend-entry
+				background-color $red6 
+
+
+.ct-chart-bar
+
+	.ct-label.ct-horizontal.ct-end
+		display block
+		white-space normal
+		max-height 10.5em
+		
+		
+		 				

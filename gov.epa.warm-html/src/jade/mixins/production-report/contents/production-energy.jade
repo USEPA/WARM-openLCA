@@ -1,0 +1,8 @@
+include ../all.jade
+
+mixin production-energy(forExport) 
+	+header('Production and End-of-Life Impacts Report (Energy)', 'ENERGY', forExport)
+	.content 
+		+summary-box('Energy')
+		include ../template-data/summary-energy.jade
+		+result-table('Energy Use', 'million BTU', notes, equivalents)

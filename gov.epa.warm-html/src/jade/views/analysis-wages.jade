@@ -1,0 +1,12 @@
+include ../mixins/analysis-report/contents/analysis-report-wages.jade
+include ../mixins/head.jade
+include ../mixins/scripts.jade
+
+<!DOCTYPE html>
+html(lang='en')
+	+head 
+	body(data-type='Wages' data-unit='$')
+		+analysis-report-wages
+		+scripts
+		script(src='js/templates.js')
+		script(src='js/analysis-report.js')

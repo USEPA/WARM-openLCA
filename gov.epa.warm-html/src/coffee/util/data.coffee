@@ -1,6 +1,7 @@
 inputs = {} 
 
 setInputs = (data = '{}', typeForAll) ->
+	# alert("setInputs("+typeForAll+"): "+data)
 	inputs = JSON.parse data
 	keys = getOrderedKeys inputs
 	for id in keys

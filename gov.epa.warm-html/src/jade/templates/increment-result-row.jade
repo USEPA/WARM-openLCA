@@ -19,10 +19,12 @@ tr
 	- var combustionInput = 'Incremental Combustion (Tons)';
 	- var combustionResult = 'Incremental ' + type + ' from Combustion (' + unit + ')'; 
 	- var compostingInput = 'Incremental Composting (Tons)';
-	- var compostingResult = 'Incremental ' + type + ' from Composting (' + unit + ')'; 
+	- var compostingResult = 'Incremental ' + type + ' from Composting (' + unit + ')';
+	- var digestedInput = 'Incremental Anaerobic Digestion (Tons)';
+	- var digestedResult = 'Incremental ' + type + ' from Anaerobic Digestion (' + unit + ')'; 
 	- var totalResult = 'Total Incremental ' + type + ' (' + unit + ')'; 
 	+incremental-cell-with-note(sourceReductionInput, !material.disabled.source_reduction, material.source_reduction_input_change)
-	+incremental-cell-with-note(sourceReductionResult, !material.disabled.source_reduction, material.source_reduction_output_change)
+	+incremental-cell-with-note(sourceReductionResult, unit !== "labor-hours" && unit !== "$" && !material.disabled.source_reduction, material.source_reduction_output_change)
 	+incremental-cell-with-note(recyclingInput, !material.disabled.recycling, material.recycling_input_change)
 	+incremental-cell-with-note(recyclingResult, !material.disabled.recycling, material.recycling_output_change)
 	+incremental-cell-with-note(landfillingInput, !material.disabled.landfilling, material.landfilling_input_change)
@@ -31,4 +33,6 @@ tr
 	+incremental-cell-with-note(combustionResult, !material.disabled.combustion, material.combustion_output_change)
 	+incremental-cell-with-note(compostingInput, !material.disabled.composting, material.composting_input_change)
 	+incremental-cell-with-note(compostingResult, !material.disabled.composting, material.composting_output_change)
+	+incremental-cell-with-note(digestedInput, !material.disabled.digested, material.anaerobic_digestion_input_change)
+	+incremental-cell-with-note(digestedResult, !material.disabled.digested, material.anaerobic_digestion_output_change)
 	+incremental-cell-with-note(totalResult, true, material.output_change)

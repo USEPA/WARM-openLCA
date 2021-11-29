@@ -100,3 +100,5 @@ gulp.task 'zip', () ->
 	gulp.src('./target/**')
 		.pipe(zip 'html.zip')
 		.pipe(gulp.dest('.'))
+	gulp.src('./target/**')
+		.pipe(gulp.dest('C:/Users/Nutzer/runtime-WARM.product/html/gov.epa.warm'))

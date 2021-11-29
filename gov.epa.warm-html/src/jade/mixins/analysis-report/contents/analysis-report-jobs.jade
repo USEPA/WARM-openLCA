@@ -1,0 +1,8 @@
+include ../all.jade
+
+mixin analysis-report-jobs(forExport)
+	+header('Analysis Report (Labor Hours)', 'JOBS', forExport)
+	.content 
+		+info-box('Employment', 'Labor Hours', '', '')
+		+tabbing-economics('Labor Hours', '')
+		

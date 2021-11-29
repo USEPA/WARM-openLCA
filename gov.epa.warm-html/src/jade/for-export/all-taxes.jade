@@ -1,0 +1,17 @@
+include ../mixins/summary-report/contents/summary-report-taxes.jade
+include ../mixins/analysis-report/contents/analysis-report-taxes.jade
+include ../mixins/charts/contents/chart-page.jade
+include ../mixins/for-export/styles.jade
+include ../mixins/for-export/scripts.jade
+
+<!DOCTYPE html>
+html(lang='en')
+	body(data-type='Taxes' data-unit='$')
+		+styles
+		.page-container.summary
+			+summary-report-taxes(true)
+		.page-container.analysis.hidden
+			+analysis-report-taxes(true)
+		.page-container.charts.hidden
+			+chart-page(true, 'Taxes')
+		+scripts

@@ -1,0 +1,8 @@
+include ../all.jade
+
+mixin production-mtco2e(forExport) 
+	+header('Production and End-of-Life Impacts Report (MTCO2e)', 'MTCO2e', forExport)
+	.content 
+		+summary-box('GHG Emissions')
+		include ../template-data/summary-mt.jade
+		+result-table('GHG Emissions', 'MTCO2e', notes, equivalents)

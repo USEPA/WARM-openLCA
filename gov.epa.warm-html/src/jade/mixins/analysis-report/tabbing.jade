@@ -6,22 +6,36 @@ mixin tabbing(type, unit)
 	ul.nav.nav-tabs.analysis-tabs
 		li.active: a(href='#per-ton-result-tab' aria-controls='per-ton-result-tab' data-toggle='tab') 
 			if type === 'ENERGY' 
-				| Energy factors
+				| Energy Factors
+			else if type === 'Labor Hours'
+				| Employment Factors
 			else
-				| Emission factors
-		li: a(href='#baseline-result-tab' aria-controls='baseline-result-tab' data-toggle='tab') Emissions from Baseline
-		li: a(href='#alternative-result-tab' aria-controls='alternative-result-tab' data-toggle='tab') Emissions from Projected Alternative
-		li: a(href='#incremental-result-tab' aria-controls='incremental-result-tab' data-toggle='tab') Incremental Emissions from Projected Alternative
+				| Emission Factors
+		li: a(href='#baseline-result-tab' aria-controls='baseline-result-tab' data-toggle='tab') 
+			if type === 'Labor Hours'
+				| Employment from Baseline
+			else
+				| Emissions from Baseline
+		li: a(href='#alternative-result-tab' aria-controls='alternative-result-tab' data-toggle='tab') 
+			if type === 'Labor Hours'
+				| Employment from Alternative
+			else
+				| Emissions from Alternative
+		li: a(href='#incremental-result-tab' aria-controls='incremental-result-tab' data-toggle='tab') 
+			if type === 'Labor Hours'
+				| Incremental Employment from Alternative
+			else
+				| Incremental Emissions from Alternative
 	.tab-content
 		#per-ton-result-tab.tab-pane.active
 			+per-ton-result-table(type, unit)
 		#baseline-result-tab.tab-pane
-			+analysis-result-table(type, unit, false)
+			+analysis-result-table-baseline(type, unit, false)
 		#alternative-result-tab.tab-pane
-			+analysis-result-table(type, unit, true)
+			+analysis-result-table-alternative(type, unit, true)
 		#incremental-result-tab.tab-pane
 			+increment-table(type, unit)
 	small
-		p a) For explanation of methodology, see the EPA WARM Documentation: 
-			a.external(href='http://epa.gov/epawaste/conserve/tools/warm/SWMGHGreport.html') Solid Waste Management and Greenhouse Gases: A Life-Cycle Assessment of Emissions and Sinks				
+		p a) For explanation of methodology, see the  
+			a.external(href='https://www.epa.gov/warm/documentation-waste-reduction-model-warm') EPA WARM Documentation				
 		p b) Emissions estimates provided by this model are intended to support voluntary GHG measurement and reporting initiatives.						

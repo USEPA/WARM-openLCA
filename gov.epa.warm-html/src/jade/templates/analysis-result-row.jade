@@ -11,22 +11,24 @@ mixin analysis-cell-with-note(title, enabled, value)
 tr
 	td #{material.name}
 	- var baseline = 'Baseline Generation of Material (Tons)';
-	- var projectedSourceReduction = 'Projected Source Reduction (Tons)';
-	- var annualSourceReduction = 'Annual ' + type + ' from Source Reduction (' + unit + ')';
-	- var projectedRecycling = 'Projected Recycling (Tons)';
-	- var annualRecycling = 'Annual ' + type + ' from Recycling (' + unit + ')';
-	- var projectedLandfilling = 'Projected Landfilling (Tons)';
-	- var annualLandfilling = 'Annual ' + type + ' from Landfilling (' + unit + ')';
-	- var projectedCombustion = 'Projected Combustion (Tons)';
-	- var annualCombustion = 'Annual ' + type + ' from Combustion (' + unit + ')';
-	- var projectedComposting = 'Projected Composting (Tons)';
-	- var annualComposting = 'Annual ' + type + ' from Composting (' + unit + ')';
+	- var projectedSourceReduction = 'Baseline Source Reduction (Tons)';
+	- var annualSourceReduction = type + ' from Source Reduction (' + unit + ')';
+	- var projectedRecycling = 'Baseline Recycling (Tons)';
+	- var annualRecycling = type + ' from Recycling (' + unit + ')';
+	- var projectedLandfilling = 'Baseline Landfilling (Tons)';
+	- var annualLandfilling = type + ' from Landfilling (' + unit + ')';
+	- var projectedCombustion = 'Baseline Combustion (Tons)';
+	- var annualCombustion = type + ' from Combustion (' + unit + ')';
+	- var projectedComposting = 'Baseline Composting (Tons)';
+	- var annualComposting = type + ' from Composting (' + unit + ')';
+	- var projectedAnaerobicDigestion = 'Baseline Anaerobic Digestion (Tons)';
+	- var annualAnaerobicDigestion = type + ' from Anaerobic Digestion (' + unit + ')';
 	- var total = 'Total Annual ' + type + ' (' + unit + ')';
 	- var type = isAlternative?'alternative':'baseline';
 	+analysis-cell-with-note(baseline, true, material['baseline'])
 	if isAlternative
 		+analysis-cell-with-note(projectedSourceReduction, !material.disabled.source_reduction, material['alternative_source_reduction'])
-		+analysis-cell-with-note(annualSourceReduction, !material.disabled.source_reduction, material['alternative_source_reduction_result'])
+		+analysis-cell-with-note(annualSourceReduction, unit !== "labor-hours" && unit !== "$" && !material.disabled.source_reduction, material['alternative_source_reduction_result'])
 	+analysis-cell-with-note(projectedRecycling, !material.disabled.recycling, material[type + '_recycling'])
 	+analysis-cell-with-note(annualRecycling, !material.disabled.recycling, material[type + '_recycling_result'])
 	+analysis-cell-with-note(projectedLandfilling, !material.disabled.landfilling, material[type + '_landfilling'])
@@ -35,4 +37,7 @@ tr
 	+analysis-cell-with-note(annualCombustion, !material.disabled.combustion, material[type + '_combustion_result'])
 	+analysis-cell-with-note(projectedComposting, !material.disabled.composting, material[type + '_composting'])
 	+analysis-cell-with-note(annualComposting, !material.disabled.composting, material[type + '_composting_result'])
+	+analysis-cell-with-note(projectedAnaerobicDigestion, !material.disabled.digested, material[type + '_anaerobic_digestion'])
+	+analysis-cell-with-note(annualAnaerobicDigestion, !material.disabled.digested, material[type + '_anaerobic_digestion_result'])
 	+analysis-cell-with-note(total, true, material[type + '_result'])
+	{unit}

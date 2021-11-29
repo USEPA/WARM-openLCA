@@ -1,0 +1,15 @@
+include ../mixins/production-report/contents/production-energy.jade
+include ../mixins/head.jade
+include ../mixins/scripts.jade
+
+<!DOCTYPE html>
+html(lang='en')
+	+head 
+	body(data-type='Energy Savings' data-unit='million BTU')
+		+production-energy
+		
+		#exception
+		
+		+scripts
+		script(src='js/templates.js')
+		script(src='js/production-report.js')

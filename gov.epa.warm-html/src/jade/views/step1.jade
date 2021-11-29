@@ -17,8 +17,7 @@ html(lang='en')
 			p &nbsp;
 			.panel.panel-default 
 				.panel-heading: strong Each input row will be validated to sum up correctly. The tons generated in the baseline scenario must match the tons generated in the alternative scenario.
-				.panel-body A row is valid if the sum of the baseline scenario inputs is equal to the sum of the alternative scenario inputs minus the amount of reduced source. 
-					div!= 'As formula (b = baseline, a = alternative): b<sub>recycled</sub> + b<sub>landfilled</sub> + b<sub>combusted</sub> + b<sub>composted</sub> =  a<sub>recycled</sub> + a<sub>landfilled</sub> + a<sub>combusted</sub> + a<sub>composted</sub> + a<sub>sourceReduced</sub>'
+				.panel-body A row is valid if the sum of tons entered in the Baseline Scenario columns, as shown in the Tons Generated column, is equal to the sum of tons entered in the Alternative Scenario columns. For example, if the Baseline Scenario assumes that 100 tons of aluminum cans are landfilled, this is the Tons Generated value. To generate valid results, all values entered in the Alternative Scenarios columns must add up to 100 tons to equal the Tons Generated value. 
 			+scenario-table
 			small
 				.foot-notes

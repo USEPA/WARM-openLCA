@@ -16,7 +16,7 @@
     "numeral": "~1.5.3",
     "moment": "~2.10.2",
     "big.js": "~3.0.1",
-    "chartist": "~0.9.7"
+    "chartist": "~0.9.8"
   },
   "devDependencies": {}
 }

@@ -1,0 +1,8 @@
+include ../all.jade
+
+mixin summary-report-taxes(forExport) 
+	+header('Summary Report (Taxes)', 'TAXES', forExport)
+	.content 
+		+summary-box-economics('Taxes')
+		include ../template-data/summary-economics.jade
+		+result-table-economics('Taxes', '$', notes, equivalents)

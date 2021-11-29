@@ -1,0 +1,49 @@
+include ../multiline-string.jade
+include equivalents-box.jade
+
+mixin result-table(type, unit, notes, equivalents)
+	table.table.table-condensed.warm-table.result-table
+		thead
+			tr.top-level-header
+				th.invisible
+				th.invisible 
+				th.headline(colspan=7) Baseline Scenario
+				th.invisible
+				th.headline(colspan=7) Alternative Scenario
+				th.invisible
+				th.invisible
+			tr.second-level-header
+				th
+				th.invisible
+				th(rowspan=2): +multiline-string([type, 'from','Production','('+unit+')'])
+				th(colspan=5) End-of Life Impacts #{unit}
+				th(rowspan=2): +multiline-string(['Production','+ End-of-' + 'Life Impact', '('+unit+')'])
+				th.invisible
+				th(rowspan=2): +multiline-string([type, 'from','Production','('+unit+')'])
+				th(colspan=5) End-of-Life Impacts #{unit}
+				th(rowspan=2): +multiline-string(['Production','+ End-of-' + 'Life Impact', '('+unit+')'])
+			tr.second-level-header
+				th.material Material
+				th.invisible
+				th: +multiline-string([type, 'from', 'Recycling'])
+				th: +multiline-string([type, 'from', 'Landfilling'])
+				th: +multiline-string([type, 'from', 'Combustion'])
+				th: +multiline-string([type, 'from', 'Composting'])
+				th: +multiline-string([type, 'from Anaerobic', 'Digestion'])
+				th.invisible
+				th: +multiline-string([type, 'from', 'Recycling'])
+				th: +multiline-string([type, 'from', 'Landfilling'])
+				th: +multiline-string([type, 'from', 'Combustion'])
+				th: +multiline-string([type, 'from', 'Composting'])
+				th: +multiline-string([type, 'from Anaerobic', 'Digestion'])
+		tbody
+			tr.spacing
+				- for (var i = 0; i < 17; i++) {
+					td.invisible
+				- }
+			tr.footer
+				td.summary-notes(colspan=17)
+					small
+						if notes
+							each note in notes
+								p!=note
