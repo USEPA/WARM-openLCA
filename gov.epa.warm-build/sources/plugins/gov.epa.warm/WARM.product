@@ -7,20 +7,21 @@
    </configIni>
 
    <launcherArgs>
+      <vmArgs>-Xmx3584M --add-modules=ALL-SYSTEM
+      </vmArgs>
       <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts
       </vmArgsMac>
    </launcherArgs>
 
    <windowImages i16="/gov.epa.warm/resources/icons/warm.png"/>
 
-   <launcher>
+   <launcher name="WARM">
       <win useIco="false">
          <bmp/>
       </win>
    </launcher>
 
    <vm>
-      <windows include="false">org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-14</windows>
    </vm>
 
    <plugins>
@@ -112,6 +113,12 @@
       <plugin id="org.w3c.dom.svg"/>
    </plugins>
 
+   <configurations>
+      <plugin id="org.apache.felix.scr" autoStart="true" startLevel="2" />
+      <plugin id="org.eclipse.core.runtime" autoStart="true" startLevel="4" />
+      <plugin id="org.eclipse.equinox.common" autoStart="true" startLevel="2" />
+      <plugin id="org.eclipse.equinox.event" autoStart="true" startLevel="2" />
+   </configurations>
 
    <preferencesInfo>
       <targetfile overwrite="false"/>
