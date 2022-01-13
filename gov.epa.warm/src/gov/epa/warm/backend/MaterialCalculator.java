@@ -23,8 +23,6 @@ public class MaterialCalculator {
 	private static List<String[]> formulaInputsCo2;
 	private static List<String[]> formulaInputsEnergy;
 	private static List<String[]> formulaInputsJobs;
-	private static List<String[]> formulaInputsWages;
-	private static List<String[]> formulaInputsTaxes;
 	private final ObjectMap materialInputs;
 	private final List<ObjectMap> materialResults;
 	private final List<Parameter> globalParameters;

@@ -38,7 +38,7 @@ class ProductIndexBuilder {
 	}
 
 	public void setPreferredType(ProcessType preferredType) {
-		this.config.preferredType = preferredType;
+		this.config.preferredType(preferredType);
 	}
 
 	public TechIndex build(TechFlow techFlow) {
@@ -46,7 +46,7 @@ class ProductIndexBuilder {
 	}
 
 	public TechIndex build(TechFlow techFlow, double demand) {
-		LongPair refProduct = new LongPair(techFlow.processId(), techFlow.flowId());
+		LongPair refProduct = new LongPair(techFlow.providerId(), techFlow.flowId());
 		log.trace("build product index for {}", refProduct);
 		TechIndex index = new TechIndex(techFlow);
 		index.setDemand(demand);
@@ -59,14 +59,14 @@ class ProductIndexBuilder {
 			Map<Long, List<CalcExchange>> exchanges = fetchExchanges(block);
 			for (LongPair recipient : block) {
 				handled.add(recipient);
-				List<CalcExchange> processExchanges = exchanges.get(recipient.first);
+				List<CalcExchange> processExchanges = exchanges.get(recipient.first());
 				List<CalcExchange> productInputs = getProductInputs(processExchanges);
 				for (CalcExchange productInput : productInputs) {
 					LongPair provider = findProvider(productInput);
 					if (provider == null)
 						continue;
-					LongPair recipientInput = new LongPair(recipient.first, productInput.exchangeId);
-					TechFlow techFlowProvider = processTable.getProvider(provider.first, productInput.flowId);
+					LongPair recipientInput = new LongPair(recipient.first(), productInput.exchangeId);
+					TechFlow techFlowProvider = processTable.getProvider(provider.first(), productInput.flowId);
 					index.putLink(recipientInput, techFlowProvider);
 					if (!handled.contains(provider) && !nextBlock.contains(provider))
 						nextBlock.add(provider);
@@ -96,7 +96,7 @@ class ProductIndexBuilder {
 			return Collections.emptyMap();
 		Set<Long> processIds = new HashSet<>();
 		for (LongPair pair : block)
-			processIds.add(pair.first);
+			processIds.add(pair.first());
 		try {
 			return cache.getExchangeCache().getAll(processIds);
 		} catch (Exception e) {
@@ -117,7 +117,7 @@ class ProductIndexBuilder {
 		if (processes == null)
 			return null;
 		for (TechFlow process : processes) {
-			LongPair newOption = LongPair.of(process.processId(), productId);
+			LongPair newOption = LongPair.of(process.providerId(), productId);
 			if (isBetter(productInput, candidate, newOption))
 				candidate = newOption;
 		}
@@ -145,14 +145,14 @@ class ProductIndexBuilder {
 			return true;
 		if (newOption == null)
 			return false;
-		if (candidate.first == inputLink.defaultProviderId)
+		if (candidate.first() == inputLink.defaultProviderId)
 			return false;
-		if (newOption.first == inputLink.defaultProviderId)
+		if (newOption.first() == inputLink.defaultProviderId)
 			return true;
-		ProcessType candidateType = processTable.getType(candidate.first);
-		ProcessType newOptionType = processTable.getType(newOption.first);
-		if (candidateType == config.preferredType && newOptionType != config.preferredType)
+		ProcessType candidateType = processTable.getType(candidate.first());
+		ProcessType newOptionType = processTable.getType(newOption.first());
+		if (candidateType == config.preferredType() && newOptionType != config.preferredType())
 			return false;
-		return candidateType != config.preferredType && newOptionType == config.preferredType;
+		return candidateType != config.preferredType() && newOptionType == config.preferredType();
 	}
 }

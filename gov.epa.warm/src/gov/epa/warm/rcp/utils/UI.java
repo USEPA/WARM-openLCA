@@ -1,7 +1,4 @@
-package gov.epa.warm.rcp.utils.ui;
-
-import gov.epa.warm.rcp.utils.webui.BrowserFactory;
-import gov.epa.warm.rcp.utils.webui.IHtmlPage;
+package gov.epa.warm.rcp.utils;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.browser.Browser;
@@ -30,6 +27,8 @@ import org.eclipse.ui.forms.widgets.Section;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import gov.epa.warm.html.IHtmlPage;
+
 public class UI {
 
 	private static final Logger log = LoggerFactory.getLogger(UI.class);
@@ -38,7 +37,9 @@ public class UI {
 	}
 
 	public static Browser createBrowser(Composite parent) {
-		return BrowserFactory.create(parent);
+		Browser browser = new Browser(parent, SWT.NONE);
+		browser.setJavascriptEnabled(true);
+		return browser;
 	}
 
 	public static Browser createBrowser(Composite parent, final IHtmlPage page) {
@@ -83,8 +84,8 @@ public class UI {
 	}
 
 	/**
-	 * Creates a bold font using the font data of the given control. The
-	 * returned font must be disposed by the respective caller.
+	 * Creates a bold font using the font data of the given control. The returned
+	 * font must be disposed by the respective caller.
 	 */
 	public static Font boldFont(Control control) {
 		if (control == null)
@@ -96,8 +97,8 @@ public class UI {
 	}
 
 	/**
-	 * Creates an italic font using the font data of the given control. The
-	 * returned font must be disposed by the respective caller.
+	 * Creates an italic font using the font data of the given control. The returned
+	 * font must be disposed by the respective caller.
 	 */
 	public static Font italicFont(Control control) {
 		if (control == null)
@@ -125,8 +126,7 @@ public class UI {
 		toolkit.paintBordersFor(composite);
 	}
 
-	public static GridData gridData(Control control, boolean hFill,
-			boolean vFill) {
+	public static GridData gridData(Control control, boolean hFill, boolean vFill) {
 		int hStyle = hFill ? SWT.FILL : SWT.LEFT;
 		int vStyle = vFill ? SWT.FILL : SWT.CENTER;
 		GridData data = new GridData(hStyle, vStyle, hFill, vFill);
@@ -157,19 +157,16 @@ public class UI {
 	}
 
 	public static Section section(Composite parent, FormToolkit toolkit, String label) {
-		Section section = toolkit.createSection(parent,
-				ExpandableComposite.TITLE_BAR
-						| ExpandableComposite.FOCUS_TITLE
-						| ExpandableComposite.EXPANDED
-						| ExpandableComposite.TWISTIE);
+		Section section = toolkit.createSection(parent, ExpandableComposite.TITLE_BAR | ExpandableComposite.FOCUS_TITLE
+				| ExpandableComposite.EXPANDED | ExpandableComposite.TWISTIE);
 		gridData(section, true, false);
 		section.setText(label);
 		return section;
 	}
 
 	/**
-	 * Creates a composite and sets it as section client of the given section.
-	 * The created composite gets a 2-column grid-layout.
+	 * Creates a composite and sets it as section client of the given section. The
+	 * created composite gets a 2-column grid-layout.
 	 */
 	public static Composite sectionClient(Section section, FormToolkit toolkit) {
 		Composite composite = toolkit.createComposite(section);

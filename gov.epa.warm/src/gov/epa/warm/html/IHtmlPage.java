@@ -1,4 +1,4 @@
-package gov.epa.warm.rcp.utils.webui;
+package gov.epa.warm.html;
 
 /**
  * Interface for an HTML page used in the SWT browser widget.

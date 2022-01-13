@@ -1,4 +1,4 @@
-package gov.epa.warm.rcp.utils.ui;
+package gov.epa.warm.rcp.utils;
 
 import java.util.function.Consumer;
 

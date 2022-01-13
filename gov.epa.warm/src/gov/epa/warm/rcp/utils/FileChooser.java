@@ -1,7 +1,5 @@
 package gov.epa.warm.rcp.utils;
 
-import gov.epa.warm.rcp.utils.ui.UI;
-
 import java.io.File;
 
 import org.eclipse.jface.dialogs.MessageDialog;

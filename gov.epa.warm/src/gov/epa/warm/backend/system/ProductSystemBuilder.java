@@ -86,9 +86,9 @@ public class ProductSystemBuilder {
 			TechFlow output = index.getLinkedProvider(input);
 			if (output == null)
 				continue;
-			long provider = output.processId();
-			long recipient = input.first;
-			long exchange = input.second;
+			long provider = output.providerId();
+			long recipient = input.first();
+			long exchange = input.second();
 			long flow = output.flowId();
 			processes.add(provider);
 			processes.add(recipient);

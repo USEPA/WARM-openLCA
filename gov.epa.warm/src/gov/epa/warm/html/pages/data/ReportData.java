@@ -19,8 +19,8 @@ import com.google.gson.Gson;
 
 public class ReportData {
 
-	public static void prepareResults(ReportType type, IntermediateResult results,
-			ObjectMap inputData, ObjectMap choices, Map<String, String> data) {
+	public static void prepareResults(ReportType type, IntermediateResult results, ObjectMap inputData,
+			ObjectMap choices, Map<String, String> data) {
 		List<ObjectMap> materials = convertAndFillMaterials(results, inputData, choices, type);
 		double baselineTotal = getTotalResult(results.getBaselineResult());
 		double alternativeTotal = getTotalResult(results.getAlternativeResult());
@@ -37,8 +37,8 @@ public class ReportData {
 		return result.getTotalImpactResult(result.impactIndex().at(0));
 	}
 
-	private static List<ObjectMap> convertAndFillMaterials(IntermediateResult results,
-			ObjectMap inputData, ObjectMap choices, ReportType type) {
+	private static List<ObjectMap> convertAndFillMaterials(IntermediateResult results, ObjectMap inputData,
+			ObjectMap choices, ReportType type) {
 		List<ObjectMap> materials = new ArrayList<>();
 		ObjectMap materialInputs = ObjectMap.fromMap(inputData.get("materials"));
 		if (materialInputs != null) {
@@ -119,6 +119,8 @@ public class ReportData {
 			map.put("households", divide(change, FACTORS.ENERGY.HOUSEHOLDS));
 			map.put("oil", divide(change, FACTORS.ENERGY.OIL));
 			map.put("gasoline", divide(change, FACTORS.ENERGY.GASOLINE));
+			break;
+		default:
 			break;
 		}
 		return map;

@@ -1,8 +1,7 @@
 package gov.epa.warm.html;
 
 import gov.epa.warm.rcp.utils.Desktop;
-import gov.epa.warm.rcp.utils.ui.UI;
-import gov.epa.warm.rcp.utils.webui.IHtmlPage;
+import gov.epa.warm.rcp.utils.UI;
 
 import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.layout.FillLayout;
