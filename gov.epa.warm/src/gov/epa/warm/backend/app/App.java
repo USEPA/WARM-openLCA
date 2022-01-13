@@ -6,6 +6,7 @@ import java.io.IOException;
 import org.openlca.core.database.Derby;
 import org.openlca.core.database.IDatabase;
 import org.openlca.core.database.ProductSystemDao;
+import org.openlca.core.database.upgrades.Upgrades;
 import org.openlca.core.matrix.cache.MatrixCache;
 import org.openlca.core.matrix.solvers.JavaSolver;
 import org.openlca.core.matrix.solvers.MatrixSolver;
@@ -41,6 +42,7 @@ public class App {
 		deactiveDatabase();
 		App.databaseName = databaseName;
 		database = new Derby(getDatabase(databaseName));
+		Upgrades.on(database);
 		new ProductSystemDao(database).deleteAll();
 		flowIdMap = new RefIdMap(database, "tbl_flows");
 		processIdMap = new RefIdMap(database, "tbl_processes");
