@@ -18,6 +18,7 @@ public final class Rcp {
 	public static File getWorkspace() {
 		try {
 			URL url = Platform.getInstanceLocation().getURL();
+			System.out.println(new File(url.getFile()));
 			return new File(url.getFile());
 		} catch (Exception e) {
 			Logger log = LoggerFactory.getLogger(Rcp.class);
