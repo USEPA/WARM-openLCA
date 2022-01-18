@@ -31,7 +31,7 @@ def main():
                                         now.month, now.day)
 
     # create packages
-    #pack_win(version, version_date)
+    pack_win(version, version_date)
     #pack_linux(version_date)
     pack_macos(version_date)
 

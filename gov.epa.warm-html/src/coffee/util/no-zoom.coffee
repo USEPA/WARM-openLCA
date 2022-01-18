@@ -3,5 +3,6 @@ $(document).keydown (event) =>
 		event.preventDefault()
 	
 window.addEventListener 'wheel', (event) =>
-	event.preventDefault()
+	if event.ctrlKey == true
+		event.preventDefault()
 , { passive: false }
