@@ -153,28 +153,33 @@ def pack_macos(version_date):
     # os.makedirs(base + 'WARM.app/Contents/Eclipse', exist_ok=True)
     os.makedirs(base + 'WARM.app/Contents/MacOS', exist_ok=True)
     os.makedirs(base + 'WARM.app/dropins', exist_ok=True)
+    os.makedirs(base + 'WARM.app/Contents/Eclipse', exist_ok=True)
 
     shutil.copyfile(base + 'Info.plist', base + 'WARM.app/Contents/Info.plist')
-    shutil.move(base + "configuration", base + 'WARM.app')
-    shutil.move(base + "plugins", base + 'WARM.app')
-    shutil.move(base + ".eclipseproduct", base + 'WARM.app')
+    shutil.move(base + "configuration", base + 'WARM.app/Contents/Eclipse')
+    shutil.move(base + "plugins", base + 'WARM.app/Contents/Eclipse')
+    shutil.move(base + ".eclipseproduct", base + 'WARM.app/Contents/Eclipse')
     shutil.move(base + "Resources", base + "WARM.app/Contents")
-    #os.chmod(base + "MacOS/WARM", stat.S_IRUSR | stat.S_IRGRP | stat.S_IROTH)
     shutil.copy(base + "MacOS/WARM", base +
                     'WARM.app/Contents/MacOS')
 
     # create the ini file
-    plugins_dir = base + "WARM.app/plugins/"
+    plugins_dir = base + "WARM.app/Contents/Eclipse/plugins/"
     launcher_jar = os.path.basename(
         glob.glob(plugins_dir + "*launcher*.jar")[0])
-    launcher_jar = "../../plugins/" + launcher_jar
+    launcher_jar = "../Eclipse/plugins/" + launcher_jar
     launcher_lib = os.path.basename(
         glob.glob(plugins_dir + "*launcher.cocoa.macosx*")[0])
-    launcher_lib = "../../plugins/" + launcher_lib
-    with open("templates/WARM_macos.ini", mode='r', encoding="utf-8") as f:
+    launcher_lib = "../Eclipse/plugins/" + launcher_lib
+    with open("templates/eclipse.ini", mode='r', encoding="utf-8") as f:
         text = f.read()
         text = text.format(launcher_jar=launcher_jar,
                            launcher_lib=launcher_lib)
+        out_ini_path = base + "/WARM.app/Contents/Eclipse/eclipse.ini"
+        with open(out_ini_path, mode='w', encoding='utf-8', newline='\n') as o:
+            o.write(text)
+    with open("templates/WARM_macos.ini", mode='r', encoding="utf-8") as f:
+        text = f.read()
         out_ini_path = base + "/WARM.app/Contents/MacOS/WARM.ini"
         with open(out_ini_path, mode='w', encoding='utf-8', newline='\n') as o:
             o.write(text)
