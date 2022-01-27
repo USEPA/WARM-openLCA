@@ -150,11 +150,11 @@ def pack_macos(version_date):
 
     printw('Move folders around')
 
+    os.makedirs(base + 'WARM.app/Contents/Eclipse', exist_ok=True)
     os.makedirs(base + 'WARM.app/Contents/MacOS', exist_ok=True)
     os.makedirs(base + 'WARM.app/dropins', exist_ok=True)
-    os.makedirs(base + 'WARM.app/Contents/Eclipse', exist_ok=True)
 
-    shutil.copyfile(base + 'Info.plist', base + 'WARM.app/Contents/Info.plist')
+    shutil.copyfile('templates/Info.plist', base+'WARM.app/Contents/Info.plist')
     shutil.move(base + "configuration", base + 'WARM.app/Contents/Eclipse')
     shutil.move(base + "plugins", base + 'WARM.app/Contents/Eclipse')
     shutil.move(base + ".eclipseproduct", base + 'WARM.app/Contents/Eclipse')
@@ -174,12 +174,12 @@ def pack_macos(version_date):
         text = f.read()
         text = text.format(launcher_jar=launcher_jar,
                            launcher_lib=launcher_lib)
-        out_ini_path = base + "/WARM.app/Contents/Eclipse/eclipse.ini"
+        out_ini_path = base + "WARM.app/Contents/Eclipse/eclipse.ini"
         with open(out_ini_path, mode='w', encoding='utf-8', newline='\n') as o:
             o.write(text)
     with open("templates/WARM_macos.ini", mode='r', encoding="utf-8") as f:
         text = f.read()
-        out_ini_path = base + "/WARM.app/Contents/MacOS/WARM.ini"
+        out_ini_path = base + "WARM.app/Contents/MacOS/WARM.ini"
         with open(out_ini_path, mode='w', encoding='utf-8', newline='\n') as o:
             o.write(text)
 
@@ -187,15 +187,15 @@ def pack_macos(version_date):
     os.remove(base + "Info.plist")
 
     # package the JRE
-    if not exists(base + '/jre'):
+    if not exists(base + 'jre'):
         jre_tar = glob.glob('runtime/jre/macos64/*macos*.tar.gz')
         if len(jre_tar) == 0:
             print('  WARNING: No macos JRE found')
         else:
             printw('  Copy JRE')
-            unzip(jre_tar[0], base + '/WARM.app')
-            jre_dir = glob.glob(base + '/WARM.app' + '/*jdk*')
-            os.rename(jre_dir[0], p(base + '/WARM.app' + '/jre'))
+            unzip(jre_tar[0], base + 'WARM.app')
+            jre_dir = glob.glob(base + 'WARM.app' + '/*jdk*')
+            os.rename(jre_dir[0], p(base + 'WARM.app' + '/jre'))
             print('done')
 
     printw('  Create distribtuion package')
