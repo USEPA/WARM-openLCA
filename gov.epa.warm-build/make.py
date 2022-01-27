@@ -150,7 +150,6 @@ def pack_macos(version_date):
 
     printw('Move folders around')
 
-    # os.makedirs(base + 'WARM.app/Contents/Eclipse', exist_ok=True)
     os.makedirs(base + 'WARM.app/Contents/MacOS', exist_ok=True)
     os.makedirs(base + 'WARM.app/dropins', exist_ok=True)
     os.makedirs(base + 'WARM.app/Contents/Eclipse', exist_ok=True)

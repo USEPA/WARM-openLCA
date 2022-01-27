@@ -1,28 +1,23 @@
-WARM-openLCA
+# WARM-openLCA
 
-## Building the distribution packages
-To build the distribution packages, we currently use the standard PDE Export
-wizard. Click on the `gov.epa.warm` project and then on `Export...` from the context
-menu. Select `Plug-in Development > Eclipse Product` from the export wizard and
-select the following options in the export dialog:
+## Loading the target platform 
+The file `platform.target` in the `gov.epa.warm` project contains the definition of
+the [target platform](https://help.eclipse.org/oxygen/index.jsp?topic=%2Forg.eclipse.pde.doc.user%2Fconcepts%2Ftarget.htm)
+of the warm RCP application. Just open the file with the `Target Editor`
+and click on `Set as target platform` on the top right of the editor.
 
-* Configuration: `/gov.epa.warm/WARM.product` (should be the default)
-* Root directory: `WARM`
-* Synchronize before exporting: yes [x]
-* Destination directory: choose the `gov.epa.warm/build` folder of this project
-* Generate p2 repository: no [ ] (would be just overhead)
-* Export for multiple platforms: yes [x]
-* (take the defaults for the others)
+This will download the resources of the target platform into your local
+workspace and, thus, may take a while. Unfortunately, setting up and
+configuring Eclipse can be quite challenging. If you get errors like
+`Unable locate installable unit in target definition`,
+[this discussion](https://stackoverflow.com/questions/10547007/unable-locate-installable-unit-in-target-definition)
+may help. 
 
-In the next page, select the platforms for which you want to build the product.
-After the export, you need to run the package script `make.py` to copy
-resources like the Java runtime, the native math libraries, etc. to the
-application folder and to create the installers.
+## Test the application
+Refresh your Eclipse workspace (select all and press `F5`). Open the file
+[gov.epa.warm/WARM.product](./gov.epa.warm/WARM.product) within  Eclipse and click
+on the run icon inside the `WARM.product` tab. openLCA should now start.
 
-The packager script can build distribution packages for the following platforms
-(but you do not need to build them all, if a platform product is missing it is
-simply ignored in the package script):
-
-* Linux gtk x86_64
-* macOS cocoa x86_64
-* Windows win32 x86_64
+If you want to build an installable product, see the description in the 
+[gov.epa.warm-build](./gov.epa.warm-build) sub-project or simply use the Eclipse export
+wizard (Export/Eclipse product). 
