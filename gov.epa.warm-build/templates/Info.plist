@@ -3,7 +3,7 @@
 
 	<dict>
 		<key>CFBundleExecutable</key>
-		<string>WARM</string>
+		<string>eclipse</string>
 		<key>CFBundleGetInfoString</key>
 		<string>Eclipse 4.19 for Mac OS X, Copyright IBM Corp. and others 2002, 2021. All rights reserved.</string>
 		<key>CFBundleIconFile</key>
@@ -21,7 +21,7 @@
 		<key>CFBundleSignature</key>
 		<string>????</string>
 		<key>CFBundleVersion</key>
-		<string>1.10</string>
+		<string>2.0.0</string>
 		<key>NSHighResolutionCapable</key>
 		<true />
 		<key>CFBundleDevelopmentRegion</key>

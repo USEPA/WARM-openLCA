@@ -160,7 +160,7 @@ def pack_macos(version_date):
     shutil.move(base + ".eclipseproduct", base + 'WARM.app/Contents/Eclipse')
     shutil.move(base + "Resources", base + "WARM.app/Contents")
     shutil.copy(base + "MacOS/WARM", base +
-                    'WARM.app/Contents/MacOS')
+                    'WARM.app/Contents/MacOS/eclipse')
 
     # create the ini file
     plugins_dir = base + "WARM.app/Contents/Eclipse/plugins/"
