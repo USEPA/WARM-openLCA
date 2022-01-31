@@ -20,7 +20,7 @@ html(lang='en')
 				.sub-selection
 					+distance-table
 			+section('source-reduction', 'Source reduction')
-				p To estimate the benefits from source reduction, EPA usually assumes that the material that is source reduced would have been manufactured from the current mix of virgin and recycled inputs. However, you may choose to estimate the emission reductions from source reduction under the assumption that the material would have been manufactured from 100% virgin inputs in order to obtain an upper bound estimate of the benefits from source reduction. Select which assumption you want to use in the analysis. Note that for materials for which information on the share of recycled inputs used in production is unavailable or is not a common practice; EPA assumes that the current mix is comprised of 100% virgin inputs. Consequently, the source reduction benefits of both the "Current mix" and "100% virgin" inputs are the same
+				p To estimate the benefits from source reduction, EPA usually assumes that the material that is source reduced would have been manufactured from the current mix of virgin and recycled inputs. However, you may choose to estimate the emission reductions from source reduction under the assumption that the material would have been manufactured from 100% virgin inputs in order to obtain an upper bound estimate of the benefits from source reduction. Select which assumption you want to use in the analysis. Note that for materials for which information on the share of recycled inputs used in production is unavailable or is not a common practice; EPA assumes that the current mix is comprised of 100% virgin inputs. Consequently, the source reduction benefits of both the "Current mix" and "100% virgin" inputs are the same.
 				+radio('source_reduction', 'source_reduction_current_mix', 'Current Mix')(checked=true)
 				+radio('source_reduction', 'source_reduction_virgin', '100% Virgin')
 			+section('landfill-characteristics', 'Landfill Characteristics (I, II, III)')
@@ -65,6 +65,19 @@ html(lang='en')
 							p Bioreactor (k=0.12): Water is added until the moisture content reaches 40 percent moisture on a wet weight basis						
 							p National average: Weighted average based on the share of waste received at each landfill type						
 					.clear
+			+section('anaerobic-digestion', 'Anaerobic Digestion')
+				+section('digestion-type', 'Digestion Type')
+					p For anaerobic digestion of food waste materials (including beef, poultry, grains, bread, fruits and vegetables, and dairy products), please choose the appropriate type of anaerobic digestion process used. Note that for grass, leaves, branches, yard trimmings and mixed organics, wet digestion is not applicable based on current technology and practices in the United States. Therefore, dry digestion is the only digestion type modeled in WARM for these materials. Only one type of digestion process (wet or dry) can be modeled at a time in WARM. 
+					div(data-order=1)
+						+radio('anaerobic_digestion_type', 'anaerobic_digestion_wet', 'Wet Digestion')(checked=true)
+						+radio('anaerobic_digestion_type','anaerobic_digestion_dry', 'Dry Digestion')
+				+section('digestate_curing', 'Digestate Curing')
+					p WARM assumes that digestate resulting from anaerobic digestion processes will be applied to land. In many cases, the digestate is cured before land application.When digestate is cured, the digestate is dewatered and any liquids are recovered and returned to the reactor (when using a wet digester). Next, the digestate is aerobically cured in turned windrows, then screened and applied to agricultural fields. Select whether the digestate resulting from your anaerobic digester is cured before land application.
+					div(data-order=2)
+						+radio('anaerobic_digestion_curing', 'anaerobic_digestion_cured', 'Cured - DEFAULT')(checked=true)
+						+radio('anaerobic_digestion_curing', 'anaerobic_digestion_not_cured', 'Not Cured')
+					.clear
+
 		+footer(2, 'step1', 'step3')
 		+scripts
 		script(src='js/data/regions.js')

@@ -12,15 +12,12 @@ uglify = require 'gulp-uglifyjs'
 minifyCss = require 'gulp-minify-css'
 fileinclude = require 'gulp-file-include'
 
-gulp.task 'default', [], (callback) ->
-	runSequence 'clean', 'views', 'templates', 'scripts', 'libs-scripts', 'styles', 'libs-styles', 'libs-fonts', 'exportable-pages', 'zip', 'move-to-workspace', callback
-
 gulp.task 'move-to-workspace', () ->
 	gulp.src('html.zip')
 		.pipe gulp.dest './../gov.epa.warm/resources'
 
 gulp.task 'clean', () -> 
-	gulp.src('./target', {read: false})
+	gulp.src('./target', { read: false, allowEmpty: true })
 		.pipe clean()
 
 gulp.task 'views', () ->
@@ -100,3 +97,8 @@ gulp.task 'zip', () ->
 	gulp.src('./target/**')
 		.pipe(zip 'html.zip')
 		.pipe(gulp.dest('.'))
+		.pipe(gulp.dest('../gov.epa.warm/resources'))
+	gulp.src('./target/**')
+		.pipe(gulp.dest('C:/Users/Nutzer/runtime-WARM.product/html/gov.epa.warm'))
+
+gulp.task 'default', gulp.series('clean', 'views', 'templates', 'scripts', 'libs-scripts', 'styles', 'libs-styles', 'libs-fonts', 'exportable-pages', 'zip', 'move-to-workspace')

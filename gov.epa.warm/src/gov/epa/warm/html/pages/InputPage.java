@@ -11,7 +11,7 @@ import gov.epa.warm.html.pages.data.InputData;
 import gov.epa.warm.rcp.utils.Editors;
 import gov.epa.warm.rcp.utils.FileChooser;
 import gov.epa.warm.rcp.utils.ObjectMap;
-import gov.epa.warm.rcp.utils.ui.UI;
+import gov.epa.warm.rcp.utils.UI;
 
 import java.io.File;
 import java.io.IOException;
@@ -72,6 +72,7 @@ public class InputPage extends HtmlEditor {
 	@Override
 	protected void onReloaded(PageDescriptor page) {
 		call("initialize", getData().get("userInputs"));
+		log.debug(getData().get("userInputs"));
 	}
 
 	private void saveInputs(String inputs) {

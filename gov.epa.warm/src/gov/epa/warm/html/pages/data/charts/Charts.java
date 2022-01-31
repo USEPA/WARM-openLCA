@@ -20,6 +20,8 @@ public class Charts {
 		chartDataProviders.add(new SubtypeContributionProvider());
 		chartDataProviders.add(new MaterialContributionProvider());
 		chartDataProviders.add(new GroupedContributionProvider());
+		chartDataProviders.add(new MaterialWeightProvider());
+		chartDataProviders.add(new ProductionEOLProvider());
 	}
 
 	public static void prepareResults(IntermediateResult results, ObjectMap inputData, Map<String, String> data,

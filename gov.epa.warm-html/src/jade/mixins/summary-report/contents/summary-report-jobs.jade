@@ -1,0 +1,8 @@
+include ../all.jade
+
+mixin summary-report-jobs(forExport) 
+	+header('Summary Report (Labor Hours)', 'JOBS', forExport)
+	.content 
+		+summary-box-economics('Employment')
+		include ../template-data/summary-economics.jade
+		+result-table-economics('Employment', 'Labor Hours', notes, equivalents)

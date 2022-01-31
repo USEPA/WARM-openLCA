@@ -14,6 +14,8 @@ public class InputData {
 		defaults.put("landfill_gas_recovery_collection", toValue("landfill_gas_recovery_typical_operation", "radio"));
 		defaults.put("landfill_moisture", toValue("landfill_moisture_national_average", "radio"));
 		defaults.put("location", toValue("location_national_average", "text"));
+		defaults.put("anaerobic_digestion_type", toValue("anaerobic_digestion_wet", "radio"));
+		defaults.put("anaerobic_digestion_curing", toValue("anaerobic_digestion_cured", "radio"));
 		data.put("userInputs", new Gson().toJson(defaults));
 	}
 

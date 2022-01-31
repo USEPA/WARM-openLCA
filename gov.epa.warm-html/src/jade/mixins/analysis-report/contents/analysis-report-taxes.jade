@@ -1,0 +1,7 @@
+include ../all.jade
+
+mixin analysis-report-taxes(forExport)
+	+header('Analysis Report (Taxes)', 'TAXES', forExport)
+	.content 
+		+info-box('Taxes', '$', '', '')
+		+tabbing-economics('Taxes', '$')

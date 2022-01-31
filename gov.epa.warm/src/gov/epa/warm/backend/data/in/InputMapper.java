@@ -5,16 +5,12 @@ import gov.epa.warm.rcp.utils.ObjectMap;
 
 public class InputMapper {
 
-	public static final String[] SCENARIO_TYPES = {
-			"baseline", "alternative"
-	};
-	public static final String[] FIELDS = {
-			"source_reduction", "recycling", "landfilling", "composting", "combustion"
-	};
-	private static final String[] TRANSPORT_DISTANCE_KEYS = {
-			"transport_distance_combustion", "transport_distance_composting",
-			"transport_distance_landfilling", "transport_distance_recycling"
-	};
+	public static final String[] SCENARIO_TYPES = { "baseline", "alternative" };
+	public static final String[] FIELDS = { "source_reduction", "recycling", "landfilling", "composting", "combustion",
+			"anaerobic_digestion" };
+	private static final String[] TRANSPORT_DISTANCE_KEYS = { "transport_distance_combustion",
+			"transport_distance_composting", "transport_distance_landfilling", "transport_distance_recycling",
+			"transport_distance_AD" };
 
 	/*
 	 * Map contains keys 0, 1, ...., n - 1 where n = no. of materials

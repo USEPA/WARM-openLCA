@@ -22,7 +22,7 @@ public class MaterialCalculator {
 	private final static Logger log = LoggerFactory.getLogger(MaterialCalculator.class);
 	private static List<String[]> formulaInputsCo2;
 	private static List<String[]> formulaInputsEnergy;
-
+	private static List<String[]> formulaInputsJobs;
 	private final ObjectMap materialInputs;
 	private final List<ObjectMap> materialResults;
 	private final List<Parameter> globalParameters;
@@ -249,8 +249,8 @@ public class MaterialCalculator {
 	// The share is saved as a global parameter in the database
 	private double getShareInMix(String parameterName) {
 		for (Parameter parameter : globalParameters)
-			if (parameter.getName().equals(parameterName))
-				return parameter.getValue();
+			if (parameter.name.equals(parameterName))
+				return parameter.value;
 		log.debug("Could not find mix parameter " + parameterName);
 		return 0;
 	}
@@ -261,6 +261,18 @@ public class MaterialCalculator {
 				File file = new File(Rcp.getWorkspace(), "mappings/material_specific_formulas_energy.txt");
 				if (formulaInputsEnergy == null)
 					formulaInputsEnergy = MaterialFormulaParser.parse(new FileInputStream(file));
+			}
+			if (reportType == ReportType.JOBS || reportType == ReportType.TAXES || reportType == ReportType.WAGES) {
+				File file = new File(Rcp.getWorkspace(), "mappings/material_specific_formulas_economic.txt");
+				if (formulaInputsJobs == null) {
+					if (!file.exists()) {
+						log.error("File not found: "+file.getAbsolutePath());
+					}
+					else {
+						formulaInputsJobs = MaterialFormulaParser.parse(new FileInputStream(file));
+					}
+				}
+				return formulaInputsJobs;
 			}
 			File file = new File(Rcp.getWorkspace(), "mappings/material_specific_formulas_co2.txt");
 			if (formulaInputsCo2 == null)

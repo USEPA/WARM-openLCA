@@ -12,6 +12,9 @@ html(lang='en')
 					+radio('output_unit', 'MTCO2E', 'Metric Tons of Carbon Dioxide Equivalent (MTCO2E)')(checked=true)
 					+radio('output_unit', 'MTCE', 'Metric Tons of Carbon Equivalent (MTCE)')
 					+radio('output_unit', 'ENERGY', 'Units of Energy (million BTU)')
+					+radio('output_unit', 'JOBS', 'Labor Hours - employment supported by materials management')
+					+radio('output_unit', 'WAGES', 'Wages ($) - all forms of employment income from materials management')
+					+radio('output_unit', 'TAXES', 'Taxes ($) - taxes collected by the federal, state and local government from materials management')
 				p You can return to this screen to generate results with another output unit once the initial report has been generated.
 			button.btn.btn-lg.btn-warm.btn-calculate Calculate
 		+footer(4, 'step3')

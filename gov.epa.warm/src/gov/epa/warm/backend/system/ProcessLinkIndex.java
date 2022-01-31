@@ -14,11 +14,11 @@ import org.openlca.core.model.ProcessLink;
  */
 class ProcessLinkIndex {
 
-	/** Maps provider-process-id -> recipient-process-id -> product-flow-id. */
-	private final TLongObjectHashMap<TLongObjectHashMap<TLongHashSet>> index;
+	/** Maps provider-process-id -> recipient-process-id -> product-flow-id. -> recipient.exchange.id */
+	private final TLongObjectHashMap<TLongObjectHashMap<TLongObjectHashMap<TLongHashSet>>> exchangeIndex;
 
 	public ProcessLinkIndex() {
-		index = new TLongObjectHashMap<>(Constants.DEFAULT_CAPACITY, Constants.DEFAULT_LOAD_FACTOR, -1);
+		exchangeIndex = new TLongObjectHashMap<>(Constants.DEFAULT_CAPACITY, Constants.DEFAULT_LOAD_FACTOR, -1);
 	}
 
 	/**
@@ -26,49 +26,57 @@ class ProcessLinkIndex {
 	 * contained in this index.
 	 */
 	public boolean contains(ProcessLink link) {
-		return contains(link.getProviderId(), link.getRecipientId(), link.getFlowId());
+		return contains(link.providerId, link.processId, link.flowId, link.exchangeId);
 	}
 
 	/**
-	 * Returns true if the link with the given provider, recipient, and flow is
-	 * contained in this index.
+	 * Returns true if the link with the given provider, recipient, flow and
+	 * exchange is contained in this index.
 	 */
-	public boolean contains(long provider, long recipient, long flow) {
-		TLongObjectHashMap<TLongHashSet> recFlowMap = index.get(provider);
-		if (recFlowMap == null)
+	public boolean contains(long provider, long recipient, long flow, long exchange) {
+		TLongObjectHashMap<TLongObjectHashMap<TLongHashSet>> recFlowExMap = exchangeIndex.get(provider);
+		if (recFlowExMap == null)
 			return false;
-		TLongHashSet flowIds = recFlowMap.get(recipient);
-		if (flowIds == null)
+		TLongObjectHashMap<TLongHashSet> flowExMap = recFlowExMap.get(recipient);
+		if (flowExMap == null)
 			return false;
-		return flowIds.contains(flow);
+		TLongHashSet exchangeIds = flowExMap.get(flow);
+		if (exchangeIds == null)
+			return false;
+		return exchangeIds.contains(exchange);
 	}
 
 	/**
-	 * Adds the given link to this index. Multiple inserts of the same link
-	 * result in a single entry.
+	 * Adds the given link to this index. Multiple inserts of the same link result
+	 * in a single entry.
 	 */
 	public void put(ProcessLink link) {
 		if (link == null)
 			return;
-		put(link.getProviderId(), link.getRecipientId(), link.getFlowId());
+		put(link.providerId, link.processId, link.flowId, link.exchangeId);
 	}
 
 	/**
-	 * Adds a new link with the given provider, recipient, and flow to this
+	 * Adds a new link with the given provider, recipient, flow and exchange to this
 	 * index. Multiple inserts of the same triple result in a single entry.
 	 */
-	public void put(long provider, long recipient, long flow) {
-		TLongObjectHashMap<TLongHashSet> recFlowMap = index.get(provider);
-		if (recFlowMap == null) {
-			recFlowMap = new TLongObjectHashMap<>(Constants.DEFAULT_CAPACITY, Constants.DEFAULT_LOAD_FACTOR, -1);
-			index.put(provider, recFlowMap);
+	public void put(long provider, long recipient, long flow, long exchange) {
+		TLongObjectHashMap<TLongObjectHashMap<TLongHashSet>> recFlowExMap = exchangeIndex.get(provider);
+		if (recFlowExMap == null) {
+			recFlowExMap = new TLongObjectHashMap<>(Constants.DEFAULT_CAPACITY, Constants.DEFAULT_LOAD_FACTOR, -1);
+			exchangeIndex.put(provider, recFlowExMap);
 		}
-		TLongHashSet flowIds = recFlowMap.get(recipient);
-		if (flowIds == null) {
-			flowIds = new TLongHashSet();
-			recFlowMap.put(recipient, flowIds);
+		TLongObjectHashMap<TLongHashSet> flowExMap = recFlowExMap.get(recipient);
+		if (flowExMap == null) {
+			flowExMap = new TLongObjectHashMap<>(Constants.DEFAULT_CAPACITY, Constants.DEFAULT_LOAD_FACTOR, -1);
+			recFlowExMap.put(recipient, flowExMap);
 		}
-		flowIds.add(flow);
+		TLongHashSet exchangeIds = flowExMap.get(flow);
+		if (exchangeIds == null) {
+			exchangeIds = new TLongHashSet();
+			flowExMap.put(flow, exchangeIds);
+		}
+		exchangeIds.add(exchange);
 	}
 
 	/**
@@ -76,20 +84,24 @@ class ProcessLinkIndex {
 	 */
 	public List<ProcessLink> createLinks() {
 		List<ProcessLink> links = new ArrayList<>();
-		for (long provider : index.keys()) {
-			TLongObjectHashMap<TLongHashSet> recFlowMap = index.get(provider);
-			if (recFlowMap == null)
+		for (long provider : exchangeIndex.keys()) {
+			TLongObjectHashMap<TLongObjectHashMap<TLongHashSet>> recFlowExMap = exchangeIndex.get(provider);
+			if (recFlowExMap == null)
 				continue;
-			for (long recipient : recFlowMap.keys()) {
-				TLongHashSet flowIds = recFlowMap.get(recipient);
-				if (flowIds == null)
+			for (long recipient : recFlowExMap.keys()) {
+				TLongObjectHashMap<TLongHashSet> flowExMap = recFlowExMap.get(recipient);
+				if (flowExMap == null)
 					continue;
-				for (long flow : flowIds.toArray()) {
-					ProcessLink link = new ProcessLink();
-					link.setFlowId(flow);
-					link.setProviderId(provider);
-					link.setRecipientId(recipient);
-					links.add(link);
+				for (long flow : flowExMap.keys()) {
+					TLongHashSet exchangeIds = flowExMap.get(flow);
+					for (long exchange : exchangeIds.toArray()) {
+						ProcessLink link = new ProcessLink();
+						link.providerId = provider;
+						link.processId = recipient;
+						link.flowId = flow;
+						link.exchangeId = exchange;
+						links.add(link);
+					}
 				}
 			}
 		}

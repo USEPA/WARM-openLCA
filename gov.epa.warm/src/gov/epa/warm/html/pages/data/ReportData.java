@@ -19,8 +19,8 @@ import com.google.gson.Gson;
 
 public class ReportData {
 
-	public static void prepareResults(ReportType type, IntermediateResult results,
-			ObjectMap inputData, ObjectMap choices, Map<String, String> data) {
+	public static void prepareResults(ReportType type, IntermediateResult results, ObjectMap inputData,
+			ObjectMap choices, Map<String, String> data) {
 		List<ObjectMap> materials = convertAndFillMaterials(results, inputData, choices, type);
 		double baselineTotal = getTotalResult(results.getBaselineResult());
 		double alternativeTotal = getTotalResult(results.getAlternativeResult());
@@ -34,11 +34,11 @@ public class ReportData {
 	}
 
 	private static double getTotalResult(FullResult result) {
-		return result.getTotalImpactResult(result.getImpactIndex().getKeyAt(0));
+		return result.getTotalImpactResult(result.impactIndex().at(0));
 	}
 
-	private static List<ObjectMap> convertAndFillMaterials(IntermediateResult results,
-			ObjectMap inputData, ObjectMap choices, ReportType type) {
+	private static List<ObjectMap> convertAndFillMaterials(IntermediateResult results, ObjectMap inputData,
+			ObjectMap choices, ReportType type) {
 		List<ObjectMap> materials = new ArrayList<>();
 		ObjectMap materialInputs = ObjectMap.fromMap(inputData.get("materials"));
 		if (materialInputs != null) {
@@ -70,12 +70,12 @@ public class ReportData {
 
 	private interface FACTORS {
 		interface MTCO2E {
-			double VEHICLES = 4.75;
+			double VEHICLES = 4.71;
 			double GASOLINE = 0.008887;
 			double BARBEQUES = 0.024;
 			double RAILWAYS = 186.5;
-			double ANNUAL_TRANSPORTATION = 1739500000;
-			double ANNUAL_ENERGY = 2022700000;
+			double ANNUAL_TRANSPORTATION = 1782600000;
+			double ANNUAL_ENERGY = 1809300000;
 		}
 
 		interface MTCE {
@@ -89,9 +89,9 @@ public class ReportData {
 		}
 
 		interface ENERGY {
-			double HOUSEHOLDS = 110.02649;
+			double HOUSEHOLDS = 91.61203;
 			double OIL = 5.81;
-			double GASOLINE = 0.124238095238095;
+			double GASOLINE = 0.1204523809523810;
 		}
 	}
 
@@ -119,6 +119,8 @@ public class ReportData {
 			map.put("households", divide(change, FACTORS.ENERGY.HOUSEHOLDS));
 			map.put("oil", divide(change, FACTORS.ENERGY.OIL));
 			map.put("gasoline", divide(change, FACTORS.ENERGY.GASOLINE));
+			break;
+		default:
 			break;
 		}
 		return map;

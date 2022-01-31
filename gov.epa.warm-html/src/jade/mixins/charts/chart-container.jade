@@ -1,7 +1,13 @@
-mixin chart-container(id, materialSelector) 
-	.pull-right
-		if materialSelector
-			div: button.btn.btn-warm.open-material-selection.pull-right(type='button' id='select-materials-#{id}') Select material filter
-		.ct-legend
-	.chart-container
-		.ct-chart.warm-chart(id=id)
+mixin chart-container(id, unit, materialSelector)
+	.wrapper
+		.pull-right
+			if materialSelector
+				div: button.btn.btn-warm.open-material-selection.pull-right(type='button' id='select-materials-#{id}') Select material filter
+			.ct-legend
+		.chart-container
+			.inner-container
+				.yaxis-label-alternate
+				.yaxis-label
+				.ct-chart.warm-chart(id=id)
+			.ct-xaxis(id=id+"-xaxis")
+		

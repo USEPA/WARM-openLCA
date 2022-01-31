@@ -1,37 +1,38 @@
 package gov.epa.warm.backend.app;
 
-import gov.epa.warm.rcp.utils.Rcp;
-
 import java.io.File;
 import java.io.IOException;
 
+import org.openlca.core.database.Derby;
 import org.openlca.core.database.IDatabase;
 import org.openlca.core.database.ProductSystemDao;
-import org.openlca.core.database.derby.DerbyDatabase;
-import org.openlca.core.math.IMatrixSolver;
-import org.openlca.core.math.JavaSolver;
+import org.openlca.core.database.upgrades.Upgrades;
 import org.openlca.core.matrix.cache.MatrixCache;
-import org.openlca.eigen.NativeLibrary;
-import org.openlca.eigen.solvers.BalancedSolver;
+import org.openlca.core.matrix.solvers.JavaSolver;
+import org.openlca.core.matrix.solvers.MatrixSolver;
+import org.openlca.julia.Julia;
+import org.openlca.julia.JuliaSolver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import gov.epa.warm.rcp.utils.Rcp;
 
 public class App {
 
 	private static Logger log = LoggerFactory.getLogger(App.class);
 	private static IDatabase database;
 	private static String databaseName;
-	private static IMatrixSolver solver;
+	private static MatrixSolver solver;
 	private static MatrixCache matrixCache;
 	private static RefIdMap flowIdMap;
 	private static RefIdMap processIdMap;
 
 	static {
-		if (!NativeLibrary.isLoaded()) {
+		if (!Julia.isLoaded()) {
 			log.warn("could not load a high-performance library for calculations");
 			solver = new JavaSolver();
 		} else
-			solver = new BalancedSolver();
+			solver = new JuliaSolver();
 	}
 
 	public static void activateDatabase(String databaseName) {
@@ -40,7 +41,8 @@ public class App {
 				return;
 		deactiveDatabase();
 		App.databaseName = databaseName;
-		database = new DerbyDatabase(getDatabase(databaseName));
+		database = new Derby(getDatabase(databaseName));
+		Upgrades.on(database);
 		new ProductSystemDao(database).deleteAll();
 		flowIdMap = new RefIdMap(database, "tbl_flows");
 		processIdMap = new RefIdMap(database, "tbl_processes");
@@ -64,7 +66,7 @@ public class App {
 		return database;
 	}
 
-	public static IMatrixSolver getSolver() {
+	public static MatrixSolver getSolver() {
 		return solver;
 	}
 
@@ -79,7 +81,7 @@ public class App {
 	public static RefIdMap getProcessIdMap() {
 		return processIdMap;
 	}
-
+	
 	private static File getDatabase(String name) {
 		File databaseDir = new File(Rcp.getWorkspace(), "databases");
 		if (!databaseDir.exists())

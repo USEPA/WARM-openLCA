@@ -1,0 +1,8 @@
+include ../all.jade
+
+mixin summary-report-wages(forExport) 
+	+header('Summary Report (Wages)', 'WAGES', forExport)
+	.content 
+		+summary-box-economics('Wages')
+		include ../template-data/summary-economics.jade
+		+result-table-economics('Wages', '$', notes, equivalents)

@@ -1,0 +1,61 @@
+mixin production-cell-with-note(title, enabled, value)
+	td 
+		span.with-note(title=title, data-animation='fade', data-placement='top')
+			if !enabled
+				| N/A
+			else if value
+				| #{formatNumber(value)}
+			else
+				| 0.00
+
+tr
+	if material.note
+		td.material
+			span.with-note(title=material.note.text, data-animation='fade', data-placement='bottom') #{material.name}
+				sup #{material.note.no}
+	else
+		td.material #{material.name}
+	td.invisible
+	- baseline_emissions_label = 'Baseline Scenario - '+type+' from Production ('+unit+')'
+	- baseline_recycling_label = 'Baseline Scenario - '+type+' from Recycling ('+unit+')'
+	- baseline_landfilling_label = 'Baseline Scenario - '+type+' from Landfilling ('+unit+')'
+	- baseline_combustion_label = 'Baseline Scenario - '+type+' from Combustion ('+unit+')'
+	- baseline_composting_label = 'Baseline Scenario - '+type+' from Composting ('+unit+')'
+	- baseline_digested_label = 'Baseline Scenario - '+type+' from Anaerobic Digestion ('+unit+')'
+	- baseline_impact_label = 'Baseline Scenario - Production + End-Of-Life Impact ('+unit+')'
+	- baseline_emissions = material['per_ton_source_reduction_result'] ? -1.0*parseFloat(material['per_ton_source_reduction_result']) * parseFloat(material['baseline']) : 0
+	- baseline_recycling =  material['baseline_recycling_result'] ? parseFloat(material['baseline_recycling_result']) : 0
+	- baseline_landfilling = material['baseline_landfilling_result'] ? parseFloat(material['baseline_landfilling_result']) : 0
+	- baseline_combustion = material['baseline_combustion_result'] ? parseFloat(material['baseline_combustion_result']) : 0
+	- baseline_composting = material['baseline_composting_result'] ? parseFloat(material['baseline_composting_result']) : 0
+	- baseline_digested = material['baseline_anaerobic_digestion_result'] ? parseFloat(material['baseline_anaerobic_digestion_result']) : 0
+	- baseline_impact = baseline_emissions + baseline_recycling + baseline_landfilling + baseline_combustion + baseline_composting + baseline_digested
+	+production-cell-with-note(baseline_emissions_label, true, baseline_emissions)
+	+production-cell-with-note(baseline_recycling_label, !material.disabled.recycling, baseline_recycling)
+	+production-cell-with-note(baseline_landfilling_label, !material.disabled.landfilling, baseline_landfilling)
+	+production-cell-with-note(baseline_combustion_label, !material.disabled.combustion, baseline_combustion)
+	+production-cell-with-note(baseline_composting_label, !material.disabled.composting, baseline_composting)
+	+production-cell-with-note(baseline_digested_label, !material.disabled.digested, baseline_digested)
+	+production-cell-with-note(baseline_impact_label, true, baseline_impact)
+	td.invisible
+	- alternative_emissions_label = 'Alternative Scenario - '+type+' from Production ('+unit+')'
+	- alternative_recycling_label = 'Alternative Scenario - '+type+' from Recycling ('+unit+')'
+	- alternative_landfilling_label = 'Alternative Scenario - '+type+' from Landfilling ('+unit+')'
+	- alternative_combustion_label = 'Alternative Scenario - '+type+' from Combustion ('+unit+')'
+	- alternative_composting_label = 'Alternative Scenario - '+type+' from Composting ('+unit+')'
+	- alternative_digested_label = 'Alternative Scenario - '+type+' from Anaerobic Digestion ('+unit+')'
+	- alternative_impact_label = 'Alternative Scenario - Production + End-Of-Life Impact ('+unit+')'
+	- alternative_emissions = material['per_ton_source_reduction_result'] ? -1.0*parseFloat(material['per_ton_source_reduction_result']) * parseFloat(material['baseline']) + parseFloat(material['alternative_source_reduction_result']) : 0
+	- alternative_recycling =  material['alternative_recycling_result'] ? parseFloat(material['alternative_recycling_result']) : 0
+	- alternative_landfilling = material['alternative_landfilling_result'] ? parseFloat(material['alternative_landfilling_result']) : 0
+	- alternative_combustion = material['alternative_combustion_result'] ? parseFloat(material['alternative_combustion_result']) : 0
+	- alternative_composting = material['alternative_composting_result'] ? parseFloat(material['alternative_composting_result']) : 0
+	- alternative_digested = material['alternative_anaerobic_digestion_result'] ? parseFloat(material['alternative_anaerobic_digestion_result']) : 0
+	- alternative_impact = alternative_emissions + alternative_recycling + alternative_landfilling + alternative_combustion + alternative_composting + alternative_digested
+	+production-cell-with-note(alternative_emissions_label, true, alternative_emissions)
+	+production-cell-with-note(alternative_recycling_label, !material.disabled.recycling, alternative_recycling)
+	+production-cell-with-note(alternative_landfilling_label, !material.disabled.landfilling, alternative_landfilling)
+	+production-cell-with-note(alternative_combustion_label, !material.disabled.combustion, alternative_combustion)
+	+production-cell-with-note(alternative_composting_label, !material.disabled.composting, alternative_composting)
+	+production-cell-with-note(alternative_digested_label, !material.disabled.digested, alternative_digested)
+	+production-cell-with-note(alternative_impact_label, true, alternative_impact)

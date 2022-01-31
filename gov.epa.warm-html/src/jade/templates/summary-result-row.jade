@@ -20,13 +20,16 @@ tr(data-index=index)
 	+summary-cell-with-note('Base scenario - Tons landfilled', !material.disabled.landfilling, material['baseline_landfilling'])
 	+summary-cell-with-note('Base scenario - Tons combusted', !material.disabled.combustion, material['baseline_combustion'])
 	+summary-cell-with-note('Base scenario - Tons composted', !material.disabled.composting, material['baseline_composting'])
+	+summary-cell-with-note('Base scenario - Tons anaerobically digested', !material.disabled.digested, material['baseline_anaerobic_digestion'])
+	// *** material.disabled.composting = #{ material.disabled.composting }, material.disabled.digested = #{ material.disabled.digested } ***
 	+summary-cell-with-note('Base scenario - Total MTCO2E', true, material['baseline_result'])
 	td.invisible
 	+summary-cell-with-note('Alternative scenario - Tons reduced', !material.disabled.source_reduction, material['alternative_source_reduction'])
 	+summary-cell-with-note('Alternative scenario - Tons recycled', !material.disabled.recycling, material['alternative_recycling'])
 	+summary-cell-with-note('Alternative scenario - Tons landfilled', !material.disabled.landfilling, material['alternative_landfilling'])
 	+summary-cell-with-note('Alternative scenario - Tons combusted', !material.disabled.combustion, material['alternative_combustion'])
-	+summary-cell-with-note('Alternative scenario - Tons recycled', !material.disabled.composting, material['alternative_composting'])
+	+summary-cell-with-note('Alternative scenario - Tons composted', !material.disabled.composting, material['alternative_composting'])
+	+summary-cell-with-note('Alternative scenario - Tons anaerobically digested', !material.disabled.digested, material['alternative_anaerobic_digestion'])
 	+summary-cell-with-note('Alternative scenario - Total MTCO2E', true, material['alternative_result'])
 	td.invisible
 	+summary-cell-with-note('Change [Alt-Base] MTCO2E', true, material['change'])

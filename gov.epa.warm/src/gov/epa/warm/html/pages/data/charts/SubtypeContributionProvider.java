@@ -1,22 +1,29 @@
 package gov.epa.warm.html.pages.data.charts;
 
-import gov.epa.warm.backend.WarmCalculator.IntermediateResult;
-import gov.epa.warm.html.pages.ReportPage.ReportType;
-import gov.epa.warm.rcp.utils.ObjectMap;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import gov.epa.warm.backend.WarmCalculator.IntermediateResult;
+import gov.epa.warm.html.pages.ReportPage.ReportType;
+import gov.epa.warm.rcp.utils.ObjectMap;
+
 class SubtypeContributionProvider implements IChartDataProvider {
+	
+	private final static Logger log = LoggerFactory.getLogger(SubtypeContributionProvider.class);
 
 	@Override
 	public ChartData getChartData(IntermediateResult results, List<ObjectMap> materials, ReportType type) {
 		ChartData data = new ChartData();
+		log.debug(results.toString());
 		data.setIdentifier("subtypeContributions");
 		data.setLabels(getLabels(results, materials));
 		data.setLegend(getLegend(results, materials));
 		data.setSeries(getSeries(results, materials));
+		log.debug(data.toString());
 		return ChartUtil.sort(data);
 	}
 

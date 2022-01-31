@@ -42,12 +42,14 @@ calculateScenarioRow = (index) ->
 	baselineTotal = addCellValue 'baseline_landfilling', index, baselineTotal
 	baselineTotal = addCellValue 'baseline_combustion', index, baselineTotal
 	baselineTotal = addCellValue 'baseline_composting', index, baselineTotal
+	baselineTotal = addCellValue 'baseline_anaerobic_digestion', index, baselineTotal
 	setCellValue 'baseline_total', index, baselineTotal.toString()
 	alternativeTotal = addCellValue 'alternative_recycling', index, new Big 0
 	alternativeTotal = addCellValue 'alternative_landfilling', index, alternativeTotal 
 	alternativeTotal = addCellValue 'alternative_combustion', index, alternativeTotal
 	alternativeTotal = addCellValue 'alternative_composting', index, alternativeTotal
 	alternativeTotal = addCellValue 'alternative_source_reduction', index, alternativeTotal
+	alternativeTotal = addCellValue 'alternative_anaerobic_digestion', index, alternativeTotal
 	if baselineTotal.eq(alternativeTotal)
 		unmarkError index
 	else

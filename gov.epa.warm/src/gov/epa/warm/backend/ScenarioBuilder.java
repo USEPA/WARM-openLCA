@@ -1,15 +1,5 @@
 package gov.epa.warm.backend;
 
-import gov.epa.warm.backend.app.RefIds;
-import gov.epa.warm.backend.data.MapUtil;
-import gov.epa.warm.backend.data.mapping.ConditionalMapping;
-import gov.epa.warm.backend.data.mapping.ProviderMapping;
-import gov.epa.warm.backend.data.parser.ProviderMappingParser;
-import gov.epa.warm.backend.system.ProductSystemBuilder;
-import gov.epa.warm.html.pages.ReportPage.ReportType;
-import gov.epa.warm.rcp.utils.ObjectMap;
-import gov.epa.warm.rcp.utils.Rcp;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -23,15 +13,27 @@ import org.openlca.core.database.ProductSystemDao;
 import org.openlca.core.matrix.cache.MatrixCache;
 import org.openlca.core.model.Exchange;
 import org.openlca.core.model.ParameterRedef;
+import org.openlca.core.model.ParameterRedefSet;
 import org.openlca.core.model.Process;
 import org.openlca.core.model.ProductSystem;
 
 import com.google.gson.Gson;
 
+import gov.epa.warm.backend.app.RefIds;
+import gov.epa.warm.backend.data.MapUtil;
+import gov.epa.warm.backend.data.mapping.ConditionalMapping;
+import gov.epa.warm.backend.data.mapping.ProviderMapping;
+import gov.epa.warm.backend.data.parser.ProviderMappingParser;
+import gov.epa.warm.backend.system.ProductSystemBuilder;
+import gov.epa.warm.html.pages.ReportPage.ReportType;
+import gov.epa.warm.rcp.utils.ObjectMap;
+import gov.epa.warm.rcp.utils.Rcp;
+
 public class ScenarioBuilder {
 
 	private static List<ConditionalMapping<ProviderMapping[]>> conditionsCo2;
 	private static List<ConditionalMapping<ProviderMapping[]>> conditionsEnergy;
+	private static List<ConditionalMapping<ProviderMapping[]>> conditionsEconomic;
 	private final ProductSystemBuilder productSystemBuilder;
 	private final ProductSystemDao productSystemDao;
 	private final ProcessDao processDao;
@@ -63,21 +65,21 @@ public class ScenarioBuilder {
 		ProductSystem system = productSystemDao.getForRefId(refId);
 		if (system == null) {
 			system = new ProductSystem();
-			system.setRefId(refId);
-			system.setName(name + " - " + refId);
-			system.setDescription(new Gson().toJson(choices));
+			system.refId = refId;
+			system.name = name + " - " + refId;
+			system.description = new Gson().toJson(choices);
 			Process process = processDao.getForRefId(processRefId);
-			Exchange exchange = process.getQuantitativeReference();
-			system.setReferenceProcess(process);
-			system.setReferenceExchange(exchange);
-			system.setTargetFlowPropertyFactor(exchange.getFlowPropertyFactor());
-			system.setTargetUnit(exchange.getUnit());
+			Exchange exchange = process.quantitativeReference;
+			system.referenceProcess = process;
+			system.referenceExchange = exchange;
+			system.targetFlowPropertyFactor = exchange.flowPropertyFactor;
+			system.targetUnit = exchange.unit;
 			double total = addParameters(type, system, mappedInputs);
-			system.setTargetAmount(total);
+			system.targetAmount = total;
 			system = productSystemDao.insert(system);
 		} else {
 			double total = addParameters(type, system, mappedInputs);
-			system.setTargetAmount(total);
+			system.targetAmount = total;
 			system = productSystemDao.update(system);
 		}
 		ProviderMapping[] mappings = getProviderMappings(choices, reportType);
@@ -86,13 +88,16 @@ public class ScenarioBuilder {
 
 	private double addParameters(String type, ProductSystem system, ObjectMap mappedInputs) {
 		ParameterContextBuilder parameterContextBuilder = new ParameterContextBuilder();
-		List<ParameterRedef> parameters = parameterContextBuilder.build(type, mappedInputs);
-		system.getParameterRedefs().clear();
-		system.getParameterRedefs().addAll(parameters);
+		List<ParameterRedefSet> parameters = parameterContextBuilder.build(type, mappedInputs);
+		system.parameterSets.clear();
+		system.parameterSets.addAll(parameters);
+
 		double total = 0;
-		for (ParameterRedef redef : parameters)
-			if (MapUtil.isMaterialInput(redef.getName()))
-				total += redef.getValue();
+		for (ParameterRedefSet redefSet : parameters)
+			for (ParameterRedef redef : redefSet.parameters) {
+				if (MapUtil.isMaterialInput(redef.name))
+					total += redef.value;
+			}
 		return total;
 	}
 
@@ -129,10 +134,17 @@ public class ScenarioBuilder {
 					conditionsEnergy = ProviderMappingParser.parse(new FileInputStream(file));
 				return conditionsEnergy;
 			}
-			File file = new File(Rcp.getWorkspace(), "mappings/conditions_co2.txt");
-			if (conditionsCo2 == null)
-				conditionsCo2 = ProviderMappingParser.parse(new FileInputStream(file));
-			return conditionsCo2;
+			else if (reportType == ReportType.JOBS || reportType == ReportType.TAXES || reportType == ReportType.WAGES) {
+				File file = new File(Rcp.getWorkspace(), "mappings/conditions_economic.txt");
+				if (conditionsEconomic == null)
+					conditionsEconomic = ProviderMappingParser.parse(new FileInputStream(file));
+				return conditionsEconomic;
+			}else {
+				File file = new File(Rcp.getWorkspace(), "mappings/conditions_co2.txt");
+				if (conditionsCo2 == null)
+					conditionsCo2 = ProviderMappingParser.parse(new FileInputStream(file));
+				return conditionsCo2;
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 			return null;

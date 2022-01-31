@@ -1,19 +1,25 @@
 include ../all.jade
 
-mixin chart-page(forExport)
+mixin chart-page(forExport, unit)
 	+header('Contributions', null, forExport)
 	.content
 		ul#chart-tabs.nav.nav-tabs
 			li.active: a(href='#flowContributionsTab' aria-controls='flowContributionsTab' data-toggle='tab') Flow contributions
 			li: a(href='#subtypeContributionsTab' aria-controls='subtypeContributionsTab' data-toggle='tab') Waste treatment contributions
 			li: a(href='#materialContributionsTab' aria-controls='materialContributionsTab' data-toggle='tab') Material contributions
-			li: a(href='#groupedContributionsTab' aria-controls='groupedContributionsTab' data-toggle='tab') Grouping
+			li: a(href='#groupedContributionsTab' aria-controls='groupedContributionsTab' data-toggle='tab') Impact by source/offset
+			li: a(href='#materialWeightContributionsTab' aria-controls='materialWeightContributionsTab' data-toggle='tab') Material weight contributions
+			li: a(href='#productionEOLContributionsTab' aria-controls='productionEOLContributionsTab' data-toggle='tab') Production + EOL contributions
 		.tab-content.chart-tabs
 			#flowContributionsTab.tab-pane.active
-				+chart-container('flowContributions', false)
+				+chart-container('flowContributions', unit, false)
 			#subtypeContributionsTab.tab-pane
-				+chart-container('subtypeContributions', !forExport)
+				+chart-container('subtypeContributions', unit, !forExport)
 			#materialContributionsTab.tab-pane
-				+chart-container('materialContributions', !forExport)
+				+chart-container('materialContributions', unit, !forExport)
 			#groupedContributionsTab.tab-pane
-				+chart-container('groupedContributions', false)
+				+chart-container('groupedContributions', unit, false)
+			#materialWeightContributionsTab.tab-pane
+				+chart-container('materialWeightContributions', unit, false)
+			#productionEOLContributionsTab.tab-pane
+				+chart-container('productionEOLContributions', unit, false)

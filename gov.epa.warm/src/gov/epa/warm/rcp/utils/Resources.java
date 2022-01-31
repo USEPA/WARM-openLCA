@@ -32,6 +32,10 @@ public class Resources {
 				to.mkdirs();
 				continue;
 			}
+
+			// Make sure folder is present before copying file.
+			to.getParentFile().mkdirs();
+
 			FileOutputStream out = new FileOutputStream(to);
 			IOUtils.copy(zip, out);
 			out.close();

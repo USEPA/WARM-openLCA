@@ -7,9 +7,9 @@ mixin result-table(type, unit, notes, equivalents)
 			tr.top-level-header
 				th.invisible
 				th.invisible 
-				th.headline(colspan=5) Baseline Scenario
+				th.headline(colspan=6) Baseline Scenario
 				th.invisible
-				th.headline(colspan=6) Alternative Scenario
+				th.headline(colspan=7) Alternative Scenario
 				th.invisible
 				th.invisible
 			tr.second-level-header
@@ -19,6 +19,7 @@ mixin result-table(type, unit, notes, equivalents)
 				th: +multiline-string(['Tons', 'Landfilled'])
 				th: +multiline-string(['Tons', 'Combusted'])
 				th: +multiline-string(['Tons', 'Composted'])
+				th: +multiline-string(['Tons', 'Anaerobically Digested'])
 				th: +multiline-string(['Total', unit])
 				th.invisible
 				th: +multiline-string(['Tons', 'Source', 'Reduced'])
@@ -26,16 +27,17 @@ mixin result-table(type, unit, notes, equivalents)
 				th: +multiline-string(['Tons', 'Landfilled'])
 				th: +multiline-string(['Tons', 'Combusted'])
 				th: +multiline-string(['Tons', 'Composted'])
+				th: +multiline-string(['Tons', 'Anaerobically Digested'])
 				th: +multiline-string(['Total', unit])
 				th.invisible
 				th: +multiline-string(['Change', '(Alt-Base)', unit])
 		tbody
 			tr.total
-				- for (var i = 0; i < 6; i++) {
+				- for (var i = 0; i < 7; i++) {
 					td.invisible
 				- }
 				td#total-baseline
-				- for (var i = 0; i < 6; i++) {
+				- for (var i = 0; i < 7; i++) {
 					td.invisible
 				- }
 				td#total-alternative

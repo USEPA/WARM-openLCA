@@ -10,7 +10,7 @@ public interface IChartDataProvider {
 
 	static final String[] TYPES = { "Baseline scenario", "Alternative scenario" };
 	static final String[] SUB_TYPES = {
-			"All", "Recycling", "Landfilling", "Combustion", "Composting", "Source reduction"
+			"All", "Recycling", "Landfilling", "Combustion", "Composting", "Source reduction", "Anaerobic digestion"
 	};
 
 	ChartData getChartData(IntermediateResult results, List<ObjectMap> materials, ReportType type);
@@ -52,6 +52,48 @@ public interface IChartDataProvider {
 		public void setSeries(ChartDataEntry[][] series) {
 			this.series = series;
 		}
+		
+		public String toString() {
+			StringBuffer sb = new StringBuffer();
+			sb.append("{");
+			sb.append(identifier);
+			sb.append(": ");
+			sb.append("{");
+			sb.append("labels: [");
+			boolean comma = false;
+			for (String label: labels) {
+				if (comma) sb.append(',');
+				comma = true;
+				sb.append('"');
+				sb.append(label);
+				sb.append('"');
+			}
+			sb.append("], legend: [");
+			comma = false;
+			for (String label: legend) {
+				if (comma) sb.append(',');
+				comma = true;
+				sb.append('"');
+				sb.append(label);
+				sb.append('"');
+			}
+			sb.append("], series: [");
+			comma = false;
+			for (ChartDataEntry[] row: series) {
+				if (comma) sb.append(", ");
+				comma = true;
+				sb.append('[');
+				boolean cdeComma = false;
+				for (ChartDataEntry cde: row) {
+					if (cdeComma) sb.append(", ");
+					cdeComma = true;
+					sb.append(cde.toString());
+				}
+				sb.append(']');
+			}
+			sb.append("}}");
+			return sb.toString();
+		}
 	}
 
 	public class ChartDataEntry {
@@ -83,6 +125,10 @@ public interface IChartDataProvider {
 			this.meta = meta;
 		}
 
+		public String toString() {
+			return "("+identifier+"="+value+" "+meta+")";
+		}
+		
 	}
 
 }

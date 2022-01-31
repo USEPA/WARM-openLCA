@@ -69,6 +69,9 @@ public class ReportExport {
 		ChartData materialData = getChartData(data, "materialContributions");
 		materialData = ChartUtil.applyFilterToMaterials(materialData, materialFilter);
 		ChartData groupedData = getChartData(data, "groupedContributions");
+		ChartData materialWeightData = getChartData(data, "materialWeightContributions");
+		ChartData productionEOLData = getChartData(data, "productionEOLContributions");
+
 		Gson gson = new Gson();
 		script.append("window.applyFilterToSubtypeContributions = function() {updateChart(JSON.parse('"
 				+ gson.toJson(subtypeData) + "'));};");
@@ -76,6 +79,10 @@ public class ReportExport {
 				+ gson.toJson(materialData) + "'));};");
 		script.append("window.loadGroupedContributions = function() {updateChart(JSON.parse('"
 				+ gson.toJson(groupedData) + "'));};");
+		script.append("window.applyFilterToMaterialWeightContributions = function() {updateChart(JSON.parse('"
+				+ gson.toJson(materialWeightData) + "'));};");
+		script.append("window.applyFilterToProductionEOLContributions = function() {updateChart(JSON.parse('"
+				+ gson.toJson(productionEOLData) + "'));};");
 		return script.toString();
 	}
 

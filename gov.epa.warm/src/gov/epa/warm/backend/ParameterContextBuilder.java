@@ -1,17 +1,19 @@
 package gov.epa.warm.backend;
 
-import gov.epa.warm.backend.data.MapUtil;
-import gov.epa.warm.rcp.utils.ObjectMap;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import org.openlca.core.model.ParameterRedef;
+import org.openlca.core.model.ParameterRedefSet;
+
+import gov.epa.warm.backend.data.MapUtil;
+import gov.epa.warm.rcp.utils.ObjectMap;
 
 public class ParameterContextBuilder {
 
-	public List<ParameterRedef> build(String type, ObjectMap inputs) {
-		List<ParameterRedef> parameters = new ArrayList<>();
+	public List<ParameterRedefSet> build(String type, ObjectMap inputs) {
+		List<ParameterRedefSet> parametersSet = new ArrayList<>();
+		ParameterRedefSet parameterSet = new ParameterRedefSet();
 		String actualType = type;
 		if (type.equals("per_ton"))
 			actualType = "alternative";
@@ -19,14 +21,15 @@ public class ParameterContextBuilder {
 			if (MapUtil.isMaterialInput(param) && !param.startsWith(actualType))
 				continue;
 			ParameterRedef parameter = new ParameterRedef();
-			parameter.setName(param);
+			parameter.name = param;
 			double value = Double.parseDouble((String) inputs.get(param));
 			if (type.equals("per_ton") && MapUtil.isMaterialInput(param))
 				value = 1;
-			parameter.setValue(value);
-			parameters.add(parameter);
+			parameter.value = value;
+			parameterSet.parameters.add(parameter);
 		}
-		return parameters;
+		parametersSet.add(parameterSet);
+		return parametersSet;
 	}
 
 }

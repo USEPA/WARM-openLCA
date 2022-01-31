@@ -43,18 +43,25 @@ public class ReportPage extends HtmlEditor {
 		String summaryPage = "summary-" + type.name().toLowerCase() + ".html";
 		String analysisPage = "analysis-" + type.name().toLowerCase() + ".html";
 		String chartsPage = "charts.html";
-		return new PageDescriptor[] {
-				new PageDescriptor("Summary", summaryPage),
-				new PageDescriptor("Analysis", analysisPage),
-				new PageDescriptor("Charts", chartsPage)
-		};
+		String productionEolPage = "production-" + type.name().toLowerCase() + ".html";
+		if (type == ReportType.ENERGY || type == ReportType.MTCE || type == ReportType.MTCO2E) {
+			return new PageDescriptor[] { new PageDescriptor("Summary", summaryPage),
+					new PageDescriptor("Analysis", analysisPage),
+					new PageDescriptor("Production + EOL", productionEolPage),
+					new PageDescriptor("Charts", chartsPage) };
+		} else {
+			return new PageDescriptor[] { new PageDescriptor("Summary", summaryPage),
+					new PageDescriptor("Analysis", analysisPage) };
+		}
 	}
 
 	@Override
 	protected void onLoaded(PageDescriptor page) {
 		registerFunction("applyFilterToSubtypeContributions", this::applyFilterToSubtypeContributions);
 		registerFunction("applyFilterToMaterialContributions", this::applyFilterToMaterialContributions);
+		registerFunction("applyFilterToMaterialWeightContributions", this::applyFilterToMaterialWeightContributions);
 		registerFunction("loadGroupedContributions", this::loadGroupedContributions);
+		registerFunction("loadProductionEOLContributions", this::loadProductionEOLContributions);
 		call("setInputs", getData().get("userInputs"), "element");
 		if ("Summary".equals(page.getId()))
 			onSummaryPageLoaded();
@@ -62,6 +69,8 @@ public class ReportPage extends HtmlEditor {
 			onAnalysisPageLoaded();
 		else if ("Charts".equals(page.getId()))
 			onChartsPageLoaded();
+		else if ("Production + EOL".equals(page.getId()))
+			onProductionPageLoaded();
 	}
 
 	private ReportType getReportType() {
@@ -77,10 +86,19 @@ public class ReportPage extends HtmlEditor {
 		call("setSummaryResults", results, equivalents, totalBaseline, totalAlternative);
 	}
 
+	private void onProductionPageLoaded() {
+		String results = getData().get("results");
+		String totalBaseline = getData().get("baseline_total");
+		String totalAlternative = getData().get("alternative_total");
+		log.debug("setProductionResults(" + results + ", " + totalBaseline + ", " + totalAlternative + ")");
+		call("setProductionResults", results, /* equivalents, */ totalBaseline, totalAlternative);
+	}
+
 	private void onAnalysisPageLoaded() {
 		String results = getData().get("results");
 		String totalBaseline = getData().get("baseline_total");
 		String totalAlternative = getData().get("alternative_total");
+		log.debug("setAnalysisResults(" + results + ", " + totalBaseline + ", " + totalAlternative + ")");
 		call("setAnalysisResults", results, totalBaseline, totalAlternative);
 	}
 
@@ -89,6 +107,7 @@ public class ReportPage extends HtmlEditor {
 		call("setAvailableMaterials", results);
 		ChartData flowContributions = new Gson().fromJson(getData().get("flowContributions"), ChartData.class);
 		call("updateChart", flowContributions);
+		call("updateChartLabels", getData().get("reportType"));
 	}
 
 	public static void exportAsHtml() {
@@ -124,13 +143,30 @@ public class ReportPage extends HtmlEditor {
 		call("updateChart", filtered);
 	}
 
+	private void loadProductionEOLContributions(String selection) {
+		if (selection == null || selection.isEmpty())
+			selection = ChartUtil.getInitialMaterialFilter(getData());
+		getData().put("productionEOLFilter", selection);
+		ChartData chartData = new Gson().fromJson(getData().get("productionEOLContributions"), ChartData.class);
+		call("updateChart", chartData);
+	}
+
+	private void applyFilterToMaterialWeightContributions(String selection) {
+		if (selection == null || selection.isEmpty())
+			selection = ChartUtil.getInitialMaterialFilter(getData());
+		getData().put("materialWeightChartFilter", selection);
+		ChartData chartData = new Gson().fromJson(getData().get("materialWeightContributions"), ChartData.class);
+		ChartData filtered = ChartUtil.applyFilterToMaterials(chartData, selection);
+		call("updateChart", filtered);
+	}
+
 	private void loadGroupedContributions() {
 		ChartData chartData = new Gson().fromJson(getData().get("groupedContributions"), ChartData.class);
 		call("updateChart", chartData);
 	}
 
 	public static enum ReportType {
-		MTCO2E, MTCE, ENERGY;
+		MTCO2E, MTCE, ENERGY, JOBS, WAGES, TAXES;
 	}
 
 }

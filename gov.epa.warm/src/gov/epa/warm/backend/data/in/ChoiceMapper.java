@@ -11,6 +11,8 @@ public class ChoiceMapper {
 		MapUtil.move(input, choices, "landfill_gas_recovery_collection");
 		MapUtil.move(input, choices, "landfill_moisture");
 		MapUtil.move(input, choices, "location");
+		MapUtil.move(input, choices, "anaerobic_digestion_type");  
+		MapUtil.move(input, choices, "anaerobic_digestion_curing");
 		return choices;
 	}
 

@@ -1,5 +1,13 @@
 package gov.epa.warm.backend.data.out;
 
+import java.util.Map;
+
+import org.openlca.core.database.ProcessDao;
+import org.openlca.core.model.descriptors.ProcessDescriptor;
+import org.openlca.core.results.FullResult;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import gov.epa.warm.backend.WarmCalculator.IntermediateResult;
 import gov.epa.warm.backend.app.App;
 import gov.epa.warm.backend.data.MapUtil;
@@ -7,18 +15,12 @@ import gov.epa.warm.backend.data.MaterialRefIdMappings;
 import gov.epa.warm.html.pages.ReportPage.ReportType;
 import gov.epa.warm.rcp.utils.ObjectMap;
 
-import java.util.Map;
-
-import org.openlca.core.results.FullResult;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 public class MaterialMapper {
 
 	private static final Logger log = LoggerFactory.getLogger(MaterialMapper.class);
-	private static final String[] SUB_TYPES = {
-			"", "recycling", "landfilling", "combustion", "composting", "source_reduction"
-	};
+	private static final String[] SUB_TYPES = { "", "recycling", "landfilling", "combustion", "composting",
+			"anaerobic_digestion", "source_reduction" };
+	private static final ProcessDao processDao = new ProcessDao(App.getMatrixCache().getDatabase());
 
 	public static void putResults(IntermediateResult results, ObjectMap materials, ObjectMap choices, ReportType type) {
 		Map<String, String> baselineMappings = MaterialRefIdMappings.forBaseline(choices, type);
@@ -54,11 +56,29 @@ public class MaterialMapper {
 		calculateAndPutIncrement(materials, index, "landfilling");
 		calculateAndPutIncrement(materials, index, "combustion");
 		calculateAndPutIncrement(materials, index, "composting");
+		calculateAndPutIncrementDigested(materials, index, "anaerobic_digestion");
 		calculateAndPutIncrement(materials, index, "");
 	}
 
 	private static void calculateAndPutIncrement(ObjectMap materials, String index, String type) {
 		String key = getKey(index, "baseline", type, "");
+		log.debug("key=" + key + ", index=" + index + ", type=" + type);
+		double baselineInput = materials.getDouble(key);
+		key = getKey(index, "alternative", type, "");
+		double alternativeInput = materials.getDouble(key);
+		key = getKey(index, "baseline", type, "result");
+		double baselineOutput = materials.getDouble(key);
+		key = getKey(index, "alternative", type, "result");
+		double alternativeOutput = materials.getDouble(key);
+		key = getKey(index, "", type, "input_change");
+		materials.put(key, Double.toString(alternativeInput - baselineInput));
+		key = getKey(index, "", type, "output_change");
+		materials.put(key, Double.toString(alternativeOutput - baselineOutput));
+	}
+
+	private static void calculateAndPutIncrementDigested(ObjectMap materials, String index, String type) {
+		String key = getKey(index, "baseline", type, "");
+		log.debug("key=" + key + ", index=" + index + ", type=" + type);
 		double baselineInput = materials.getDouble(key);
 		key = getKey(index, "alternative", type, "");
 		double alternativeInput = materials.getDouble(key);
@@ -101,16 +121,18 @@ public class MaterialMapper {
 			material += "_" + subType;
 		String refId = refIdMappings.get(material);
 		if (refId == null) {
-			log.debug("Could not find reference id for " + material);
+			log.warn("Could not find reference id for " + material);
 			return 0;
 		}
 		long id = App.getProcessIdMap().get(refId);
 		if (id == 0l) {
-			log.debug("Could not find process for reference id " + refId + " for material " + type + ": " + material);
+			log.warn("Could not find process for reference id " + refId + " for material " + type + ": " + material);
 			return 0;
 		}
-		// only one category in each method -> keyAt 0
-		return result.getUpstreamImpactResult(id, result.getImpactIndex().getKeyAt(0));
+		ProcessDescriptor process = processDao.getDescriptorForRefId(refId);
+		// only one category in each method -> impact at index 0
+		return result.getUpstreamImpactResult(process, result.getImpacts().get(0));
+
 	}
 
 }

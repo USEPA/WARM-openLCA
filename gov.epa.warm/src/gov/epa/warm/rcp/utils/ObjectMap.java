@@ -11,17 +11,24 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.google.gson.Gson;
+
+import gov.epa.warm.backend.data.out.MaterialMapper;
 
 public class ObjectMap extends HashMap<String, Object> {
 
 	private static final long serialVersionUID = 8510487677972200938L;
+	private static final Logger log = LoggerFactory.getLogger(MaterialMapper.class);
 
 	public ObjectMap() {
 		this(new HashMap<>());
 	}
 
 	public static ObjectMap fromJson(String json) {
+		log.debug("ObjectMap.fromJson('"+json+"')");
 		return new ObjectMap(toMap(json));
 	}
 

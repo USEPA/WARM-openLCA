@@ -1,5 +1,13 @@
 package gov.epa.warm.html.pages.data.charts;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.openlca.core.database.ProcessDao;
+import org.openlca.core.model.descriptors.ImpactDescriptor;
+import org.openlca.core.model.descriptors.ProcessDescriptor;
+import org.openlca.core.results.FullResult;
+
 import gov.epa.warm.backend.WarmCalculator.IntermediateResult;
 import gov.epa.warm.backend.app.App;
 import gov.epa.warm.backend.data.GroupDefinitions;
@@ -7,12 +15,13 @@ import gov.epa.warm.backend.data.GroupDefinitions.Group;
 import gov.epa.warm.html.pages.ReportPage.ReportType;
 import gov.epa.warm.rcp.utils.ObjectMap;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.openlca.core.results.FullResult;
-
 public class GroupedContributionProvider implements IChartDataProvider {
+
+	private final ProcessDao processDao;
+
+	public GroupedContributionProvider() {
+		processDao = new ProcessDao(App.getMatrixCache().getDatabase());
+	}
 
 	@Override
 	public ChartData getChartData(IntermediateResult results, List<ObjectMap> materials, ReportType type) {
@@ -40,21 +49,19 @@ public class GroupedContributionProvider implements IChartDataProvider {
 	}
 
 	private ChartDataEntry[][] getSeries(IntermediateResult results, List<ObjectMap> materials, List<Group> groups) {
-		long impactId = results.getBaselineResult().getImpactIndex().getKeyAt(0);
-		ChartDataEntry[][] series = new ChartDataEntry[][] {
-				new ChartDataEntry[groups.size()],
-				new ChartDataEntry[groups.size()]
-		};
+		ImpactDescriptor impact = results.getBaselineResult().impactIndex().at(0);
+		ChartDataEntry[][] series = new ChartDataEntry[][] { new ChartDataEntry[groups.size()],
+				new ChartDataEntry[groups.size()] };
 		for (int i = 0; i < groups.size(); i++) {
 			Group group = groups.get(i);
 			ChartDataEntry baseline = new ChartDataEntry();
-			double baselineValue = calculateGroupValue(results.getBaselineResult(), impactId, group);
+			double baselineValue = calculateGroupValue(results.getBaselineResult(), impact, group);
 			baseline.setValue(ChartUtil.round(baselineValue));
 			baseline.setMeta(getMetaLabel("Baseline scenario", group));
 			baseline.setIdentifier(group.getName());
 			series[0][i] = baseline;
 			ChartDataEntry alternative = new ChartDataEntry();
-			double alternativeValue = calculateGroupValue(results.getAlternativeResult(), impactId, group);
+			double alternativeValue = calculateGroupValue(results.getAlternativeResult(), impact, group);
 			alternative.setValue(ChartUtil.round(alternativeValue));
 			alternative.setMeta(getMetaLabel("Alternative scenario", group));
 			alternative.setIdentifier(group.getName());
@@ -63,11 +70,11 @@ public class GroupedContributionProvider implements IChartDataProvider {
 		return series;
 	}
 
-	private double calculateGroupValue(FullResult result, long impactId, Group group) {
+	private double calculateGroupValue(FullResult result, ImpactDescriptor impact, Group group) {
 		double total = 0d;
 		for (String processRefId : group.getProcessRefIds()) {
-			long processId = App.getProcessIdMap().get(processRefId);
-			total += result.getSingleImpactResult(processId, impactId);
+			ProcessDescriptor process = processDao.getDescriptorForRefId(processRefId);
+			total += result.getDirectImpactResult(process, impact);
 		}
 		return total;
 	}

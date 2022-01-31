@@ -14,7 +14,7 @@ checkMaterials = () ->
 		sum = 0
 		for index in keys
 			material = materials[index]
-			for subtype in ['source_reduction', 'landfilling', 'recycling', 'combustion', 'composting']
+			for subtype in ['source_reduction', 'landfilling', 'recycling', 'combustion', 'composting', 'anaerobic_digestion']
 				if material[type + '_' + subtype]
 					sum += parseFloat material[type + '_' + subtype]
 		if sum is 0

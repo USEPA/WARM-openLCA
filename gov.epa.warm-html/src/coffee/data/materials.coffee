@@ -1,253 +1,356 @@
 materials = [
-	{
-		name: 'Aluminum Cans'
-		disabled: 
-			composting: true
-	},{	
-		name: 'Aluminum Ingot'
-		disabled: 
-			composting: true 
-	},{	
-		name: 'Steel Cans'
-		disabled: 
-			composting: true 
-	},{	
-		name: 'Copper Wire'
-		disabled: 
-			composting: true
-	},{	
-		name: 'Glass'
-		disabled: 
-			composting: true
-	},{	
-		name: 'HDPE'
-		disabled: 
-			composting: true
-	},{	
-		name: 'LDPE'
-		disabled: 
-			recycling: true
-			composting: true
-	},{	
-		name: 'PET'
-		disabled: 
-			composting: true
-	},{	
-		name: 'LLDPE'
-		disabled: 
-			recycling: true
-			composting: true
-	},{	
-		name: 'PP'
-		disabled: 
-			recycling: true
-			composting: true
-	},{	
-		name: 'PS'
-		disabled: 
-			recycling: true
-			composting: true
-	},{	
-		name: 'PVC'
-		disabled: 
-			recycling: true
-			composting: true
-	},{	
-		name: 'PLA'
-		disabled: 
-			recycling: true
-			composting: true
-	},{	
+	{	
 		name: 'Corrugated Containers'
 		disabled: 
 			composting: true
+			digested: true
 	},{	
 		name: 'Magazines/Third-class Mail'
 		disabled: 
 			composting: true
+			digested: true
 	},{	
 		name: 'Newspaper'
 		disabled: 
 			composting: true
+			digested: true
 	},{	
 		name: 'Office Paper'
 		disabled: 
 			composting: true
+			digested: true
 	},{	
 		name: 'Phonebooks'
 		disabled: 
 			composting: true
+			digested: true
 	},{	
 		name: 'Textbooks'
 		disabled: 
 			composting: true
+			digested: true
 	},{	
-		name: 'Dimensional Lumber'
+		name: 'Mixed Paper (general)'
 		disabled: 
+			source_reduction: false
 			composting: true
+			digested: true
 	},{	
-		name: 'Medium-density Fiberboard'
+		name: 'Mixed Paper (primarily residential)'
 		disabled: 
+			source_reduction: false
 			composting: true
+			digested: true
+	},{	
+		name: 'Mixed Paper (primarily from offices)'
+		disabled: 
+			source_reduction: false
+			composting: true
+			digested: true
+	},{	
+		name: 'Food Waste'
+		disabled: 
+			recycling: true
+		note_digested: 'Wet and dry digestion can be modeled for this material.'
+		
 	},{	
 		name: 'Food Waste (non-meat)'
 		disabled: 
 			recycling: true
+		note_digested: 'Wet and dry digestion can be modeled for this material.'
+		
 	},{
 		name: 'Food Waste (meat only)'
 		disabled:
 			recycling: true
+		note_digested: 'Wet and dry digestion can be modeled for this material.'
+		
 	},{
 		name: 'Beef'
 		disabled:
 			recycling: true
+		note_digested: 'Wet and dry digestion can be modeled for this material.'
+		
 	},{
 		name: 'Poultry'
 		disabled:
 			recycling: true
+		note_digested: 'Wet and dry digestion can be modeled for this material.'
+		
 	},{	
 		name: 'Grains'
 		disabled: 
 			recycling: true
+		note_digested: 'Wet and dry digestion can be modeled for this material.'
+		
 	},{	
 		name: 'Bread'
 		disabled: 
 			recycling: true
+		note_digested: 'Wet and dry digestion can be modeled for this material.'
+		
 	},{	
 		name: 'Fruits and Vegetables'
 		disabled: 
 			recycling: true
+		note_digested: 'Wet and dry digestion can be modeled for this material.'
+		
 	},{	
 		name: 'Dairy Products'
 		disabled: 
 			recycling: true
+		note_digested: 'Wet and dry digestion can be modeled for this material.'
+		
 	},{	
 		name: 'Yard Trimmings'
 		disabled: 
 			source_reduction: true
 			recycling: true
+		note_digested: 'Only dry digestion can be modeled for this material.'
+		dry_only_digestion: true
 	},{	
 		name: 'Grass'
 		disabled: 
 			source_reduction: true
 			recycling: true
+		note_digested: 'Only dry digestion can be modeled for this material.'
+		dry_only_digestion: true
 	},{	
 		name: 'Leaves'
 		disabled: 
 			source_reduction: true
 			recycling: true
+		note_digested: 'Only dry digestion can be modeled for this material.'
+		dry_only_digestion: true
 	},{	
 		name: 'Branches'
 		disabled: 
 			source_reduction: true
 			recycling: true
+		note_digested: 'Only dry digestion can be modeled for this material.'
+		dry_only_digestion: true
 	},{	
-		name: 'Mixed Paper (general)'
+		name: 'HDPE'
 		disabled: 
-			source_reduction: true
 			composting: true
+			digested: true
 	},{	
-		name: 'Mixed Paper (primarily residential)'
+		name: 'LDPE'
 		disabled: 
-			source_reduction: true
+			recycling: true
 			composting: true
+			digested: true
 	},{	
-		name: 'Mixed Paper (primarily from offices)'
+		name: 'PET'
 		disabled: 
-			source_reduction: true
 			composting: true
+			digested: true
 	},{	
-		name: 'Mixed Metals'
+		name: 'LLDPE'
 		disabled: 
-			source_reduction: true
+			recycling: true
 			composting: true
+			digested: true
+	},{	
+		name: 'PP'
+		disabled: 
+			composting: true
+			digested: true
+	},{	
+		name: 'PS'
+		disabled: 
+			recycling: true
+			composting: true
+			digested: true
+	},{	
+		name: 'PVC'
+		disabled: 
+			recycling: true
+			composting: true
+			digested: true
 	},{	
 		name: 'Mixed Plastics'
 		disabled: 
-			source_reduction: true
+			source_reduction: false
 			composting: true
+			digested: true
 	},{	
-		name: 'Mixed Recyclables'
-		disabled: 
-			source_reduction: true
-			composting: true
-	},{	
-		name: 'Food Waste'
+		name: 'PLA'
 		disabled: 
 			recycling: true
-	},{	
-		name: 'Mixed Organics'
+			composting: false
+			digested: true
+	},{
+		name: 'Desktop CPUs'
 		disabled: 
-			source_reduction: true
-			recycling: true
-	},{	
-		name: 'Mixed MSW'
-		disabled: 
-			source_reduction: true
-			recycling: true
 			composting: true
+			digested: true
+	},{	
+		name: 'Portable Electronic Devices'
+		disabled: 
+			composting: true
+			digested: true
+	},{	
+		name: 'Flat-panel Displays'
+		disabled: 
+			composting: true
+			digested: true
+	},{	
+		name: 'CRT Displays'
+		disabled: 
+			source_reduction: true
+			composting: true
+			digested: true
+	},{	
+		name: 'Electronic Peripherals'
+		disabled: 
+			composting: true
+			digested: true
+	},{	
+		name: 'Hard-copy Devices'
+		disabled: 
+			composting: true
+			digested: true
+	},{	
+		name: 'Mixed Electronics'
+		disabled: 
+			source_reduction: true
+			composting: true
+			digested: true
+	},{
+		name: 'Aluminum Cans'
+		disabled: 
+			composting: true
+			digested: true
+	},{	
+		name: 'Aluminum Ingot'
+		disabled: 
+			composting: true 
+			digested: true
+	},{	
+		name: 'Steel Cans'
+		disabled: 
+			composting: true 
+			digested: true
+	},{	
+		name: 'Copper Wire'
+		disabled: 
+			composting: true
+			digested: true
+	},{	
+		name: 'Mixed Metals'
+		disabled: 
+			source_reduction: false
+			composting: true
+			digested: true
+	},{	
+		name: 'Glass'
+		disabled: 
+			composting: true
+			digested: true
+	},{	
+		name: 'Asphalt Concrete'
+		disabled: 
+			combustion: true
+			composting: true
+			digested: true
+	},{	
+		name: 'Asphalt Shingles'
+		disabled: 
+			composting: true
+			digested: true
 	},{	
 		name: 'Carpet'
 		disabled: 
 			composting: true
-	},{	
-		name: 'Personal Computers'
-		disabled: 
-			composting: true
+			digested: true
 	},{	
 		name: 'Clay Bricks'
 		disabled:
 			recycling: true 
 			combustion: true 
 			composting: true 
+			digested: true
 	},{	
 		name: 'Concrete'
 		disabled: 
 			source_reduction: true
 			combustion: true
 			composting: true
-		note: 'Recycled concrete used as aggregate in the production of new concrete.'
+			digested: true		
 	},{	
-		name: 'Fly Ash'
-		disabled: 
-			source_reduction: true
-			combustion: true
-			composting: true
-		note: 'Recycled fly ash is utilized to displace portland cement in concrete production.'
-	},{	
-		name: 'Tires'
+		name: 'Dimensional Lumber'
 		disabled: 
 			composting: true
-		note: 'Recycling tires is defined in this analysis as using tires for crumb rubber applications and tire-derived aggregate uses in civil engineering applications.'
-	},{	
-		name: 'Asphalt Concrete'
-		disabled: 
-			combustion: true
-			composting: true
-	},{	
-		name: 'Asphalt Shingles'
-		disabled: 
-			composting: true
+			digested: true
 	},{	
 		name: 'Drywall'
 		disabled: 
 			combustion: true
 			composting: true
+			digested: true
 	},{	
 		name: 'Fiberglass Insulation'
 		disabled:
 			recycling: true
 			combustion: true 
 			composting: true 
+			digested: true
+	},{	
+		name: 'Fly Ash'
+		disabled: 
+			source_reduction: true
+			combustion: true
+			composting: true
+			digested: true
+	},{	
+		name: 'Medium-density Fiberboard'
+		disabled: 
+			composting: true
+			digested: true
+			recycling: true
+	},{
+		name: 'Structural Steel'
+		disabled:
+			composting: true
+			digested: true
+			combustion: true
 	},{	
 		name: 'Vinyl Flooring'
 		disabled:
 			recycling: true 
 			composting: true 
+			digested: true
 	},{	
 		name: 'Wood Flooring'
 		disabled:
 			recycling: true 
 			composting: true 
+			digested: true
+	},{	
+		name: 'Tires'
+		disabled: 
+			composting: true
+			digested: true
+	},{	
+		name: 'Mixed Recyclables'
+		disabled: 
+			source_reduction: true
+			composting: true
+			digested: true
+	},{	
+		name: 'Mixed Organics'
+		disabled: 
+			source_reduction: true
+			recycling: true
+		note_digested: 'Only dry digestion can be modeled for this material.'
+		
+	},{	
+		name: 'Mixed MSW'
+		disabled: 
+			source_reduction: true
+			recycling: true
+			composting: true
+			digested: true
 	}
 ]
