@@ -5,8 +5,8 @@
 		<key>CFBundleExecutable</key>
 		<string>eclipse</string>
 		<key>CFBundleGetInfoString</key>
-		<string>Eclipse 4.19 for Mac OS X, Copyright IBM Corp. and others 2002, 2021. All rights reserved.</string>
-		<key>CFBundleIconFile</key>
+		<string>WARM 2.0.0</string>
+		<key>CFBundleconFile</key>
 		<string>logo.icns</string>
 		<key>CFBundleIdentifier</key>
 		<string>Eclipse</string>

@@ -94,14 +94,8 @@ def pack_win(version, version_date):
             shutil.copy2(p(f), product_dir)
         print('done')
 
-    # ini config file
-    ini = fill_template(p('templates/WARM_win.ini'), heap='3584M')
-    with open(p(product_dir + '/WARM.ini'), 'w',
-              encoding='iso-8859-1') as f:
-        f.write(ini)
-
     # zip file
-    zip_file = p('build/dist/warm_win64_' + version_date)
+    zip_file = p('build/dist/WARM_win64_' + version_date)
     printw('  Create zip %s' % zip_file)
     shutil.make_archive(zip_file, 'zip', 'build/win32.win32.x86_64/WARM')
     print('done')
@@ -175,11 +169,6 @@ def pack_macos(version_date):
         text = text.format(launcher_jar=launcher_jar,
                            launcher_lib=launcher_lib)
         out_ini_path = base + "WARM.app/Contents/Eclipse/eclipse.ini"
-        with open(out_ini_path, mode='w', encoding='utf-8', newline='\n') as o:
-            o.write(text)
-    with open("templates/WARM_macos.ini", mode='r', encoding="utf-8") as f:
-        text = f.read()
-        out_ini_path = base + "WARM.app/Contents/MacOS/WARM.ini"
         with open(out_ini_path, mode='w', encoding='utf-8', newline='\n') as o:
             o.write(text)
 

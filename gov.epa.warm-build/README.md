@@ -21,6 +21,5 @@ The packager script can build distribution packages for the following platforms
 (but you do not need to build them all, if a platform product is missing it is
 simply ignored in the package script):
 
-* Linux gtk x86_64
 * macOS cocoa x86_64
 * Windows win32 x86_64

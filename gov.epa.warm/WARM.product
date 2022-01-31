@@ -7,14 +7,28 @@
    </configIni>
 
    <launcherArgs>
-      <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts
+      <programArgs>-nl en -data @noDefault
+      </programArgs>
+      <vmArgs>-Xmx3584M
+-Dpython.console.encoding=UTF-8
+--add-modules=ALL-SYSTEM
+      </vmArgs>
+      <vmArgsMac>-Dorg.eclipse.swt.internal.carbon.smallFonts
+-Xdock:icon=../Resources/logo.icns
+
+
+-Dorg.eclipse.equinox.p2.reconciler.dropins.directory=../../dropins
+
+-XstartOnFirstThread
       </vmArgsMac>
    </launcherArgs>
 
    <windowImages i16="/gov.epa.warm/resources/icons/warm.png"/>
 
    <launcher name="WARM">
-      <win useIco="false">
+      <macosx icon="/gov.epa.warm/resources/icons/logo.icns"/>
+      <win useIco="true">
+         <ico path="/gov.epa.warm/resources/icons/warm.ico"/>
          <bmp/>
       </win>
    </launcher>
